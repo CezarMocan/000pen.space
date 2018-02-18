@@ -26,8 +26,22 @@ class PhalanxRoot {
     this.addView(new Grid(grid.topLeft, grid.bottomRight, grid.pointDistance, grid.pointSize))
   }
   setupDynamicViews() {
-    this.addView(new Line({x: 5, y: 5}, {x: 90, y: 90}))
-    this.addView(new Rect({x: 50, y: 5}, {x: 85, y: 120}))
+    // this.addView(new Line({x: 5, y: 5}, {x: 90, y: 90}))
+    // this.addView(new Rect({x: 45, y: 75}, {x: 75, y: 120}, {x: 15, y: 15}))
+    // this.addView(new Rect({x: 165, y: 75}, {x: 75, y: 120}, {x: 30, y: -15}))
+
+    for (let i = 0; i < 10; i++) {
+      for (let j = 0; j < 5; j++) {
+        let x = i * 11 * grid.pointDistance + 45
+        let y = j * 14 * grid.pointDistance + 45
+        let depthX = Math.ceil(2 * Math.random()) * grid.pointDistance
+        let depthY = Math.ceil(2 * Math.random()) * grid.pointDistance
+        if (Math.random() < 0.5) depthX *= -1
+        if (Math.random() < 0.5) depthY *= -1
+        let rect = new Rect({ x: x, y: y }, { x: 75, y: 120 }, { x: depthX, y: depthY })
+        this.addView(rect)
+      }
+    }
   }
   addView(view) {
     view.root = this

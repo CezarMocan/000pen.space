@@ -1,6 +1,6 @@
 const canvasSize = {
-  width: 1000,
-  height: 700
+  width: 1600,
+  height: 1200
 }
 
 const grid = {
