@@ -8,6 +8,8 @@ export default class View {
   set root(r) { this._root = r }
   get p5() { return this.root.p5 }
   get children() { return this._children }
+  get windowWidth() { return this.root.windowWidth }
+  get windowHeight() { return this.root.windowHeight }
   addView(view) {
     view.root = this.root
     view.parent = this
