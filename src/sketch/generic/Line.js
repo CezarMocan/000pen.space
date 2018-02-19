@@ -1,14 +1,14 @@
 import View from './View'
 
 export default class Line extends View {
-  constructor(p1, p2, style) {
+  constructor(x, y, x2, y2) {
     super()
-    this.p1 = p1
-    this.p2 = p2
-    this.style = style
+    this.x = x
+    this.y = y
+    this.x2 = x2
+    this.y2 = y2
   }
   draw() {
-    this.p5.line(this.p1.x, this.p1.y, this.p2.x, this.p2.y)
-    // this.p5.stroke()
+    this.p5.line(this.x, this.y, this.x2, this.y2)
   }
 }

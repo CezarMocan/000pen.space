@@ -17,9 +17,9 @@ export default class RootView extends View {
     this.setupMenus()
   }
   setupContent() {
-    this.content.addView(new Line({x: 5, y: 5}, {x: 90, y: 90}))
-    this.content.addView(new Rect({x: 45, y: 75}, {x: 75, y: 120}, {x: 15, y: 15}))
-    this.content.addView(new Rect({x: 165, y: 75}, {x: 75, y: 120}, {x: 30, y: -15}))
+    this.content.addView(new Line(5, 5, 90, 90))
+    this.content.addView(new Rect(45, 75, 75, 120, 15, 15))
+    this.content.addView(new Rect(165, 75, 75, 120, 30, -15))
   }
   setupMenus() {
 
