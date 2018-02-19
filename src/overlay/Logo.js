@@ -29,10 +29,10 @@ export default class Logo extends View {
     const h = 2 * grid.pointDistance
 
     this.rect(x + 2 * grid.pointDistance, y + 2 * grid.pointDistance, w, h)
-    this.type('space', x + w - 10, y + 3 * grid.pointDistance + 12)
+    this.type('space', x + w - 8, y + 3 * grid.pointDistance + 10)
     this.rect(x + grid.pointDistance, y + grid.pointDistance, w, h)
     this.type('.', x + grid.pointDistance + w / 2, y + grid.pointDistance + h / 2 + 5)
     this.rect(x, y, w, h)
-    this.type('phalanx', x + 5, y + 18)
+    this.type('phalanx', x + 5, y + 15)
   }
 }
