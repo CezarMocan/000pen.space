@@ -5,6 +5,7 @@ export default class View {
     this._root = null
     this._children = []
     this._preRootListenTo = []
+    this._disabled = false
   }
   get uid() { return this._uid }
   get root() {
@@ -25,6 +26,11 @@ export default class View {
   get children() { return this._children }
   get windowWidth() { return this.root ? this.root.windowWidth : 0 }
   get windowHeight() { return this.root ? this.root.windowHeight : 0 }
+  get disabled() { 
+    if (!this.parent) return this._disabled
+    return this._disabled || this.parent.disabled
+  }
+  set disabled(d) { this._disabled = d }
   redraw() { this.p5.redraw() }
 
   pointInView(x, y) {
@@ -46,10 +52,10 @@ export default class View {
     return view
   }
   onAdded() { }
-  removeView() {
+  removeView(view) {
     view.root = view.parent = null
-    const index = this.views.indexOf(view)
-    this.children.splice(index, 1)
+    const index = this._children.indexOf(view)
+    this._children.splice(index, 1)
     view.onRemoved()
   }
   onRemoved() { }
@@ -64,13 +70,14 @@ export default class View {
     console.log('listenTo: ', evt, this._preRootListenTo)
   }
   _onEvent(evt) {
+    if (this.disabled) return
     this.onEvent(evt)
   }
   onEvent(evt) {}
 
   // Drawing
   _draw() {
-    if (!this.root) return
+    if (!this.root || this.disabled) return
     this.p5.push()
     this.draw()
     this.children.forEach(child => child._draw())
