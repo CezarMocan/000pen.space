@@ -11,8 +11,8 @@ export default class RootView extends View {
     this.setupContent()
   }
   setupContent() {
-    this.content.addView(new Line(5, 5, 90, 90))
-    this.content.addView(new Rect(45, 75, 75, 120, 15, 15))
-    this.content.addView(new Rect(165, 75, 75, 120, 30, -15))
+    this.content.addView(new Line(105, 105, 190, 190))
+    this.content.addView(new Rect(145, 175, 75, 120, 15, 15))
+    this.content.addView(new Rect(265, 195, 75, 120, 30, -15))
   }
 }

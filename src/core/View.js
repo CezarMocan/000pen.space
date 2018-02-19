@@ -1,3 +1,5 @@
+import { canvasSize, grid } from '../Config'
+
 export default class View {
   constructor() {
     this._root = null
@@ -28,6 +30,11 @@ export default class View {
   pointInView(x, y) {
     console.warn('pointInView Not implemented for current view!')
     return false
+  }
+
+  getGridAligned(x) {
+    let mod = x % grid.pointDistance
+    return (2 * mod > grid.pointDistance) ? x + (grid.pointDistance - mod) : x - mod
   }
 
   // View hierarchy tree

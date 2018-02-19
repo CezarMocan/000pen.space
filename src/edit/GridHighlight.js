@@ -7,14 +7,6 @@ export default class GridHighlight extends View {
     super()
     this._color = new Color(0, 0, 255)
   }
-  getGridAligned(x) {
-    let mod = x % grid.pointDistance
-    if (2 * mod > grid.pointDistance) {
-      return x + (grid.pointDistance - mod)
-    } else {
-      return x - mod
-    }
-  }
   draw() {
     let mX = this.p5.mouseX
     let mY = this.p5.mouseY
