@@ -2,7 +2,7 @@ import { canvasSize, grid } from './Config'
 import View from './generic/View'
 import Line from './generic/Line'
 import Rect from './generic/Rect'
-import Grid from './generic/Grid'
+// import Grid from './generic/Grid'
 import Logo from './components/Logo'
 
 
@@ -10,7 +10,7 @@ export default class RootView extends View {
   constructor(phalanxRoot) {
     super()  
     this.root = phalanxRoot
-    this.grid = this.addView(new Grid(grid.topLeft, grid.bottomRight, grid.pointDistance, grid.pointSize))
+    // this.grid = this.addView(new Grid(grid.topLeft, grid.bottomRight, grid.pointDistance, grid.pointSize))
     this.content = this.addView(new View())
     this.menus = this.addView(new View())
 
@@ -23,6 +23,6 @@ export default class RootView extends View {
     this.content.addView(new Rect(165, 75, 75, 120, 30, -15))
   }
   setupMenus() {
-    this.menus.addView(new Logo(30, 30))
+    // this.menus.addView(new Logo(30, 30))
   }
 }
