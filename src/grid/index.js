@@ -11,11 +11,20 @@ export default function sketch(p5) {
   p5.draw = () => {
     const topLeft = grid.topLeft, bottomRight = grid.bottomRight
     const pointSize = grid.pointSize, pointDistance = grid.pointDistance
-    p5.fill(14, 14, 14)
+    p5.stroke(144, 144, 144)
     for (let i = topLeft.x; i <= bottomRight.x; i += pointDistance) {
       for (let j = topLeft.y; j <= bottomRight.y; j += pointDistance) {
         p5.ellipse(i, j, pointSize / 2, pointSize / 2, 0, 2 * p5.PI)
       }      
     }
+
+    // Grid of squares
+    // p5.stroke(184, 184, 184)
+    // for (let i = topLeft.x; i <= bottomRight.x; i += pointDistance) {
+    //   p5.line(i, 0, i, canvasSize.height)
+    // }
+    // for (let i = topLeft.y; i <= bottomRight.y; i += pointDistance) {
+    //   p5.line(0, i, canvasSize.width, i)
+    // }
   }
 }
