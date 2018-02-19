@@ -1,4 +1,5 @@
 import View from './View'
+import Color from './Color'
 
 export default class Rect extends View {
   constructor(x, y, w, h, dx, dy) {
@@ -9,12 +10,16 @@ export default class Rect extends View {
     this.height = h
     this.dx = dx || 0
     this.dy = dy || 0
+    this._color = new Color(0, 0, 255)
   }
+  get color() { return this._color }
+  set color(c) { this._color = c }
   draw() {
-    this.p5.stroke(this.p5.color(0, 0, 255))
+    // this.p5.stroke(this.p5.color(this.color.r, this.color.g, this.color.b))
+    this.p5.stroke(this.p5.color(...this.color.array))
     this.p5.rect(this.x, this.y, this.width, this.height)
     if (this.dx || this.dy) {
-      this.p5.fill(this.p5.color(0, 0, 255))
+      this.p5.fill(this.p5.color(...this.color.array))
       const offsetX = this.dx < 0 ? 0 : this.width
       const offsetY = this.dy < 0 ? 0 : this.height
       // OX depth

@@ -15,7 +15,6 @@ export default class PhalanxRoot {
     this.p5.setup = this._setup.bind(this)
     this.p5.draw = this._draw.bind(this)
     this.p5.mousePressed = this.mousePressed.bind(this)
-    // this.rootView = new RootView(this)
     this.setRootView()
   }
   setRootView() {

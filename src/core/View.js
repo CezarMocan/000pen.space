@@ -4,12 +4,16 @@ export default class View {
     this._children = []
   }
   get uid() { return this._uid }
-  get root() { return this._root }
+  get root() { 
+    if (!this._root && this.parent) 
+      this._root = this.parent.root
+    return this._root  
+  }
   set root(r) { this._root = r }
   get p5() { return this.root.p5 }
   get children() { return this._children }
-  get windowWidth() { return this.root.windowWidth }
-  get windowHeight() { return this.root.windowHeight }
+  get windowWidth() { return this.root ? this.root.windowWidth : 0 }
+  get windowHeight() { return this.root ? this.root.windowHeight : 0 }
   addView(view) {
     view.root = this.root
     view.parent = this
@@ -22,6 +26,7 @@ export default class View {
     this.children.splice(index, 1)
   }
   _draw() {
+    if (!this.root) return
     this.p5.push()
     this.draw()
     this.children.forEach(child => child._draw())
