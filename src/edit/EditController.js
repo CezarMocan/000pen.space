@@ -16,10 +16,13 @@ class EditController extends PhalanxRoot {
   }
   onStartEditing() {
     this.canvas.style('display', 'block')
-    this.p5.redraw()
+    // this.p5.redraw()
+    this.p5.loop()
   }
   onDoneEditing() {
     this.canvas.style('display', 'none')
+    this.p5.noLoop()
+    this.p5.clear()
     this.p5.redraw()
   }
 }
