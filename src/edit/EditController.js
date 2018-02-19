@@ -2,7 +2,7 @@ import PhalanxRoot from '../core/PhalanxRoot'
 import RootView from './RootView'
 import { canvasSize, grid } from '../Config'
 
-class MainController extends PhalanxRoot {
+class EditController extends PhalanxRoot {
   constructor() {
     super()
   }
@@ -11,17 +11,17 @@ class MainController extends PhalanxRoot {
   }
   setup() {
     this.canvas.style('position', 'absolute')
+    this.canvas.style('display', 'none')
     this.p5.noLoop()
   }
-  preDraw() {
-    this.p5.clear()
+  onStartEditing() {
+    this.canvas.style('display', 'block')
+    this.p5.redraw()
   }
-  postDraw() {
-
-  }
-  mousePressed() {
-    console.log('Main mouse pressed')
+  onDoneEditing() {
+    this.canvas.style('display', 'none')
+    this.p5.redraw()
   }
 }
 
-export default new MainController()
+export default new EditController()
