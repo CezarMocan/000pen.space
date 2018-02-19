@@ -1,8 +1,4 @@
-import View from './View'
 import RootView from './RootView'
-import Line from './Line'
-import Rect from './Rect'
-import Grid from './Grid'
 import { canvasSize, grid } from './Config'
 
 class PhalanxRoot {
