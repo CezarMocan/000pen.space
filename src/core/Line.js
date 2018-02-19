@@ -12,6 +12,13 @@ export default class Line extends View {
   }
   get color() { return this._color }
   set color(c) { this._color = c }
+  pointInView(x, y) {
+    if (x >= Math.min(this.x, this.x2) &&
+        x <= Math.max(this.x, this.x2) &&
+        y >= Math.min(this.y, this.y2) &&
+        y <= Math.max(this.y, this.y2)) return true
+    return false
+  }
   draw() {
     this.p5.noFill()
     this.p5.stroke(this.p5.color(...this.color.array))

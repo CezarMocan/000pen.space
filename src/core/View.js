@@ -5,14 +5,14 @@ export default class View {
     this._preRootListenTo = []
   }
   get uid() { return this._uid }
-  get root() { 
-    if (!this._root && this.parent) 
+  get root() {
+    if (!this._root && this.parent)
       this._root = this.parent.root
-    return this._root  
+    return this._root
   }
-  set root(r) { 
+  set root(r) {
     if (!r) return
-    this._root = r 
+    this._root = r
     this._children.forEach(c => c.root = r)
     if (this._preRootListenTo.length) {
       this._preRootListenTo.forEach(evt => this.listenTo(evt))
@@ -23,6 +23,12 @@ export default class View {
   get children() { return this._children }
   get windowWidth() { return this.root ? this.root.windowWidth : 0 }
   get windowHeight() { return this.root ? this.root.windowHeight : 0 }
+  redraw() { this.p5.redraw() }
+
+  pointInView(x, y) {
+    console.warn('pointInView Not implemented for current view!')
+    return false
+  }
 
   // View hierarchy tree
   addView(view) {
@@ -63,7 +69,5 @@ export default class View {
     this.children.forEach(child => child._draw())
     this.p5.pop()
   }
-  draw() {
-    console.warn('You need to override draw!')
-  }
+  draw() { }
 }
