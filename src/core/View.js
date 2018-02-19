@@ -2,6 +2,7 @@ export default class View {
   constructor() {
     this._root = null
     this._children = []
+    this._preRootListenTo = []
   }
   get uid() { return this._uid }
   get root() { 
@@ -9,22 +10,52 @@ export default class View {
       this._root = this.parent.root
     return this._root  
   }
-  set root(r) { this._root = r }
+  set root(r) { 
+    if (!r) return
+    this._root = r 
+    this._children.forEach(c => c.root = r)
+    if (this._preRootListenTo.length) {
+      this._preRootListenTo.forEach(evt => this.listenTo(evt))
+      this._preRootListenTo = []
+    }
+  }
   get p5() { return this.root.p5 }
   get children() { return this._children }
   get windowWidth() { return this.root ? this.root.windowWidth : 0 }
   get windowHeight() { return this.root ? this.root.windowHeight : 0 }
+
+  // View hierarchy tree
   addView(view) {
-    view.root = this.root
+    if (this.root) view.root = this.root
     view.parent = this
     this.children.push(view)
+    view.onAdded()
     return view
   }
+  onAdded() { }
   removeView() {
     view.root = view.parent = null
     const index = this.views.indexOf(view)
     this.children.splice(index, 1)
+    view.onRemoved()
   }
+  onRemoved() { }
+
+  // Events
+  listenTo(evt) {
+    if (!this.root) {
+      this._preRootListenTo.push(evt)
+    } else {
+      this.root.addListener(evt, this)
+    }
+    console.log('listenTo: ', evt, this._preRootListenTo)
+  }
+  _onEvent(evt) {
+    this.onEvent(evt)
+  }
+  onEvent(evt) {}
+
+  // Drawing
   _draw() {
     if (!this.root) return
     this.p5.push()

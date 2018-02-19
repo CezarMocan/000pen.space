@@ -25,7 +25,7 @@ class OverlayController extends PhalanxRoot {
 
   }
   mousePressed() {
-
+    console.log('Overlay mouse pressed')
   }
 }
 

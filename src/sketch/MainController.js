@@ -20,7 +20,7 @@ class MainController extends PhalanxRoot {
 
   }
   mousePressed() {
-
+    console.log('Main mouse pressed')
   }
 }
 

@@ -11,7 +11,5 @@ export default class RootView extends View {
     this.logo = this.addView(new Logo())
     this.version = this.addView(new Version(1))
     this.toolbox = this.addView(new Toolbox())
-
-    console.log(this)
   }
 }
