@@ -6,7 +6,8 @@
     "start": "webpack-dev-server",
     "build": "npm run clean && webpack -p",
     "clean": "rm -rf dist",
-    "publish": "git commit -a -m 'Built' && git checkout gh-pages && git merge master && git subtree push --prefix dist origin gh-pages && git checkout master"
+    "deploy": "gh-pages -d dist",
+    "publish": "npm run build && npm run deploy"
   },
   "dependencies": {
     "p5": "^0.5.9"
