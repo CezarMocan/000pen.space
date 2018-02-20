@@ -28,7 +28,7 @@ export default class RootView extends View {
     }
   }
   draw() {
-    this.p5.background(225)
+    // this.p5.background(225)
     this.drawPoints()
   }
 }
