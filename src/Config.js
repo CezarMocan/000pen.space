@@ -16,8 +16,14 @@ const grid = {
   pointSize: 1
 }
 
+const buttons = {
+  width: 5,
+  height: 2
+}
+
 
 module.exports = {
   canvasSize: canvasSize,
-  grid: grid
+  grid: grid,
+  buttons: buttons
 }

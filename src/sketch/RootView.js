@@ -8,6 +8,7 @@ export default class RootView extends View {
     super()  
     this.root = phalanxRoot
     this.content = this.addView(new View())
+    this.dynamicContent = this.addView(new View())
     this.setupContent()
   }
   setupContent() {

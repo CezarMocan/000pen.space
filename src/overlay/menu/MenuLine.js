@@ -16,15 +16,19 @@ export default class MenuLine extends Line {
         if (this.pointInView(this.p5.mouseX, this.p5.mouseY)) {
           if (!State.isEditing) {
             State.startEditing(State.EDITING_MODES.LINE)
-            this.color = new Color(0, 255, 0)
           }
           else {
-            State.saveEditing()
-            this.color = new Color(255, 0, 0)
+            // 
           }
-          this.redraw()
         }
         break
     }
+  }
+  draw() {
+    if (State.isEditing && State.isLineEditingMode)
+      this.color = new Color(0, 255, 0)
+    else
+      this.color = new Color(255, 0, 0)
+    super.draw()
   }
 }

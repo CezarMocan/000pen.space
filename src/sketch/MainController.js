@@ -19,8 +19,12 @@ class MainController extends PhalanxRoot {
   postDraw() {
 
   }
-  mousePressed() {
-    console.log('Main mouse pressed')
+  addContents(view) {
+    this.rootView.dynamicContent.addView(view)
+  }
+  onDoneEditing() {
+    this.p5.clear()
+    this.p5.redraw()
   }
 }
 

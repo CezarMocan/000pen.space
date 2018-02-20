@@ -11,7 +11,8 @@ export default class RootView extends View {
     this.gridHighlight = this.addView(new GridHighlight())
   }
   reset() {
-    this.canvas.reset()
+    if (this.canvas) this.removeView(this.canvas)
+    this.canvas = this.addView(new Canvas())
   }
   draw() {
     this.p5.clear()

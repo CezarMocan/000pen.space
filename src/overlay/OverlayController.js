@@ -19,13 +19,20 @@ class OverlayController extends PhalanxRoot {
     this.p5.noLoop()
   }
   preDraw() {
-    this.p5.background(255, 1)
+    this.p5.clear()
   }
   postDraw() {
 
   }
-  mousePressed() {
-    console.log('Overlay mouse pressed')
+  onStartEditing() {
+    this.rootView.showButtons()
+    this.p5.clear()
+    this.p5.redraw()
+  }
+  onDoneEditing() {
+    this.rootView.hideButtons()
+    this.p5.clear()
+    this.p5.redraw()
   }
 }
 

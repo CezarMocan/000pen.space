@@ -1,16 +1,32 @@
-import { canvasSize, grid } from '../Config'
+import { canvasSize, grid, buttons } from '../Config'
 import View from '../core/View'
 import Logo from './Logo'
 import Version from './Version'
 import Toolbox from './Toolbox'
 import State from '../state'
+import SaveButton from './menu/SaveButton'
+import CancelButton from './menu/CancelButton'
 
 export default class RootView extends View {
   constructor(phalanxRoot) {
-    super()  
+    super()
     this.root = phalanxRoot
     this.logo = this.addView(new Logo())
     this.version = this.addView(new Version(State.version))
     this.toolbox = this.addView(new Toolbox())
+
+    const btnY = window.innerHeight - (buttons.height + 1) * grid.pointDistance 
+    const btnRightX = window.innerWidth - (buttons.width + 1) * grid.pointDistance
+    const btnLeftX = btnRightX - (buttons.width + 1) * grid.pointDistance
+    this.saveButton = this.addView(new SaveButton(btnLeftX, btnY))
+    this.cancelButton = this.addView(new CancelButton(btnRightX, btnY))
+
+    this.hideButtons()
+  }
+  showButtons() {
+    this.saveButton.disabled = this.cancelButton.disabled = false
+  }
+  hideButtons() {
+    this.saveButton.disabled = this.cancelButton.disabled = true
   }
 }

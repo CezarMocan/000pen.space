@@ -53,7 +53,8 @@ export default class View {
   }
   onAdded() { }
   removeView(view) {
-    view.root = view.parent = null
+    if (view.root === this.root) view.root = null
+    view.parent = null
     const index = this._children.indexOf(view)
     this._children.splice(index, 1)
     view.onRemoved()
@@ -66,8 +67,8 @@ export default class View {
       this._preRootListenTo.push(evt)
     } else {
       this.root.addListener(evt, this)
+      console.log('Added listener for ', evt, this)
     }
-    console.log('listenTo: ', evt, this._preRootListenTo)
   }
   _onEvent(evt) {
     if (this.disabled) return
