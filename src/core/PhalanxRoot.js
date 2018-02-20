@@ -49,6 +49,15 @@ export default class PhalanxRoot {
     if (!this.listeners[evt]) this.listeners[evt] = []
     this.listeners[evt].push(view)
   }
+  removeListener(evt, view) {
+    if (!this.isEventSupported(evt)) {
+      console.warn('No such P5 event!')
+      return
+    }
+    if (!this.listeners[evt]) return
+    const index = this.listeners[evt].indexOf(view)
+    this.listeners[evt].splice(index, 1)
+  }
   _mousePressed() {
     const evt = 'mousePressed'
     if (!this.listeners[evt]) return

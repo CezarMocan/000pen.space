@@ -10,8 +10,13 @@ export default class Canvas extends View {
     this._color = new Color(0, 0, 255)
     this.listenTo('mousePressed')
     this.listenTo('mouseMoved')
+    this.container = this.addView(new View())
 
     this._pressCount = 0
+  }
+  stop() {
+    this.stopListening('mousePressed')
+    this.stopListening('mouseMoved')
   }
   reset() {
     this._pressCount = 0
@@ -26,6 +31,11 @@ export default class Canvas extends View {
     } else if (this._pressCount == 2) {
       if (mX == this.currLine.x && mY == this.currLine.y)
         this.removeView(this.currLine)
+      else {
+        this.removeView(this.currLine)
+        this.container.addView(this.currLine)
+      }
+
       this._pressCount = 0
     }
   }

@@ -70,6 +70,9 @@ export default class View {
       console.log('Added listener for ', evt, this)
     }
   }
+  stopListening(evt) {
+    this.root.removeListener(evt, this)
+  }
   _onEvent(evt) {
     if (this.disabled) return
     this.onEvent(evt)

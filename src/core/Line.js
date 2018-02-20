@@ -21,7 +21,7 @@ export default class Line extends View {
   }
   draw() {
     this.p5.noFill()
-    this.p5.stroke(this.p5.color(...this.color.array))
+    this.p5.stroke(this.p5.color(...this.color.array))    
     this.p5.line(this.x, this.y, this.x2, this.y2)
   }
 }
