@@ -15,7 +15,7 @@ export default class MenuLine extends Line {
       case 'mousePressed':
         if (this.pointInView(this.p5.mouseX, this.p5.mouseY)) {
           if (!State.isEditing) {
-            State.startEditing()
+            State.startEditing(State.EDITING_MODES.LINE)
             this.color = new Color(0, 255, 0)
           }
           else {
