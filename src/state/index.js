@@ -29,6 +29,8 @@ class GlobalState {
   get isLineEditingMode() { return this._state.editingMode === this.EDITING_MODES.LINE }
   get isBoxEditingMode() { return this._state.editingMode === this.EDITING_MODES.BOX }
 
+  pointInMenu(x, y) { return this._menuController.pointInMenu(x, y) }
+
   
   startEditing(editingMode) {
     if (!this._state.editing) {

@@ -31,4 +31,8 @@ export default class Toolbox extends View {
     }
     this.boxButton = this.addView(new MenuBox(this.boxCoords.x, this.boxCoords.y, this.boxCoords.w, this.boxCoords.h))
   }
+
+  pointInView(x, y) {
+    return this.container.pointInView(x, y)
+  }
 }

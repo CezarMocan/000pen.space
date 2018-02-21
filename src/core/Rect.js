@@ -4,18 +4,31 @@ import Color from './Color'
 export default class Rect extends View {
   constructor(x, y, w, h, dx, dy) {
     super()
-    this.x = x
-    this.y = y
-    this.width = w
-    this.height = h
+    this._x = x
+    this._y = y
+    this._width = w
+    this._height = h
     this.dx = dx || 0
     this.dy = dy || 0
     this._color = new Color(0, 0, 255)
   }
+  get x() { return this._x }
+  get y() { return this._y }
+  get width() { return this._width }
+  get height() { return this._height }
+  get nx() { return Math.min(this._x, this._x + this.width) }
+  get ny() { return Math.min(this._y, this._y + this.height) }
+  get nwidth() { return Math.abs(this._width) }
+  get nheight() { return Math.abs(this._height) }
+  set x(x) { this._x = x }
+  set y(y) { this._y = y }
+  set width(w) { this._width = w }
+  set height(h) { this._height = h }
   get color() { return this._color }
   set color(c) { this._color = c }
   pointInView(x, y) {
-    let minX = x, maxX = x + this.width, minY = y, maxY = y + this.height
+    let minX = Math.min(x, x + this.width), maxX = Math.max(x, x + this.width)
+    let minY = Math.min(y, y + this.height), maxY = Math.max(y, y + this.height)
     if (this.dx <= 0) minX = minX - this.dx
     else maxX = maxX + this.dx
     if (this.dy <= 0) minY = minY - this.dy
@@ -31,21 +44,21 @@ export default class Rect extends View {
     this.p5.rect(this.x, this.y, this.width, this.height)
     if (this.dx || this.dy) {
       this.p5.fill(this.p5.color(...this.color.array))
-      const offsetX = this.dx < 0 ? 0 : this.width
-      const offsetY = this.dy < 0 ? 0 : this.height
+      const offsetX = this.dx < 0 ? 0 : this.nwidth
+      const offsetY = this.dy < 0 ? 0 : this.nheight
       // OX depth
       this.p5.beginShape()
-      this.p5.vertex(offsetX + this.x, this.y)
-      this.p5.vertex(offsetX + this.x + this.dx, this.y + this.dy)
-      this.p5.vertex(offsetX + this.x + this.dx, this.y + this.height + this.dy)
-      this.p5.vertex(offsetX + this.x, this.y + this.height)
+      this.p5.vertex(offsetX + this.nx, this.ny)
+      this.p5.vertex(offsetX + this.nx + this.dx, this.ny + this.dy)
+      this.p5.vertex(offsetX + this.nx + this.dx, this.ny + this.nheight + this.dy)
+      this.p5.vertex(offsetX + this.nx, this.ny + this.nheight)
       this.p5.endShape(this.p5.CLOSE)
       // OY depth
       this.p5.beginShape()
-      this.p5.vertex(this.x, offsetY + this.y)
-      this.p5.vertex(this.x + this.dx, offsetY + this.y + this.dy)
-      this.p5.vertex(this.x + this.width + this.dx, offsetY + this.y + this.dy)
-      this.p5.vertex( this.x + this.width, offsetY + this.y)
+      this.p5.vertex(this.nx, offsetY + this.ny)
+      this.p5.vertex(this.nx + this.dx, offsetY + this.ny + this.dy)
+      this.p5.vertex(this.nx + this.nwidth + this.dx, offsetY + this.ny + this.dy)
+      this.p5.vertex(this.nx + this.nwidth, offsetY + this.ny)
       this.p5.endShape(this.p5.CLOSE)
     }
   }

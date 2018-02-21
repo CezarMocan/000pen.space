@@ -71,6 +71,7 @@ export default class View {
     }
   }
   stopListening(evt) {
+    console.log('stopListening', this, evt, this.root)
     this.root.removeListener(evt, this)
   }
   _onEvent(evt) {
