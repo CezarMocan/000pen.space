@@ -3,6 +3,7 @@ import Rect from '../core/Rect'
 import View from '../core/View'
 import Color from '../core/Color'
 import MenuLine from './menu/MenuLine'
+import MenuBox from './menu/MenuBox'
 
 export default class Toolbox extends View {
   constructor() {
@@ -21,5 +22,13 @@ export default class Toolbox extends View {
       y2: this.containerCoords.y + 2 * grid.pointDistance,
     }
     this.lineButton = this.addView(new MenuLine(this.lineCoords.x, this.lineCoords.y, this.lineCoords.x2, this.lineCoords.y2))
+
+    this.boxCoords = {
+      x: this.containerCoords.x + grid.pointDistance,
+      y: this.containerCoords.y + 3 * grid.pointDistance,
+      w: grid.pointDistance,
+      h: grid.pointDistance,
+    }
+    this.boxButton = this.addView(new MenuBox(this.boxCoords.x, this.boxCoords.y, this.boxCoords.w, this.boxCoords.h))
   }
 }

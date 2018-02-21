@@ -1,5 +1,6 @@
 const EDITING_MODES = {
-  LINE: 'LINE'
+  LINE: 'LINE',
+  BOX: 'BOX'
 }
 
 class GlobalState {
@@ -26,6 +27,7 @@ class GlobalState {
   }
   get isEditing() { return this._state.editing }
   get isLineEditingMode() { return this._state.editingMode === this.EDITING_MODES.LINE }
+  get isBoxEditingMode() { return this._state.editingMode === this.EDITING_MODES.BOX }
 
   
   startEditing(editingMode) {

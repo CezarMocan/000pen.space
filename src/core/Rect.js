@@ -14,6 +14,17 @@ export default class Rect extends View {
   }
   get color() { return this._color }
   set color(c) { this._color = c }
+  pointInView(x, y) {
+    let minX = x, maxX = x + this.width, minY = y, maxY = y + this.height
+    if (this.dx <= 0) minX = minX - this.dx
+    else maxX = maxX + this.dx
+    if (this.dy <= 0) minY = minY - this.dy
+    else maxY = maxY + this.dy
+
+    if (x >= minX && x <= maxX &&
+        y >= minY && y <= maxY) return true
+    return false
+  }
   draw() {
     // this.p5.stroke(this.p5.color(this.color.r, this.color.g, this.color.b))
     this.p5.stroke(this.p5.color(...this.color.array))
