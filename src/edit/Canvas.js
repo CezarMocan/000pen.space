@@ -16,12 +16,9 @@ export default class Canvas extends View {
     this._pressCount = 0
   }
   setContents(newContentsArray) {
-    console.log('setContents', newContentsArray)
     for (let view of newContentsArray) {
-      console.log('Adding', view)
       this.container.addView(view)
     }
-    console.log(this.container)
   }
   stop() {
     this.stopListening('mousePressed')
@@ -90,6 +87,21 @@ export default class Canvas extends View {
       this.currRect.dy = mY < this.currRect.ny ? mY - this.currRect.ny : mY - this.currRect.ny - this.currRect.nheight
     }
   }
+
+  mousePressedMove() {
+
+  }
+  mouseMovedMove() {
+    const mX = this.getGridAligned(this.p5.mouseX)
+    const mY = this.getGridAligned(this.p5.mouseY)
+    this.container.children.forEach(view => {
+      if (view.pointInView(mX, mY)) {
+        view.highlight = true
+      } else {
+        view.highlight = false
+      }
+    })
+  }
   onEvent(evt) {
     let mX, mY
     switch (evt) {
@@ -97,10 +109,12 @@ export default class Canvas extends View {
         if (State.pointInMenu(this.p5.mouseX, this.p5.mouseY)) return
         if (State.isLineEditingMode) this.mousePressedLine()
         if (State.isBoxEditingMode) this.mousePressedBox()
+        if (State.isMoveEditingMode) this.mousePressedMove()
         break
       case 'mouseMoved':
         if (State.isLineEditingMode) this.mouseMovedLine()
         if (State.isBoxEditingMode) this.mouseMovedBox()
+        if (State.isMoveEditingMode) this.mouseMovedMove()
         break
     }
   }

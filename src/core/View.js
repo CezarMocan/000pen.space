@@ -6,6 +6,7 @@ export default class View {
     this._children = []
     this._preRootListenTo = []
     this._disabled = false
+    this._highlight = false
   }
   get uid() { return this._uid }
   get root() {
@@ -31,6 +32,8 @@ export default class View {
     return this._disabled || this.parent.disabled
   }
   set disabled(d) { this._disabled = d }
+  get highlight() { return this._highlight }
+  set highlight(h) { this._highlight = h }
   redraw() { this.p5.redraw() }
 
   pointInView(x, y) {
