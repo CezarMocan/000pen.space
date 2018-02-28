@@ -4,6 +4,7 @@ import View from '../core/View'
 import Color from '../core/Color'
 import MenuLine from './menu/MenuLine'
 import MenuBox from './menu/MenuBox'
+import MenuMove from './menu/MenuMove'
 
 export default class Toolbox extends View {
   constructor() {
@@ -30,6 +31,14 @@ export default class Toolbox extends View {
       h: grid.pointDistance,
     }
     this.boxButton = this.addView(new MenuBox(this.boxCoords.x, this.boxCoords.y, this.boxCoords.w, this.boxCoords.h))
+
+    this.boxCoords = {
+      x: this.containerCoords.x + grid.pointDistance,
+      y: this.containerCoords.y + 5 * grid.pointDistance,
+      w: grid.pointDistance,
+      h: grid.pointDistance,
+    }
+    this.boxButton = this.addView(new MenuMove(this.boxCoords.x, this.boxCoords.y, this.boxCoords.w, this.boxCoords.h))    
   }
 
   pointInView(x, y) {

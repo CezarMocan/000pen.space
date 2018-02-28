@@ -27,12 +27,14 @@ export default class Rect extends View {
   get color() { return this._color }
   set color(c) { this._color = c }
   pointInView(x, y) {
-    let minX = Math.min(x, x + this.width), maxX = Math.max(x, x + this.width)
-    let minY = Math.min(y, y + this.height), maxY = Math.max(y, y + this.height)
+    let minX = Math.min(this.x, this.x + this.width), maxX = Math.max(this.x, this.x + this.width)
+    let minY = Math.min(this.y, this.y + this.height), maxY = Math.max(this.y, this.y + this.height)
     if (this.dx <= 0) minX = minX - this.dx
     else maxX = maxX + this.dx
     if (this.dy <= 0) minY = minY - this.dy
     else maxY = maxY + this.dy
+
+    console.log(minX, maxX, minY, maxY)
 
     if (x >= minX && x <= maxX &&
         y >= minY && y <= maxY) return true

@@ -9,17 +9,17 @@ export default class MenuBox extends Rect {
     super(x, y, w, h, 0, 0)
     this.color = new Color(255, 0, 0)
     this.listenTo('mousePressed')
-    console.log(this)
   }
   onEvent(evt) {
     switch (evt) {
       case 'mousePressed':
+        console.log('Box mousePressed', this.p5.mouseX, this.p5.mouseY, this.pointInView(this.p5.mouseX, this.p5.mouseY))
         if (this.pointInView(this.p5.mouseX, this.p5.mouseY)) {
           if (!State.isEditing) {
             State.startEditing(State.EDITING_MODES.BOX)
           }
           else {
-            // 
+            //
           }
         }
         break

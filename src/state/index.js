@@ -1,6 +1,7 @@
 const EDITING_MODES = {
   LINE: 'LINE',
-  BOX: 'BOX'
+  BOX: 'BOX',
+  MOVE: 'MOVE'
 }
 
 class GlobalState {
@@ -28,6 +29,7 @@ class GlobalState {
   get isEditing() { return this._state.editing }
   get isLineEditingMode() { return this._state.editingMode === this.EDITING_MODES.LINE }
   get isBoxEditingMode() { return this._state.editingMode === this.EDITING_MODES.BOX }
+  get isMoveEditingMode() { return this._state.editingMode === this.EDITING_MODES.MOVE }
 
   pointInMenu(x, y) { return this._menuController.pointInMenu(x, y) }
 
