@@ -32,14 +32,19 @@ class GlobalState {
   get isMoveEditingMode() { return this._state.editingMode === this.EDITING_MODES.MOVE }
 
   pointInMenu(x, y) { return this._menuController.pointInMenu(x, y) }
-
   
   startEditing(editingMode) {
     if (!this._state.editing) {
       this._state.editing = true
       this._state.editingMode = editingMode
+
       this._editController.onStartEditing()
       this._menuController.onStartEditing()
+
+      this.currentContents = this._mainController.getAndClearContents()
+      console.log('Start editing: ', this.currentContents)
+      this._editController.setContents(this.currentContents)
+      // console.log(this._mainController.getContents())
     } else {
       this._state.editingMode = editingMode
     }
@@ -48,7 +53,8 @@ class GlobalState {
     const contentView = this._editController.getContents()
     this._state.editing = false
     this._state.editingMode = null
-    this._mainController.addContents(contentView)
+    console.log('save editing: ', contentView.children)
+    this._mainController.setContents(contentView.children)
     this._mainController.onDoneEditing()
     this._editController.onDoneEditing()
     this._menuController.onDoneEditing()
@@ -56,6 +62,7 @@ class GlobalState {
   cancelEditing() {
     this._state.editing = false
     this._state.editingMode = null
+    this._mainController.setContents(this.currentContents)
     this._editController.onDoneEditing()
     this._menuController.onDoneEditing()
   }

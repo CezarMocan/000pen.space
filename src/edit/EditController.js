@@ -19,6 +19,9 @@ class EditController extends PhalanxRoot {
     this.rootView.canvas.stop()
     return this.rootView.canvas.container
   }
+  setContents(newContentsArray) {
+    this.rootView.canvas.setContents(newContentsArray)
+  }
   onStartEditing() {
     this.rootView.reset()
     this.rootView.disabled = false

@@ -13,7 +13,6 @@ export default class MenuBox extends Rect {
   onEvent(evt) {
     switch (evt) {
       case 'mousePressed':
-        console.log('Box mousePressed', this.p5.mouseX, this.p5.mouseY, this.pointInView(this.p5.mouseX, this.p5.mouseY))
         if (this.pointInView(this.p5.mouseX, this.p5.mouseY)) {
           if (!State.isEditing) {
             State.startEditing(State.EDITING_MODES.BOX)

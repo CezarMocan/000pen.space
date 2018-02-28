@@ -59,6 +59,12 @@ export default class View {
     this._children.splice(index, 1)
     view.onRemoved()
   }
+  removeAll() {
+    while (this._children.length > 0) {
+      const child = this._children[0]
+      this.removeView(child)
+    }
+  }
   onRemoved() { }
 
   // Events
@@ -67,11 +73,11 @@ export default class View {
       this._preRootListenTo.push(evt)
     } else {
       this.root.addListener(evt, this)
-      console.log('Added listener for ', evt, this)
+      // console.log('Added listener for ', evt, this)
     }
   }
   stopListening(evt) {
-    console.log('stopListening', this, evt, this.root)
+    // console.log('stopListening', this, evt, this.root)
     this.root.removeListener(evt, this)
   }
   _onEvent(evt) {

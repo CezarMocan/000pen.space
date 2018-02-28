@@ -19,8 +19,17 @@ class MainController extends PhalanxRoot {
   postDraw() {
 
   }
-  addContents(view) {
-    this.rootView.dynamicContent.addView(view)
+  getContents() {
+    return this.rootView.dynamicContent.children.slice(0)
+  }
+  getAndClearContents() {
+    const children = this.rootView.dynamicContent.children.slice(0)
+    this.rootView.dynamicContent.removeAll()
+    return children
+  }
+  setContents(viewArray) {
+    this.rootView.dynamicContent.removeAll()
+    viewArray.forEach(view => this.rootView.dynamicContent.addView(view))
   }
   onDoneEditing() {
     this.p5.clear()

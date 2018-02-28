@@ -57,9 +57,9 @@ export default class PhalanxRoot {
     }
     if (!this.listeners[evt]) return
     const index = this.listeners[evt].indexOf(view)
-    console.log('removeListener', evt, view, this.listeners[evt], index)
+    // console.log('removeListener', evt, view, this.listeners[evt], index)
     this.listeners[evt].splice(index, 1)
-    console.log('removeListener', evt, view, this.listeners[evt])
+    // console.log('removeListener', evt, view, this.listeners[evt])
   }
   _mousePressed() {
     const evt = 'mousePressed'

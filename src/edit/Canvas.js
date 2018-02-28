@@ -15,6 +15,14 @@ export default class Canvas extends View {
 
     this._pressCount = 0
   }
+  setContents(newContentsArray) {
+    console.log('setContents', newContentsArray)
+    for (let view of newContentsArray) {
+      console.log('Adding', view)
+      this.container.addView(view)
+    }
+    console.log(this.container)
+  }
   stop() {
     this.stopListening('mousePressed')
     this.stopListening('mouseMoved')

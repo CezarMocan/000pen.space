@@ -34,8 +34,6 @@ export default class Rect extends View {
     if (this.dy <= 0) minY = minY - this.dy
     else maxY = maxY + this.dy
 
-    console.log(minX, maxX, minY, maxY)
-
     if (x >= minX && x <= maxX &&
         y >= minY && y <= maxY) return true
     return false
