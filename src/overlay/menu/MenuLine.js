@@ -14,12 +14,7 @@ export default class MenuLine extends Line {
     switch (evt) {
       case 'mousePressed':
         if (this.pointInView(this.p5.mouseX, this.p5.mouseY)) {
-          if (!State.isEditing) {
-            State.startEditing(State.EDITING_MODES.LINE)
-          }
-          else {
-            // 
-          }
+          State.startEditing(State.EDITING_MODES.LINE)
         }
         break
     }

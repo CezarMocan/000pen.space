@@ -45,7 +45,9 @@ class GlobalState {
       this._editController.setContents(this.currentContents.childrenToEdit)
       this._mainController.redraw()
     } else {
+      console.log('change editing mode')
       this._state.editingMode = editingMode
+      this._menuController.redraw()
     }
   }
   saveEditing() {

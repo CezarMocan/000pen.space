@@ -14,12 +14,7 @@ export default class MenuBox extends Rect {
     switch (evt) {
       case 'mousePressed':
         if (this.pointInView(this.p5.mouseX, this.p5.mouseY)) {
-          if (!State.isEditing) {
-            State.startEditing(State.EDITING_MODES.BOX)
-          }
-          else {
-            //
-          }
+          State.startEditing(State.EDITING_MODES.BOX)
         }
         break
     }
