@@ -42,9 +42,8 @@ class GlobalState {
       this._menuController.onStartEditing()
 
       this.currentContents = this._mainController.getAndClearContents()
-      console.log('Start editing: ', this.currentContents)
-      this._editController.setContents(this.currentContents)
-      // console.log(this._mainController.getContents())
+      this._editController.setContents(this.currentContents.childrenToEdit)
+      this._mainController.redraw()
     } else {
       this._state.editingMode = editingMode
     }
@@ -52,19 +51,25 @@ class GlobalState {
   saveEditing() {
     const contentView = this._editController.getContents()
     this._state.editing = false
-    this._state.editingMode = null
-    console.log('save editing: ', contentView.children)
+    this._state.editingMode = null    
     this._mainController.setContents(contentView.children)
     this._mainController.onDoneEditing()
     this._editController.onDoneEditing()
     this._menuController.onDoneEditing()
+
+    // Remove old views that were stored in case the user tapped cancel
+    delete this.currentContents.oldChildren
   }
   cancelEditing() {
     this._state.editing = false
     this._state.editingMode = null
-    this._mainController.setContents(this.currentContents)
+    this._mainController.setContents(this.currentContents.oldChildren)
+    this._mainController.onDoneEditing()
     this._editController.onDoneEditing()
     this._menuController.onDoneEditing()
+
+    // Remove newly created children
+    delete this.currentContents.childrenToEdit
   }
 }
 

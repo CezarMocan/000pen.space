@@ -26,16 +26,15 @@ class EditController extends PhalanxRoot {
     this.rootView.reset()
     this.rootView.disabled = false
     this.canvas.style('display', 'block')
-    // this.p5.redraw()
     this.p5.loop()
+    this.redraw()
   }
   onDoneEditing() {
     this.canvas.style('display', 'none')
     this.rootView.disabled = true
-    // this.rootView.reset()
     this.p5.noLoop()
     this.p5.clear()
-    this.p5.redraw()
+    this.redraw()
   }
 }
 

@@ -102,7 +102,6 @@ export default class Canvas extends View {
       if (view.pointInView(mX, mY)) {
         this.moveOpParams.selectedView = view
         view.selected = true
-        console.log('Selected view: ', view)
         return
       }
     }
@@ -118,10 +117,8 @@ export default class Canvas extends View {
     })
   }
   mouseDraggedMove() {
-    console.log(this.moveOpParams.selectedView)
     if (!this.moveOpParams.selectedView) return
     const view = this.moveOpParams.selectedView
-    console.log(this._dx, this._dy)
     view.x += this._dx
     view.y += this._dy    
   }

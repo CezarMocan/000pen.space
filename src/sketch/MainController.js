@@ -23,9 +23,14 @@ class MainController extends PhalanxRoot {
     return this.rootView.dynamicContent.children.slice(0)
   }
   getAndClearContents() {
-    const children = this.rootView.dynamicContent.children.slice(0)
+    let childrenToEdit = []
+    const currentChildren = this.rootView.dynamicContent.children.slice(0)
+    this.rootView.dynamicContent.children.forEach(child => childrenToEdit.push(child.duplicate()))
     this.rootView.dynamicContent.removeAll()
-    return children
+    return {
+      childrenToEdit: childrenToEdit,
+      oldChildren: currentChildren
+    }
   }
   setContents(viewArray) {
     this.rootView.dynamicContent.removeAll()
@@ -33,7 +38,7 @@ class MainController extends PhalanxRoot {
   }
   onDoneEditing() {
     this.p5.clear()
-    this.p5.redraw()
+    this.redraw()
   }
 }
 

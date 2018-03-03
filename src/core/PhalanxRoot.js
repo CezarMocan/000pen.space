@@ -34,6 +34,9 @@ export default class PhalanxRoot {
     this.setup()
   }
   setup() { }
+  redraw() {
+    this.p5.redraw()
+  }
   _draw() {
     this.preDraw()
     if (this.rootView) this.rootView._draw()

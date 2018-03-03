@@ -24,9 +24,11 @@ export default class View {
     }
   }
   get p5() { return this.root.p5 }
-  get children() { return this._children }
+  redraw() { this.p5.redraw() }
   get windowWidth() { return this.root ? this.root.windowWidth : 0 }
   get windowHeight() { return this.root ? this.root.windowHeight : 0 }
+
+  get children() { return this._children }
   get disabled() { 
     if (!this.parent) return this._disabled
     return this._disabled || this.parent.disabled
@@ -34,7 +36,11 @@ export default class View {
   set disabled(d) { this._disabled = d }
   get highlight() { return this._highlight }
   set highlight(h) { this._highlight = h }
-  redraw() { this.p5.redraw() }
+
+  duplicate() {
+    console.warn('pointInView Not implemented for current view!')
+    return null    
+  }
 
   pointInView(x, y) {
     console.warn('pointInView Not implemented for current view!')

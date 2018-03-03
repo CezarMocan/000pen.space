@@ -10,6 +10,9 @@ export default class Line extends View {
     this.y2 = y2
     this._color = new Color(0, 0, 255)
   }
+  duplicate() {
+    return new Line(this.x, this.y, this.x2, this.y2)
+  }
   get color() { return this._color }
   set color(c) { this._color = c }
   pointInView(x, y) {

@@ -14,6 +14,9 @@ export default class Rect extends View {
     this._color = new Color(0, 0, 255)
     this._highlightColor = new Color(255, 255, 0, 0.2)
   }
+  duplicate() {
+    return new Rect(this._x, this._y, this._width, this._height, this.dx, this.dy)
+  }
   get x() { return this._x }
   get y() { return this._y }
   get width() { return this._width }
