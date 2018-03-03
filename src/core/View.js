@@ -7,7 +7,7 @@ export default class View {
     this._preRootListenTo = []
     this._disabled = false
     this._highlight = false
-    console.log('view')
+    console.log('view x 2')
   }
   get uid() { return this._uid }
   get root() {
