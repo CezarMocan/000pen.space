@@ -5,14 +5,26 @@ import MathUtils from './MathUtils'
 export default class Line extends View {
   constructor(x, y, x2, y2) {
     super()
-    this.x = x
-    this.y = y
-    this.x2 = x2
-    this.y2 = y2
+    this._x = x
+    this._y = y
+    this._width = x2 - x
+    this._height = y2 - y
     this._color = new Color(0, 0, 255)
     this._highlightColor = new Color(255, 255, 0, 0.2)
     this.actionRadius = 15
   }
+  get x() { return this._x }
+  set x(x) { this._x = x }
+  get y() { return this._y }
+  set y(y) { this._y = y }
+  get x2() { return this._x + this._width }
+  set x2(x) { this._width = x - this._x }
+  get y2() { return this._y + this._height }
+  set y2(y) { this._height = y - this._y }
+  get width() { return this._width }
+  set width(w) { this._width = w }
+  get height() { return this._height }
+  set height(h) { this._height = h }
   duplicate() {
     return new Line(this.x, this.y, this.x2, this.y2)
   }

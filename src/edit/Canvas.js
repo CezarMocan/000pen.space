@@ -55,10 +55,8 @@ export default class Canvas extends View {
   }
   mouseMovedLine() {
     if (this._pressCount != 1) return
-    const mX = this._mx
-    const mY = this._my
-    this.currLine.x2 = mX
-    this.currLine.y2 = mY
+    this.currLine.x2 = this._mx
+    this.currLine.y2 = this._my
   }
   mousePressedBox() {
     const mX = this._mx
