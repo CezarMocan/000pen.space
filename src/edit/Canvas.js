@@ -11,9 +11,16 @@ export default class Canvas extends View {
     this._color = new Color(0, 0, 255)
     this.listenTo('mousePressed')
     this.listenTo('mouseMoved')
+    this.listenTo('mouseDragged')
+    this.listenTo('mouseReleased')
     this.container = this.addView(new View())
 
     this._pressCount = 0
+    this.moveOpParams = {
+      selectedView: null
+    }
+    this._mx = 0
+    this._my = 0
   }
   setContents(newContentsArray) {
     for (let view of newContentsArray) {
@@ -30,8 +37,8 @@ export default class Canvas extends View {
     this.currRect = null
   }
   mousePressedLine() {
-    const mX = this.getGridAligned(this.p5.mouseX)
-    const mY = this.getGridAligned(this.p5.mouseY)
+    const mX = this._mx
+    const mY = this._my
     this._pressCount++
     if (this._pressCount == 1) {
       this.currLine = this.addView(new Line(mX, mY, mX, mY))
@@ -48,14 +55,14 @@ export default class Canvas extends View {
   }
   mouseMovedLine() {
     if (this._pressCount != 1) return
-    const mX = this.getGridAligned(this.p5.mouseX)
-    const mY = this.getGridAligned(this.p5.mouseY)
+    const mX = this._mx
+    const mY = this._my
     this.currLine.x2 = mX
     this.currLine.y2 = mY
   }
   mousePressedBox() {
-    const mX = this.getGridAligned(this.p5.mouseX)
-    const mY = this.getGridAligned(this.p5.mouseY)
+    const mX = this._mx
+    const mY = this._my
     this._pressCount++
     if (this._pressCount == 1) {
       this.currRect = this.addView(new Rect(mX, mY, grid.pointDistance, grid.pointDistance))
@@ -69,8 +76,8 @@ export default class Canvas extends View {
     }
   }
   mouseMovedBox() {
-    const mX = this.getGridAligned(this.p5.mouseX)
-    const mY = this.getGridAligned(this.p5.mouseY)
+    const mX = this._mx
+    const mY = this._my
     if (this._pressCount == 1) {
       this.currRect.width = mX - this.currRect.x
       this.currRect.height = mY - this.currRect.y
@@ -89,21 +96,50 @@ export default class Canvas extends View {
   }
 
   mousePressedMove() {
-
+    const mX = this._mx
+    const mY = this._my
+    for (let view of this.container.children) {
+      if (view.pointInView(mX, mY)) {
+        this.moveOpParams.selectedView = view
+        view.selected = true
+        console.log('Selected view: ', view)
+        return
+      }
+    }
   }
   mouseMovedMove() {
-    const mX = this.getGridAligned(this.p5.mouseX)
-    const mY = this.getGridAligned(this.p5.mouseY)
+    // TODO: Only highlight the topmost view. Right now, all are highlighted.
     this.container.children.forEach(view => {
-      if (view.pointInView(mX, mY)) {
+      if (view.pointInView(this._mx, this._my)) {
         view.highlight = true
       } else {
         view.highlight = false
       }
     })
   }
+  mouseDraggedMove() {
+    console.log(this.moveOpParams.selectedView)
+    if (!this.moveOpParams.selectedView) return
+    const view = this.moveOpParams.selectedView
+    console.log(this._dx, this._dy)
+    view.x += this._dx
+    view.y += this._dy    
+  }
+  mouseReleasedMove() {
+    if (!this.moveOpParams.selectedView) return
+    this.moveOpParams.selectedView.selected = false
+    this.moveOpParams.selectedView = null
+  }
+  updateMousePositionParams() {
+    const mX = this.getGridAligned(this.p5.mouseX)
+    const mY = this.getGridAligned(this.p5.mouseY)
+    this._dx = (mX - this._mx)
+    this._dy = (mY - this._my)
+    this._mx = mX
+    this._my = mY    
+  }
   onEvent(evt) {
-    let mX, mY
+    this.updateMousePositionParams()
     switch (evt) {
       case 'mousePressed':
         if (State.pointInMenu(this.p5.mouseX, this.p5.mouseY)) return
@@ -115,6 +151,12 @@ export default class Canvas extends View {
         if (State.isLineEditingMode) this.mouseMovedLine()
         if (State.isBoxEditingMode) this.mouseMovedBox()
         if (State.isMoveEditingMode) this.mouseMovedMove()
+        break
+      case 'mouseDragged':
+        if (State.isMoveEditingMode) this.mouseDraggedMove()
+          break
+      case 'mouseReleased':
+        if (State.isMoveEditingMode) this.mouseReleasedMove()
         break
     }
   }
