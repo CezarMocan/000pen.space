@@ -96,25 +96,27 @@ export default class Canvas extends View {
   }
 
   mousePressedMove() {
-    const mX = this._mx
-    const mY = this._my
-    for (let view of this.container.children) {
-      if (view.pointInView(mX, mY)) {
+    for (let i = this.container.children.length - 1; i >= 0; i--) {
+      const view = this.container.children[i]
+      if (view.pointInView(this._mx, this._my)) {
         this.moveOpParams.selectedView = view
         view.selected = true
         return
-      }
+      }      
     }
   }
   mouseMovedMove() {
     // TODO: Only highlight the topmost view. Right now, all are highlighted.
-    this.container.children.forEach(view => {
-      if (view.pointInView(this._mx, this._my)) {
+    let topViewHighlighted = false
+    for (let i = this.container.children.length - 1; i >= 0; i--) {
+      const view = this.container.children[i]
+      if (view.pointInView(this._mx, this._my) && !topViewHighlighted) {
         view.highlight = true
+        topViewHighlighted = true
       } else {
         view.highlight = false
-      }
-    })
+      }      
+    }
   }
   mouseDraggedMove() {
     if (!this.moveOpParams.selectedView) return
