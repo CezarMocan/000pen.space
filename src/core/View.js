@@ -22,7 +22,9 @@ export default class View {
       this._preRootListenTo.forEach(evt => this.listenTo(evt))
       this._preRootListenTo = []
     }
+    this.onRoot()
   }
+  onRoot() { }
   get p5() { return this.root.p5 }
   redraw() { this.p5.redraw() }
   get windowWidth() { return this.root ? this.root.windowWidth : 0 }

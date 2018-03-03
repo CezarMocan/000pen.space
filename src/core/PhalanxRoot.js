@@ -21,7 +21,6 @@ export default class PhalanxRoot {
     this.p5.mouseMoved = this._propagateP5Event.bind(this, 'mouseMoved')
     this.p5.mouseDragged = this._propagateP5Event.bind(this, 'mouseDragged')
     this.p5.mouseReleased = this._propagateP5Event.bind(this, 'mouseReleased')
-    this.setRootView()
   }
   setRootView() { }
   // P5 lifecycle
@@ -31,6 +30,7 @@ export default class PhalanxRoot {
   preload() { }
   _setup() {
     this.canvas = this.p5.createCanvas(canvasSize.width, canvasSize.height);
+    this.setRootView()
     this.setup()
   }
   setup() { }

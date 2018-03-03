@@ -7,8 +7,8 @@ import edit from './edit'
 import grid from './grid'
 import overlay from './overlay'
 
-new p5(grid);
-new p5(sketch);
-new p5(edit);
-new p5(overlay);
+new p5(grid, 'grid');
+new p5(sketch, 'content');
+new p5(edit, 'edit');
+new p5(overlay, 'overlay');
 

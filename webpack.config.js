@@ -35,7 +35,7 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, 'src', 'index.html'),
-      inject: 'body',
+      inject: 'head',
     }),
     new CopyWebpackPlugin([
       {
