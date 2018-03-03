@@ -5,6 +5,7 @@ import Color from '../core/Color'
 import MenuLine from './menu/MenuLine'
 import MenuBox from './menu/MenuBox'
 import MenuMove from './menu/MenuMove'
+import MenuRemove from './menu/MenuRemove'
 
 export default class Toolbox extends View {
   constructor() {
@@ -32,13 +33,21 @@ export default class Toolbox extends View {
     }
     this.boxButton = this.addView(new MenuBox(this.boxCoords.x, this.boxCoords.y, this.boxCoords.w, this.boxCoords.h))
 
-    this.boxCoords = {
+    this.moveCoords = {
       x: this.containerCoords.x + grid.pointDistance,
       y: this.containerCoords.y + 5 * grid.pointDistance,
       w: grid.pointDistance,
       h: grid.pointDistance,
     }
-    this.boxButton = this.addView(new MenuMove(this.boxCoords.x, this.boxCoords.y, this.boxCoords.w, this.boxCoords.h))    
+    this.moveButton = this.addView(new MenuMove(this.moveCoords.x, this.moveCoords.y, this.moveCoords.w, this.moveCoords.h))
+
+    this.removeCoords = {
+      x: this.containerCoords.x + grid.pointDistance,
+      y: this.containerCoords.y + 7 * grid.pointDistance,
+      w: grid.pointDistance,
+      h: grid.pointDistance,
+    }
+    this.removeButton = this.addView(new MenuRemove(this.removeCoords.x, this.removeCoords.y, this.removeCoords.w, this.removeCoords.h))
   }
 
   pointInView(x, y) {

@@ -36,6 +36,22 @@ export default class Canvas extends View {
     this.currLine = null
     this.currRect = null
   }
+
+  // *********** COMMON *********** \\
+  getViewUnderCursor() {
+    for (let i = this.container.children.length - 1; i >= 0; i--) {
+      const view = this.container.children[i]
+      if (view.pointInView(this._mx, this._my)) return view
+    }    
+  }
+  highlightViewUnderCursor() {
+    const view = this.getViewUnderCursor()
+    if (view && view.highlight) return
+    this.container.children.forEach(child => child.highlight = false)
+    if (view) view.highlight = true
+  }
+
+  // *********** LINE *********** \\
   mousePressedLine() {
     const mX = this._mx
     const mY = this._my
@@ -58,6 +74,8 @@ export default class Canvas extends View {
     this.currLine.x2 = this._mx
     this.currLine.y2 = this._my
   }
+
+  // *********** BOX *********** \\
   mousePressedBox() {
     const mX = this._mx
     const mY = this._my
@@ -93,6 +111,7 @@ export default class Canvas extends View {
     }
   }
 
+  // *********** MOVE *********** \\
   mousePressedMove() {
     for (let i = this.container.children.length - 1; i >= 0; i--) {
       const view = this.container.children[i]
@@ -104,17 +123,7 @@ export default class Canvas extends View {
     }
   }
   mouseMovedMove() {
-    // TODO: Only highlight the topmost view. Right now, all are highlighted.
-    let topViewHighlighted = false
-    for (let i = this.container.children.length - 1; i >= 0; i--) {
-      const view = this.container.children[i]
-      if (view.pointInView(this._mx, this._my) && !topViewHighlighted) {
-        view.highlight = true
-        topViewHighlighted = true
-      } else {
-        view.highlight = false
-      }      
-    }
+    this.highlightViewUnderCursor()
   }
   mouseDraggedMove() {
     if (!this.moveOpParams.selectedView) return
@@ -127,6 +136,17 @@ export default class Canvas extends View {
     this.moveOpParams.selectedView.selected = false
     this.moveOpParams.selectedView = null
   }
+
+  // *********** REMOVE *********** \\
+  mousePressedRemove() {
+    const view = this.getViewUnderCursor()
+    if (!view) return
+    this.container.removeView(view)    
+  }
+  mouseMovedRemove() {
+    this.highlightViewUnderCursor()
+  }
+
   updateMousePositionParams() {
     const mX = this.getGridAligned(this.p5.mouseX)
     const mY = this.getGridAligned(this.p5.mouseY)
@@ -143,11 +163,13 @@ export default class Canvas extends View {
         if (State.isLineEditingMode) this.mousePressedLine()
         if (State.isBoxEditingMode) this.mousePressedBox()
         if (State.isMoveEditingMode) this.mousePressedMove()
+        if (State.isRemoveEditingMode) this.mousePressedRemove()
         break
       case 'mouseMoved':
         if (State.isLineEditingMode) this.mouseMovedLine()
         if (State.isBoxEditingMode) this.mouseMovedBox()
         if (State.isMoveEditingMode) this.mouseMovedMove()
+        if (State.isRemoveEditingMode) this.mouseMovedRemove()
         break
       case 'mouseDragged':
         if (State.isMoveEditingMode) this.mouseDraggedMove()
