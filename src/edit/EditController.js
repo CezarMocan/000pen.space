@@ -16,11 +16,11 @@ class EditController extends PhalanxRoot {
     this.p5.noLoop()
   }
   getContents() {
-    this.rootView.canvas.stop()
-    return this.rootView.canvas.container
+    this.rootView.canvasView.stop()
+    return this.rootView.canvasView.container
   }
   setContents(newContentsArray) {
-    this.rootView.canvas.setContents(newContentsArray)
+    this.rootView.canvasView.setContents(newContentsArray)
   }
   onStartEditing() {
     this.rootView.reset()

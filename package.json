@@ -10,6 +10,7 @@
     "publish": "npm run build && npm run deploy"
   },
   "dependencies": {
+    "cloudinary-core": "^2.5.0",
     "p5": "^0.5.9"
   },
   "devDependencies": {

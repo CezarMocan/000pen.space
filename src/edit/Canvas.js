@@ -42,7 +42,7 @@ export default class Canvas extends View {
     for (let i = this.container.children.length - 1; i >= 0; i--) {
       const view = this.container.children[i]
       if (view.pointInView(this._mx, this._my)) return view
-    }    
+    }
   }
   highlightViewUnderCursor() {
     const view = this.getViewUnderCursor()
@@ -111,6 +111,17 @@ export default class Canvas extends View {
     }
   }
 
+  // *********** IMAGE *********** \\
+  mouseMovedImage() {
+    this.highlightViewUnderCursor()
+  }
+  mousePressedImage() {
+    const view = this.getViewUnderCursor()
+    if (!view) return
+    const filePicker = this.p5.select('#filePicker')
+    filePicker.elt.click()
+  }
+
   // *********** MOVE *********** \\
   mousePressedMove() {
     for (let i = this.container.children.length - 1; i >= 0; i--) {
@@ -119,7 +130,7 @@ export default class Canvas extends View {
         this.moveOpParams.selectedView = view
         view.selected = true
         return
-      }      
+      }
     }
   }
   mouseMovedMove() {
@@ -129,7 +140,7 @@ export default class Canvas extends View {
     if (!this.moveOpParams.selectedView) return
     const view = this.moveOpParams.selectedView
     view.x += this._dx
-    view.y += this._dy    
+    view.y += this._dy
   }
   mouseReleasedMove() {
     if (!this.moveOpParams.selectedView) return
@@ -141,11 +152,12 @@ export default class Canvas extends View {
   mousePressedRemove() {
     const view = this.getViewUnderCursor()
     if (!view) return
-    this.container.removeView(view)    
+    this.container.removeView(view)
   }
   mouseMovedRemove() {
     this.highlightViewUnderCursor()
   }
+
 
   updateMousePositionParams() {
     const mX = this.getGridAligned(this.p5.mouseX)
@@ -153,7 +165,7 @@ export default class Canvas extends View {
     this._dx = (mX - this._mx)
     this._dy = (mY - this._my)
     this._mx = mX
-    this._my = mY    
+    this._my = mY
   }
   onEvent(evt) {
     this.updateMousePositionParams()
@@ -162,12 +174,14 @@ export default class Canvas extends View {
         if (State.pointInMenu(this.p5.mouseX, this.p5.mouseY)) return
         if (State.isLineEditingMode) this.mousePressedLine()
         if (State.isBoxEditingMode) this.mousePressedBox()
+        if (State.isImageEditingMode) this.mousePressedImage()
         if (State.isMoveEditingMode) this.mousePressedMove()
         if (State.isRemoveEditingMode) this.mousePressedRemove()
         break
       case 'mouseMoved':
         if (State.isLineEditingMode) this.mouseMovedLine()
         if (State.isBoxEditingMode) this.mouseMovedBox()
+        if (State.isImageEditingMode) this.mouseMovedImage()
         if (State.isMoveEditingMode) this.mouseMovedMove()
         if (State.isRemoveEditingMode) this.mouseMovedRemove()
         break

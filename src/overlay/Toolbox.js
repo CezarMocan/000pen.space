@@ -6,6 +6,7 @@ import MenuLine from './menu/MenuLine'
 import MenuBox from './menu/MenuBox'
 import MenuMove from './menu/MenuMove'
 import MenuRemove from './menu/MenuRemove'
+import MenuImage from './menu/MenuImage'
 
 export default class Toolbox extends View {
   constructor() {
@@ -33,9 +34,17 @@ export default class Toolbox extends View {
     }
     this.boxButton = this.addView(new MenuBox(this.boxCoords.x, this.boxCoords.y, this.boxCoords.w, this.boxCoords.h))
 
-    this.moveCoords = {
+    this.imageCoords = {
       x: this.containerCoords.x + grid.pointDistance,
       y: this.containerCoords.y + 5 * grid.pointDistance,
+      w: grid.pointDistance,
+      h: grid.pointDistance,
+    }
+    this.imageButton = this.addView(new MenuImage(this.imageCoords.x, this.imageCoords.y, this.imageCoords.w, this.imageCoords.h))
+
+    this.moveCoords = {
+      x: this.containerCoords.x + grid.pointDistance,
+      y: this.containerCoords.y + 7 * grid.pointDistance,
       w: grid.pointDistance,
       h: grid.pointDistance,
     }
@@ -43,7 +52,7 @@ export default class Toolbox extends View {
 
     this.removeCoords = {
       x: this.containerCoords.x + grid.pointDistance,
-      y: this.containerCoords.y + 7 * grid.pointDistance,
+      y: this.containerCoords.y + 9 * grid.pointDistance,
       w: grid.pointDistance,
       h: grid.pointDistance,
     }

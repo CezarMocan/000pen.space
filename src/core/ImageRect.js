@@ -18,8 +18,6 @@ export default class ImageRect extends Rect {
   }
   loadedCallback() {
     this._loaded = true
-    // this._img.resize(100, 0)
-    console.log(this._img.width / this.width, this._img.height / this.height)
     if (this._img.width / this.width < this._img.height / this.height) {
       // Fit on width
       this._imageParams.scaleFactor = 1 / (this._img.width / this.width)
@@ -37,7 +35,6 @@ export default class ImageRect extends Rect {
       this._imageParams.sx = (this._imageParams.totalCrop / 2)
       this._imageParams.sw = this._img.width - this._imageParams.totalCrop
     }
-    console.log(this._imageParams)
     this.redraw()
   }
   draw() {

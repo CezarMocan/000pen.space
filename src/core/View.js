@@ -27,6 +27,7 @@ export default class View {
   onRoot() { }
   get p5() { return this.root.p5 }
   redraw() { this.p5.redraw() }
+  get canvas() { return this.root.canvas }
   get windowWidth() { return this.root ? this.root.windowWidth : 0 }
   get windowHeight() { return this.root ? this.root.windowHeight : 0 }
 
