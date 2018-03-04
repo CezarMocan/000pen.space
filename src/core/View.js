@@ -40,6 +40,9 @@ export default class View {
   get highlight() { return this._highlight }
   set highlight(h) { this._highlight = h }
 
+  get isRect() { return false }
+  get isImageRect() { return false }
+
   duplicate() {
     console.warn('pointInView Not implemented for current view!')
     return null    

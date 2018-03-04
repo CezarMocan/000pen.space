@@ -11,7 +11,8 @@
   },
   "dependencies": {
     "cloudinary-core": "^2.5.0",
-    "p5": "^0.5.9"
+    "p5": "^0.5.9",
+    "pify": "^3.0.0"
   },
   "devDependencies": {
     "babel-core": "^6.24.1",

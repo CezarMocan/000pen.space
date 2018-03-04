@@ -17,6 +17,7 @@ export default class Rect extends View {
   duplicate() {
     return new Rect(this._x, this._y, this._width, this._height, this.dx, this.dy)
   }
+  get isRect() { return true }
   get x() { return this._x }
   get y() { return this._y }
   get width() { return this._width }

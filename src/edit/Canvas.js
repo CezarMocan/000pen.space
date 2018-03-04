@@ -2,8 +2,10 @@ import { canvasSize, grid } from '../Config'
 import View from '../core/View'
 import Line from '../core/Line'
 import Rect from '../core/Rect'
+import ImageRect from '../core/ImageRect'
 import Color from '../core/Color'
 import State from '../state'
+import ImageHandler from '../state/ImageHandler'
 
 export default class Canvas extends View {
   constructor() {
@@ -37,7 +39,7 @@ export default class Canvas extends View {
     this.currRect = null
   }
 
-  // *********** COMMON *********** \\
+  // *********** COMMON CONTROL *********** \\
   getViewUnderCursor() {
     for (let i = this.container.children.length - 1; i >= 0; i--) {
       const view = this.container.children[i]
@@ -49,6 +51,10 @@ export default class Canvas extends View {
     if (view && view.highlight) return
     this.container.children.forEach(child => child.highlight = false)
     if (view) view.highlight = true
+  }
+  replaceView(oldView, newView) {
+    this.container.removeView(oldView)
+    this.container.addView(newView)
   }
 
   // *********** LINE *********** \\
@@ -119,9 +125,31 @@ export default class Canvas extends View {
     const view = this.getViewUnderCursor()
     if (!view) return
     const filePicker = this.p5.select('#filePicker')
+    filePicker.elt.onchange = this.onImageSelect.bind(this, filePicker, view)
     filePicker.elt.click()
   }
+  onImageSelect(filePicker, view) {
+    console.log('select:', filePicker.elt.files)
+    let imageView
+    if (view.isImageRect) {
+      imageView = view
+      imageView.url = null
+    } else if (view.isRect) {
+      imageView = new ImageRect(view.x, view.y, view.width, view.height, view.dx, view.dy)
+      this.replaceView(view, imageView)
+    } else return
+    ImageHandler.uploadImage(filePicker.elt.files, this.onDoneUploadImage.bind(this, imageView), this.onFailedUploadImage.bind(this), this.onProgressUploadImage.bind(this))
+  }
+  onDoneUploadImage(imageView, url) {
+    console.log('Done: ', imageView, url)
+    imageView.url = url
+  }
+  onFailedUploadImage(e) {
 
+  }
+  onProgressUploadImage(pct) {
+
+  }
   // *********** MOVE *********** \\
   mousePressedMove() {
     for (let i = this.container.children.length - 1; i >= 0; i--) {
