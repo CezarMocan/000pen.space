@@ -74,8 +74,10 @@ export default class Text extends View {
   styleText() {
     this.p5.textSize(this._fontSize)
     this.p5.textAlign(this.p5.LEFT, this.p5.TOP)
-    this.p5.noStroke()
-    this.p5.fill(this.color.array)
+    // this.p5.noStroke()
+    // this.p5.fill(this.color.array)
+    this.p5.noFill()
+    this.p5.stroke(this.color.array)
     this.p5.textFont(this.root.fonts.fugueRegular)
     this.p5.textLeading(this._leading)    
   }
