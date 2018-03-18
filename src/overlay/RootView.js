@@ -29,5 +29,5 @@ export default class RootView extends View {
   hideButtons() {
     this.saveButton.disabled = this.cancelButton.disabled = true
   }
-  pointInMenu(x, y) { return this.toolbox.pointInView(x, y) }
+  pointInMenu(x, y) { return this.toolbox.pointInView(x, y) || this.saveButton.pointInView(x, y) || this.cancelButton.pointInView(x, y) }
 }
