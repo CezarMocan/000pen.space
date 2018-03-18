@@ -21,9 +21,14 @@ const buttons = {
   height: 2
 }
 
+const textConfig = {
+  fontSize: 36
+}
+
 
 module.exports = {
   canvasSize: canvasSize,
   grid: grid,
-  buttons: buttons
+  buttons: buttons,
+  textConfig: textConfig
 }

@@ -2,6 +2,7 @@ import { canvasSize, grid } from '../Config'
 import View from '../core/View'
 import Line from '../core/Line'
 import Rect from '../core/Rect'
+import Text from '../core/Text'
 import ImageRect from '../core/ImageRect'
 import Color from '../core/Color'
 import State from '../state'
@@ -186,6 +187,10 @@ export default class Canvas extends View {
     this.highlightViewUnderCursor()
   }
 
+  // *********** TEXT *********** \\
+  mousePressedText() {
+    this.addView(new Text(this._mx, this._my, 'Shabbat shalom'))
+  }
 
   updateMousePositionParams() {
     const mX = this.getGridAligned(this.p5.mouseX)
@@ -205,6 +210,7 @@ export default class Canvas extends View {
         if (State.isImageEditingMode) this.mousePressedImage()
         if (State.isMoveEditingMode) this.mousePressedMove()
         if (State.isRemoveEditingMode) this.mousePressedRemove()
+        if (State.isTextEditingMode) this.mousePressedText()
         break
       case 'mouseMoved':
         if (State.isLineEditingMode) this.mouseMovedLine()
