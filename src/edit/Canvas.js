@@ -44,14 +44,15 @@ export default class Canvas extends View {
   }
 
   // *********** COMMON CONTROL *********** \\
-  getViewUnderCursor() {
+  getViewUnderCursor(filter) {
     for (let i = this.container.children.length - 1; i >= 0; i--) {
       const view = this.container.children[i]
-      if (view.pointInView(this._mx, this._my)) return view
+      const passesFilter = filter ? filter(view) : true
+      if (passesFilter && view.pointInView(this._mx, this._my)) return view
     }
   }
-  highlightViewUnderCursor() {
-    const view = this.getViewUnderCursor()
+  highlightViewUnderCursor(filter) {
+    const view = this.getViewUnderCursor(filter)
     if (view && view.highlight) return
     this.container.children.forEach(child => child.highlight = false)
     if (view) view.highlight = true
@@ -123,7 +124,7 @@ export default class Canvas extends View {
 
   // *********** IMAGE *********** \\
   mouseMovedImage() {
-    this.highlightViewUnderCursor()
+    this.highlightViewUnderCursor(v => v.isRect)
   }
   mousePressedImage() {
     const view = this.getViewUnderCursor()

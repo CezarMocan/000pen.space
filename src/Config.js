@@ -22,8 +22,8 @@ const buttons = {
 }
 
 const textConfig = {
-  fontSize: 36,
-  leading: 32
+  fontSize: 72,
+  leading: 80
 }
 
 

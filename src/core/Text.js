@@ -11,6 +11,7 @@ export default class Text extends View {
     this._fontSize = textConfig.fontSize
     this._leading = textConfig.leading
     this._color = new Color(0, 0, 255)
+    this._cursorColor = new Color(255, 0, 0)
     this._highlightColor = new Color(255, 255, 0, 0.2)
 
     this.highlight = false
@@ -28,6 +29,18 @@ export default class Text extends View {
     this.p5.pop()    
 
     this._height = this.lines.length * this._leading
+  }
+  get cursorPosition() {
+    const lines = this.lines
+    this.p5.push()
+    this.styleText()
+    const lastLineWidth = this.p5.textWidth(lines[lines.length - 1])
+    this.p5.pop()
+
+    return {
+      x: this.x + lastLineWidth + 5,
+      y: this.y + this.height - this._leading
+    }
   }
   get width() { 
     if (!this._width) this.recomputeSize()
@@ -81,8 +94,11 @@ export default class Text extends View {
       this.p5.rect(h.x, h.y, h.w, h.h)
     }
 
-    if (this.editing) {
-      // console.log('Editing')
+    if (this.editing && this.p5.frameCount % 60 < 30) {
+      const cursorPosition = this.cursorPosition
+      this.p5.noFill()
+      this.p5.stroke(this._cursorColor.array)
+      this.p5.line(cursorPosition.x, cursorPosition.y + 7, cursorPosition.x, cursorPosition.y + this._leading + 7)
     }
   }
 }
