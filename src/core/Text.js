@@ -9,6 +9,7 @@ export default class Text extends View {
     this._y = y
     this._text = text
     this._fontSize = textConfig.fontSize
+    this._leading = textConfig.leading
     this._color = new Color(0, 0, 255)
     this._highlightColor = new Color(255, 255, 0, 0.2)
 
@@ -20,14 +21,27 @@ export default class Text extends View {
   }
   get x() { return this._x }
   get y() { return this._y }
+  recomputeSize() {
+    this.p5.push()
+    this.styleText()
+    this._width = this.lines.reduce((acc, l) => Math.max(this.p5.textWidth(l), acc), 0)
+    this.p5.pop()    
+
+    this._height = this.lines.length * this._leading
+  }
   get width() { 
-    return this.p5.textWidth(this._text)
+    if (!this._width) this.recomputeSize()
+    return this._width 
   }
   get height() { 
-    return this._fontSize
+    if (!this._height) this.recomputeSize()
+    return this._height 
   }
   get text() { return this._text }
-  set text(t) { this._text = t }
+  set text(t) { 
+    this._text = t
+    this.recomputeSize()
+  }
   set x(x) { this._x = x }
   set y(y) { this._y = y }
   get color() { return this._color }
@@ -41,12 +55,19 @@ export default class Text extends View {
         y >= this.top && y <= this.bottom) return true
     return false
   }
-  draw() {
+  get lines() {
+    return this._text.split('\n')
+  }
+  styleText() {
     this.p5.textSize(this._fontSize)
     this.p5.textAlign(this.p5.LEFT, this.p5.TOP)
     this.p5.noStroke()
     this.p5.fill(this.color.array)
     this.p5.textFont(this.root.fonts.fugueRegular)
+    this.p5.textLeading(this._leading)    
+  }
+  draw() {
+    this.styleText()
     this.p5.text(this.text, this.x, this.y)
     if (this.highlight) {
       const h = {
