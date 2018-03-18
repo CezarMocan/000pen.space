@@ -16,6 +16,9 @@ export default class Canvas extends View {
     this.listenTo('mouseMoved')
     this.listenTo('mouseDragged')
     this.listenTo('mouseReleased')
+    this.listenTo('keyTyped')
+    this.listenTo('keyPressed')
+    this.listenTo('keyReleased')
     this.container = this.addView(new View())
 
     this._pressCount = 0
@@ -189,7 +192,46 @@ export default class Canvas extends View {
 
   // *********** TEXT *********** \\
   mousePressedText() {
-    this.addView(new Text(this._mx, this._my, 'Shabbat shalom'))
+    this._pressCount++
+    console.log('mousePressedText: ', this._pressCount)
+    if (this._pressCount == 1) {
+      this._currentText = this.container.addView(new Text(this._mx, this._my, ''))
+      this._currentText.editing = true
+    } else {
+      this._currentText.editing = false
+      this._pressCount = 0
+    }
+  }
+  keyTypedText(key, keyCode) {
+    if (this._currentText && this._currentText.editing) {
+      let currentCopy
+      switch (keyCode) {
+        case this.p5.RETURN:
+        case this.p5.ENTER:
+          break
+        default:
+          currentCopy = this._currentText.text
+          this._currentText.text = currentCopy + key
+          break
+      }
+    }
+  }
+  keyReleasedText(keyCode) {
+    let currentCopy
+    if (this._currentText && this._currentText.editing) {
+      switch (keyCode) {
+        case this.p5.RETURN:
+        case this.p5.ENTER:
+          currentCopy = this._currentText.text
+          this._currentText.text = currentCopy + '\n'
+          break
+        case this.p5.DELETE:
+        case this.p5.BACKSPACE:        
+          currentCopy = this._currentText.text
+          this._currentText.text = currentCopy.slice(0, -1)
+          break        
+      }
+    }
   }
 
   updateMousePositionParams() {
@@ -224,6 +266,12 @@ export default class Canvas extends View {
           break
       case 'mouseReleased':
         if (State.isMoveEditingMode) this.mouseReleasedMove()
+        break
+      case 'keyTyped':
+        if (State.isTextEditingMode) this.keyTypedText(this.p5.key, this.p5.keyCode)
+        break
+      case 'keyReleased':        
+        if (State.isTextEditingMode) this.keyReleasedText(this.p5.keyCode)
         break
     }
   }

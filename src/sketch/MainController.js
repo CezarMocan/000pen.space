@@ -9,6 +9,11 @@ class MainController extends PhalanxRoot {
   setRootView() {
     this.rootView = new RootView(this)
   }
+  preload() {
+    this.fonts = {}
+    this.fonts.fugueRegular = this.p5.loadFont('assets/fugue-regular.ttf')
+    this.fonts.fugueMono = this.p5.loadFont('assets/fugue_mono.ttf')
+  }
   setup() {
     this.canvas.style('position', 'absolute')
     this.p5.noLoop()

@@ -10,6 +10,11 @@ class EditController extends PhalanxRoot {
     this.rootView = new RootView(this)
     this.rootView.disabled = true
   }
+  preload() {
+    this.fonts = {}
+    this.fonts.fugueRegular = this.p5.loadFont('assets/fugue-regular.ttf')
+    this.fonts.fugueMono = this.p5.loadFont('assets/fugue_mono.ttf')
+  }
   setup() {
     this.canvas.style('position', 'absolute')
     this.canvas.style('display', 'none')

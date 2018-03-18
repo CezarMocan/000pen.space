@@ -1,6 +1,6 @@
 import { canvasSize, grid } from '../Config'
 
-const SUPPORTED_EVENTS = ['mousePressed', 'mouseMoved', 'mouseDragged', 'mouseReleased']
+const SUPPORTED_EVENTS = ['mousePressed', 'mouseMoved', 'mouseDragged', 'mouseReleased', 'keyTyped', 'keyPressed', 'keyReleased']
 
 export default class PhalanxRoot {
   constructor() {
@@ -21,6 +21,9 @@ export default class PhalanxRoot {
     this.p5.mouseMoved = this._propagateP5Event.bind(this, 'mouseMoved')
     this.p5.mouseDragged = this._propagateP5Event.bind(this, 'mouseDragged')
     this.p5.mouseReleased = this._propagateP5Event.bind(this, 'mouseReleased')
+    this.p5.keyTyped = this._propagateP5Event.bind(this, 'keyTyped')
+    this.p5.keyPressed = this._propagateP5Event.bind(this, 'keyPressed')
+    this.p5.keyReleased = this._propagateP5Event.bind(this, 'keyReleased')
   }
   setRootView() { }
   // P5 lifecycle

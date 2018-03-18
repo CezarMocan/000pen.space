@@ -46,6 +46,7 @@ export default class Text extends View {
     this.p5.textAlign(this.p5.LEFT, this.p5.TOP)
     this.p5.noStroke()
     this.p5.fill(this.color.array)
+    this.p5.textFont(this.root.fonts.fugueRegular)
     this.p5.text(this.text, this.x, this.y)
     if (this.highlight) {
       const h = {
@@ -60,7 +61,7 @@ export default class Text extends View {
     }
 
     if (this.editing) {
-      console.log('Editing')
+      // console.log('Editing')
     }
   }
 }
