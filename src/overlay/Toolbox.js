@@ -7,6 +7,7 @@ import MenuBox from './menu/MenuBox'
 import MenuMove from './menu/MenuMove'
 import MenuRemove from './menu/MenuRemove'
 import MenuImage from './menu/MenuImage'
+import MenuText from './menu/MenuText'
 
 export default class Toolbox extends View {
   constructor() {
@@ -57,6 +58,14 @@ export default class Toolbox extends View {
       h: grid.pointDistance,
     }
     this.removeButton = this.addView(new MenuRemove(this.removeCoords.x, this.removeCoords.y, this.removeCoords.w, this.removeCoords.h))
+
+    this.textCoords = {
+      x: this.containerCoords.x + grid.pointDistance,
+      y: this.containerCoords.y + 11 * grid.pointDistance,
+      w: grid.pointDistance,
+      h: grid.pointDistance,
+    }
+    this.textButton = this.addView(new MenuText(this.textCoords.x, this.textCoords.y, this.textCoords.w, this.textCoords.h))
   }
 
   pointInView(x, y) {

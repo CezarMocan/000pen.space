@@ -3,7 +3,8 @@ const EDITING_MODES = {
   BOX: 'BOX',
   MOVE: 'MOVE',
   REMOVE: 'REMOVE',
-  IMAGE: 'IMAGE'
+  IMAGE: 'IMAGE',
+  TEXT: 'TEXT'
 }
 
 class GlobalState {
@@ -34,6 +35,7 @@ class GlobalState {
   get isMoveEditingMode() { return this._state.editingMode === this.EDITING_MODES.MOVE }
   get isRemoveEditingMode() { return this._state.editingMode === this.EDITING_MODES.REMOVE }
   get isImageEditingMode() { return this._state.editingMode === this.EDITING_MODES.IMAGE }
+  get isTextEditingMode() { return this._state.editingMode === this.EDITING_MODES.TEXT }
 
   pointInMenu(x, y) { return this._menuController.pointInMenu(x, y) }
   
