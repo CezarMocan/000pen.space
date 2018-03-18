@@ -26,7 +26,7 @@ export default class Text extends View {
     this.p5.push()
     this.styleText()
     this._width = this.lines.reduce((acc, l) => Math.max(this.p5.textWidth(l), acc), 0)
-    this.p5.pop()    
+    this.p5.pop()
 
     this._height = this.lines.length * this._leading
   }
@@ -42,16 +42,16 @@ export default class Text extends View {
       y: this.y + this.height - this._leading
     }
   }
-  get width() { 
+  get width() {
     if (!this._width) this.recomputeSize()
-    return this._width 
+    return this._width
   }
-  get height() { 
+  get height() {
     if (!this._height) this.recomputeSize()
-    return this._height 
+    return this._height
   }
   get text() { return this._text }
-  set text(t) { 
+  set text(t) {
     this._text = t
     this.recomputeSize()
   }
@@ -59,7 +59,7 @@ export default class Text extends View {
   set y(y) { this._y = y }
   get color() { return this._color }
   set color(c) { this._color = c }
-  get left() { return this.x }  
+  get left() { return this.x }
   get right() { return this.x + this.width }
   get top() { return this.y }
   get bottom() { return this.y + this.height }
@@ -74,12 +74,12 @@ export default class Text extends View {
   styleText() {
     this.p5.textSize(this._fontSize)
     this.p5.textAlign(this.p5.LEFT, this.p5.TOP)
-    // this.p5.noStroke()
-    // this.p5.fill(this.color.array)
-    this.p5.noFill()
-    this.p5.stroke(this.color.array)
+    this.p5.noStroke()
+    this.p5.fill(this.color.array)
+    // this.p5.noFill()
+    // this.p5.stroke(this.color.array)
     this.p5.textFont(this.root.fonts.fugueRegular)
-    this.p5.textLeading(this._leading)    
+    this.p5.textLeading(this._leading)
   }
   draw() {
     this.styleText()
