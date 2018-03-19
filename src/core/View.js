@@ -16,7 +16,7 @@ export default class View {
     return objClass.serializableAttributes.reduce((acc, attribute) => {
       acc[attribute] = obj[attribute]
       return acc
-    }, {})
+    }, { type: objClass.name })
   }
   constructor() {
     this._root = null
@@ -24,6 +24,9 @@ export default class View {
     this._preRootListenTo = []
     this._disabled = false
     this._highlight = false
+  }
+  serialize() {
+    console.warn('You need to implement serialization for ', this.constructor.name)
   }
   get uid() { return this._uid }
   get root() {

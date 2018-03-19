@@ -21,6 +21,9 @@ export default class RootView extends View {
     if (this.gridHighlight) this.removeView(this.gridHighlight)
     this.setup()
   } 
+  onChangeEditingMode() {
+    this.canvasView.reset()
+  }
   draw() {
     this.p5.clear()
     this.p5.background('rgba(255, 0, 0, 0.05)')

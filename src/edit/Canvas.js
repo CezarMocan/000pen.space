@@ -41,6 +41,10 @@ export default class Canvas extends View {
     this._pressCount = 0
     this.currLine = null
     this.currRect = null
+    if (this.currText) {
+      this.currText.editing = false
+      this.currText = null
+    }
   }
 
   // *********** COMMON CONTROL *********** \\
@@ -196,40 +200,42 @@ export default class Canvas extends View {
     this._pressCount++
     console.log('mousePressedText: ', this._pressCount)
     if (this._pressCount == 1) {
-      this._currentText = this.container.addView(new Text(this._mx, this._my, ''))
-      this._currentText.editing = true
+      this.currText = this.container.addView(new Text(this._mx, this._my, ''))
+      this.currText.editing = true
+    } else if (this._pressCount == 2) {
+      this.currText.editing = false
+      this._pressCount = 0
     } else {
-      this._currentText.editing = false
       this._pressCount = 0
     }
   }
   keyTypedText(key, keyCode) {
-    if (this._currentText && this._currentText.editing) {
+    if (this.currText && this.currText.editing) {
       let currentCopy
       switch (keyCode) {
         case this.p5.RETURN:
         case this.p5.ENTER:
           break
         default:
-          currentCopy = this._currentText.text
-          this._currentText.text = currentCopy + key
+          currentCopy = this.currText.text
+          this.currText.text = currentCopy + key
           break
       }
     }
   }
   keyReleasedText(keyCode) {
     let currentCopy
-    if (this._currentText && this._currentText.editing) {
+    if (this.currText && this.currText.editing) {
       switch (keyCode) {
         case this.p5.RETURN:
         case this.p5.ENTER:
-          currentCopy = this._currentText.text
-          this._currentText.text = currentCopy + '\n'
+          currentCopy = this.currText.text
+          this.currText.text = currentCopy + '\n'
           break
         case this.p5.DELETE:
         case this.p5.BACKSPACE:        
-          currentCopy = this._currentText.text
-          this._currentText.text = currentCopy.slice(0, -1)
+          currentCopy = this.currText.text
+          this.currText.text = currentCopy.slice(0, -1)
           break        
       }
     }

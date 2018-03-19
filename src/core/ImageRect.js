@@ -1,6 +1,7 @@
 import { canvasSize, grid } from '../Config'
 import Rect from './Rect'
 import Color from './Color'
+import View from './View'
 
 export default class ImageRect extends Rect {
   static get serializableAttributes() {

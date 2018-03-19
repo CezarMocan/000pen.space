@@ -41,6 +41,9 @@ class EditController extends PhalanxRoot {
     this.p5.clear()
     this.redraw()
   }
+  onChangeEditingMode() {
+    this.rootView.onChangeEditingMode()
+  }
 }
 
 export default new EditController()

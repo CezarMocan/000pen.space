@@ -54,10 +54,13 @@ class GlobalState {
       console.log('change editing mode')
       this._state.editingMode = editingMode
       this._menuController.redraw()
+      this._editController.onChangeEditingMode()
     }
   }
   saveEditing() {
     const contentView = this._editController.getContents()
+    const serializedContents = contentView.children.map(child => child.serialize())
+    console.log(serializedContents)
     this._state.editing = false
     this._state.editingMode = null    
     this._mainController.setContents(contentView.children)
