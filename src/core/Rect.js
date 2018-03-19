@@ -3,6 +3,15 @@ import View from './View'
 import Color from './Color'
 
 export default class Rect extends View {
+  static get serializableAttributes() {
+    return ['x', 'y', 'width', 'height', 'dx', 'dy']
+  }
+  static FromSerialized(obj) {
+    return View.FromSerialized(Rect, obj)
+  }
+  static Serialize(obj) {
+    return View.Serialize(Rect, obj)
+  }
   constructor(x, y, w, h, dx, dy) {
     super()
     this._x = x
@@ -13,6 +22,9 @@ export default class Rect extends View {
     this.dy = dy || 0
     this._color = new Color(0, 0, 255)
     this._highlightColor = new Color(255, 255, 0, 0.2)
+  }
+  serialize() {
+    return Rect.Serialize(this)
   }
   duplicate() {
     return new Rect(this._x, this._y, this._width, this._height, this.dx, this.dy)

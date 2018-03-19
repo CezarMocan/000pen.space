@@ -30,11 +30,7 @@ export default class Text extends View {
     return new Text(this._x, this._y, this._text)
   }
   serialize() {
-    return {
-      x: this.x,
-      y: this.y,
-      text: this.text
-    }
+    return Text.Serialize(this)
   }
   get x() { return this._x }
   get y() { return this._y }
@@ -70,8 +66,6 @@ export default class Text extends View {
   set text(t) {
     this._text = t
     this.recomputeSize()
-    console.log(Text.FromSerialized({x: 100, y: 100, text: 'Laba2'}))
-    console.log(Text.Serialize(this))
   }
   set x(x) { this._x = x }
   set y(y) { this._y = y }

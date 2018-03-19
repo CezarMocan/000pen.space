@@ -3,11 +3,23 @@ import Rect from './Rect'
 import Color from './Color'
 
 export default class ImageRect extends Rect {
+  static get serializableAttributes() {
+    return ['x', 'y', 'width', 'height', 'dx', 'dy', 'url']
+  }
+  static FromSerialized(obj) {
+    return View.FromSerialized(ImageRect, obj)
+  }
+  static Serialize(obj) {
+    return View.Serialize(ImageRect, obj)
+  }
   constructor(x, y, w, h, dx, dy, url) {
     super(x, y, w, h, dx, dy)
     this._url = url
     this._loaded = false
     this._imageParams = {}
+  }
+  serialize() {
+    return ImageRect.Serialize(this)
   }
   get isImageRect() { return true }
   loadImg() {

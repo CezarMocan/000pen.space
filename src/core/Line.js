@@ -3,6 +3,15 @@ import Color from './Color'
 import MathUtils from './MathUtils'
 
 export default class Line extends View {
+  static get serializableAttributes() {
+    return ['x', 'y', 'x2', 'y2']
+  }
+  static FromSerialized(obj) {
+    return View.FromSerialized(Line, obj)
+  }
+  static Serialize(obj) {
+    return View.Serialize(Line, obj)
+  }
   constructor(x, y, x2, y2) {
     super()
     this._x = x
@@ -12,6 +21,9 @@ export default class Line extends View {
     this._color = new Color(0, 0, 255)
     this._highlightColor = new Color(255, 255, 0, 0.2)
     this.actionRadius = 15
+  }
+  serialize() {
+    return Line.Serialize(this)
   }
   get x() { return this._x }
   set x(x) { this._x = x }
