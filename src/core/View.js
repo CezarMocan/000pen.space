@@ -1,6 +1,23 @@
 import { canvasSize, grid } from '../Config'
 
 export default class View {
+  static FromSerialized(objClass, obj) {
+    let args = objClass.serializableAttributes.reduce((acc, key) => { 
+      acc.push(obj[key])
+      return acc
+    }, [])
+    return new objClass(...args)
+  }
+  static Serialize(objClass, obj) {
+    if (!obj instanceof objClass) {
+      console.error('Trying to serialize object ', obj, ' of different type as: ', objClass)
+      return null
+    }
+    return objClass.serializableAttributes.reduce((acc, attribute) => {
+      acc[attribute] = obj[attribute]
+      return acc
+    }, {})
+  }
   constructor() {
     this._root = null
     this._children = []

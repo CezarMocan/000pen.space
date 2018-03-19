@@ -3,6 +3,15 @@ import View from './View'
 import Color from './Color'
 
 export default class Text extends View {
+  static get serializableAttributes() {
+    return ['x', 'y', 'text']
+  }
+  static FromSerialized(obj) {
+    return View.FromSerialized(Text, obj)
+  }
+  static Serialize(obj) {
+    return View.Serialize(Text, obj)
+  }
   constructor(x, y, text) {
     super()
     this._x = x
@@ -19,6 +28,13 @@ export default class Text extends View {
   }
   duplicate() {
     return new Text(this._x, this._y, this._text)
+  }
+  serialize() {
+    return {
+      x: this.x,
+      y: this.y,
+      text: this.text
+    }
   }
   get x() { return this._x }
   get y() { return this._y }
@@ -54,6 +70,8 @@ export default class Text extends View {
   set text(t) {
     this._text = t
     this.recomputeSize()
+    console.log(Text.FromSerialized({x: 100, y: 100, text: 'Laba2'}))
+    console.log(Text.Serialize(this))
   }
   set x(x) { this._x = x }
   set y(y) { this._y = y }
