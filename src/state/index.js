@@ -1,3 +1,5 @@
+import api from '../api/api.js'
+
 const EDITING_MODES = {
   LINE: 'LINE',
   BOX: 'BOX',
@@ -15,6 +17,8 @@ class GlobalState {
       version: 0
     }
     this._editController = null
+    this.onSaveDone = this.onSaveDone.bind(this)
+    this.onSaveFailed = this.onSaveFailed.bind(this)
   }
   registerEditController(c) {
     this._editController = c
@@ -61,6 +65,9 @@ class GlobalState {
     const contentView = this._editController.getContents()
     const serializedContents = contentView.children.map(child => child.serialize())
     console.log(serializedContents)
+
+    api.save(serializedContents, this.onSaveDone, this.onSaveFailed)
+
     this._state.editing = false
     this._state.editingMode = null    
     this._mainController.setContents(contentView.children)
@@ -70,6 +77,12 @@ class GlobalState {
 
     // Remove old views that were stored in case the user tapped cancel
     delete this.currentContents.oldChildren
+  }
+  onSaveDone(evt) {
+    console.log('onSaveDone', evt)
+  }
+  onSaveFailed(evt) {
+    console.log('onSaveFailed', evt)
   }
   cancelEditing() {
     this._state.editing = false
