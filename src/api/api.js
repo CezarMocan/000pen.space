@@ -1,41 +1,55 @@
 import config from './config.json'
 
+const xhrGet = (url, contentType, success, error) => {
+  var xhr = new XMLHttpRequest();
+  xhr.open('GET', url);
+  xhr.setRequestHeader('Content-Type', contentType)
+
+  xhr.onload = () => { success(JSON.parse(xhr.response)) }
+  xhr.onerror = () => { error(xhr.response) }
+  xhr.onabort = () => { error(xhr.response) }
+
+  xhr.send()
+}
+
+const xhrPost = (url, contentType, data, success, error) => {
+  var xhr = new XMLHttpRequest();
+  xhr.open('POST', url, true);
+  xhr.setRequestHeader('Content-Type', contentType)
+
+  xhr.onload = () => { success(JSON.parse(xhr.response)) }
+  xhr.onerror = () => { error(xhr.response) }
+  xhr.onabort = () => { error(xhr.response) }
+
+  xhr.send(data)  
+}
+
 class Api {
   constructor() {
     this.apiServer = config.API_SERVER
     console.log('API server is: ', this.apiServer)
   }
+
   save(data, success, error) {
-    var xhr = new XMLHttpRequest();
-    xhr.open('POST', `${this.apiServer}/new`, true);
-    xhr.setRequestHeader('Content-Type', 'application/json')
+    const endpoint = `${this.apiServer}/new`
+    const contentType = 'application/json'
+    const postData = JSON.stringify({ versionData: data })
 
-    console.log(xhr)
-
-    xhr.onreadystatechange = function(e) {
-      // console.log(e)
-    }
-
-    xhr.onload = function(e) {
-      console.log(JSON.parse(xhr.response))
-    }
-
-    // xhr.onload = success
-    // xhr.onerror = error
-    // xhr.onabort = error
-    // xhr.addEventListener('progress', (evt) => {
-    //   console.log('Progress: ', evt)
-    // })
-
-    console.log('Sending http request: ', JSON.stringify(data))
-
-    xhr.send(JSON.stringify({ versionData: data }))
+    xhrPost(endpoint, contentType, postData, success, error)
   }
+
   getLatest(success, error) {
+    const endpoint = `${this.apiServer}/version/latest`
+    const contentType = 'application/json'
 
+    xhrGet(endpoint, contentType, success, error)
   }
-  getVersion(versionId, success, error) {
 
+  getVersion(versionId, success, error) {
+    const endpoint = `${this.apiServer}/version/${versionId}`
+    const contentType = 'application/json'
+
+    xhrGet(endpoint, contentType, success, error)
   }
 }
 

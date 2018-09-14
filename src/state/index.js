@@ -30,6 +30,7 @@ class GlobalState {
     this._mainController = c
   }
   get version() { return this._state.version }
+  set version(v) { this._state.version = v }
   get EDITING_MODES() {
     return EDITING_MODES
   }
@@ -78,8 +79,10 @@ class GlobalState {
     // Remove old views that were stored in case the user tapped cancel
     delete this.currentContents.oldChildren
   }
-  onSaveDone(evt) {
-    console.log('onSaveDone', evt)
+  onSaveDone(data) {
+    console.log('onSaveDone', data)
+    this.version = data.version
+    this._menuController.setVersion(data.version)
   }
   onSaveFailed(evt) {
     console.log('onSaveFailed', evt)

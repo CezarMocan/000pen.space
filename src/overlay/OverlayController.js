@@ -35,6 +35,10 @@ class OverlayController extends PhalanxRoot {
     this.p5.redraw()
   }
 
+  setVersion(version) {
+    this.rootView.setVersion(version)
+  }
+
   pointInMenu(x, y) { return this.rootView.pointInMenu(x, y) }
 }
 

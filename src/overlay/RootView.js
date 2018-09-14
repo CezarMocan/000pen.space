@@ -30,4 +30,9 @@ export default class RootView extends View {
     this.saveButton.disabled = this.cancelButton.disabled = true
   }
   pointInMenu(x, y) { return this.toolbox.pointInView(x, y) || this.saveButton.pointInView(x, y) || this.cancelButton.pointInView(x, y) }
+  
+  setVersion(version) { 
+    this.version.versionNumber = version 
+    this.p5.redraw()
+  }
 }
