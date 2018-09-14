@@ -30,7 +30,11 @@ class GlobalState {
     this._mainController = c
   }
   get version() { return this._state.version }
-  set version(v) { this._state.version = v }
+  set version(v) { 
+    this._state.version = v
+    if (this._menuController)
+      this._menuController.setVersion(v)
+  }
   get EDITING_MODES() {
     return EDITING_MODES
   }
@@ -82,7 +86,6 @@ class GlobalState {
   onSaveDone(data) {
     console.log('onSaveDone', data)
     this.version = data.version
-    this._menuController.setVersion(data.version)
   }
   onSaveFailed(evt) {
     console.log('onSaveFailed', evt)

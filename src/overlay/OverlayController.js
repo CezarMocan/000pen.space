@@ -36,6 +36,7 @@ class OverlayController extends PhalanxRoot {
   }
 
   setVersion(version) {
+    if (!this.rootView) return
     this.rootView.setVersion(version)
   }
 
