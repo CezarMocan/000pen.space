@@ -35,6 +35,7 @@ export default class PhalanxRoot {
     this.canvas = this.p5.createCanvas(canvasSize.width, canvasSize.height);
     this.setRootView()
     this.setup()
+    if (this.onSetupDone) this.onSetupDone()
   }
   setup() { }
   redraw() {

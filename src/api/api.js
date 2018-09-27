@@ -48,7 +48,7 @@ class Api {
     return latest
   }
 
-  async getVersion(versionId, success, error) {
+  async getVersion(versionId) {
     const endpoint = `${this.apiServer}/version/${versionId}`
     const contentType = 'application/json'
 

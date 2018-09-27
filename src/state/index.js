@@ -1,4 +1,8 @@
 import api from '../api/api.js'
+import Line from '../core/Line.js'
+import Text from '../core/Text.js'
+import Rect from '../core/Rect.js'
+import ImageRect from '../core/ImageRect.js'
 
 const EDITING_MODES = {
   LINE: 'LINE',
@@ -76,6 +80,7 @@ class GlobalState {
     this._state.editing = false
     this._state.editingMode = null    
     this._mainController.setContents(contentView.children)
+    console.log('Called setContents with: ', contentView.children)
     this._mainController.onDoneEditing()
     this._editController.onDoneEditing()
     this._menuController.onDoneEditing()
@@ -108,7 +113,29 @@ class GlobalState {
     const { versionData } = contents
     const o = JSON.parse(versionData)
 
-    console.log(o)
+    const deserialized = o.map(s => {
+      switch (s.type.toLowerCase()) {
+        case 'line':
+          return Line.FromSerialized(s)
+          break
+        case 'rect':
+          return Rect.FromSerialized(s)
+          break
+        case 'imagerect':
+          return ImageRect.FromSerialized(s)
+          break
+        case 'text':
+          return Text.FromSerialized(s)
+          break
+      }
+    })
+
+    this._mainController.setContents(deserialized)
+    this._mainController.refresh()
+
+    console.log(this._mainController)
+
+    console.log(o, deserialized)
   }
 }
 

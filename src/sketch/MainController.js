@@ -42,8 +42,11 @@ class MainController extends PhalanxRoot {
     viewArray.forEach(view => this.rootView.dynamicContent.addView(view))
   }
   onDoneEditing() {
+    this.refresh()
+  }
+  refresh() {
     this.p5.clear()
-    this.redraw()
+    this.redraw()    
   }
 }
 
