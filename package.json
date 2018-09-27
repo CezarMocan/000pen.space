@@ -11,12 +11,15 @@
   },
   "dependencies": {
     "cloudinary-core": "^2.5.0",
+    "navigo": "^7.1.2",
     "p5": "^0.5.9",
     "pify": "^3.0.0"
   },
   "devDependencies": {
     "babel-core": "^6.24.1",
     "babel-loader": "^7.0.0",
+    "babel-plugin-transform-async-to-generator": "^6.24.1",
+    "babel-polyfill": "^6.26.0",
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-stage-0": "^6.24.1",
     "copy-webpack-plugin": "^4.0.1",

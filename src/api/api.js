@@ -1,13 +1,14 @@
+import pify from 'pify'
 import config from './config.json'
 
-const xhrGet = (url, contentType, success, error) => {
+const xhrGet = (url, contentType, callback) => {
   var xhr = new XMLHttpRequest();
   xhr.open('GET', url);
   xhr.setRequestHeader('Content-Type', contentType)
 
-  xhr.onload = () => { success(JSON.parse(xhr.response)) }
-  xhr.onerror = () => { error(xhr.response) }
-  xhr.onabort = () => { error(xhr.response) }
+  xhr.onload = () => { callback(null, JSON.parse(xhr.response)) }
+  xhr.onerror = () => { callback(xhr.response) }
+  xhr.onabort = () => { callback(xhr.response) }
 
   xhr.send()
 }
@@ -38,18 +39,22 @@ class Api {
     xhrPost(endpoint, contentType, postData, success, error)
   }
 
-  getLatest(success, error) {
+  async getLatest() {
     const endpoint = `${this.apiServer}/version/latest`
     const contentType = 'application/json'
 
-    xhrGet(endpoint, contentType, success, error)
+    const latest = await pify(xhrGet)(endpoint, contentType)
+
+    return latest
   }
 
-  getVersion(versionId, success, error) {
+  async getVersion(versionId, success, error) {
     const endpoint = `${this.apiServer}/version/${versionId}`
     const contentType = 'application/json'
 
-    xhrGet(endpoint, contentType, success, error)
+    const version = await pify(xhrGet)(endpoint, contentType)
+
+    return version
   }
 }
 

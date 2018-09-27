@@ -101,6 +101,15 @@ class GlobalState {
     // Remove newly created children
     delete this.currentContents.childrenToEdit
   }
+
+  setContents(contents) {
+    console.log('Contents: ', contents)
+    this.version = contents.version
+    const { versionData } = contents
+    const o = JSON.parse(versionData)
+
+    console.log(o)
+  }
 }
 
 export default new GlobalState()
