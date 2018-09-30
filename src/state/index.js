@@ -109,6 +109,10 @@ class GlobalState {
 
   setContents(contents) {
     console.log('Contents: ', contents)
+    if (!contents.version) {
+      // This means we received an empty string => no contents in the database.
+      return
+    }
     this.version = contents.version
     const { versionData } = contents
     const o = JSON.parse(versionData)
