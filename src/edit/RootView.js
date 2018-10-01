@@ -29,4 +29,12 @@ export default class RootView extends View {
     this.p5.background('rgba(255, 0, 0, 0.05)')
     // this.drawPoints()
   }
+  updateScrollPosition(offsetX, offsetY) {
+    this.canvasView.x = offsetX
+    this.canvasView.y = offsetY
+    // this.gridHighlight.x = offsetX
+    // this.gridHighlight.y = offsetY
+    this.p5.clear()
+    this.redraw()
+  }
 }

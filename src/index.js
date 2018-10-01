@@ -25,6 +25,7 @@ new p5((s) => {
   GridController.p5 = s
   GridController.onSetupDone = onP5Initialized
   GridController.start()
+  State.registerGridController(GridController)
 }, 'grid')
 
 // Create p5 for main canvas

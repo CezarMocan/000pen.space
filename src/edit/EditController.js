@@ -44,6 +44,9 @@ class EditController extends PhalanxRoot {
   onChangeEditingMode() {
     this.rootView.onChangeEditingMode()
   }
+  updateScrollPosition(offsetX, offsetY) {
+    this.rootView.updateScrollPosition(offsetX, offsetY)
+  }
 }
 
 export default new EditController()

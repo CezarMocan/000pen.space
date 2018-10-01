@@ -48,6 +48,9 @@ class MainController extends PhalanxRoot {
     this.p5.clear()
     this.redraw()
   }
+  updateScrollPosition(offsetX, offsetY) {
+    this.rootView.updateScrollPosition(offsetX, offsetY)
+  }
 }
 
 export default new MainController()

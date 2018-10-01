@@ -1,5 +1,6 @@
 import { canvasSize, grid } from '../Config'
 import View from '../core/View'
+import State from '../state'
 
 export default class RootView extends View {
   constructor(phalanxRoot) {
@@ -37,17 +38,19 @@ export default class RootView extends View {
     this.p5.image(this.img, oX, oY)
   }
   draw() {
-    // this.p5.background(225)
     this.drawGridImage()
+  }
+  updateScrollPosition(offsetX, offsetY) {
+    this.offset.x = offsetX
+    this.offset.y = offsetY
+    this.p5.clear()
+    this.redraw()
   }
   onEvent(evt, originalEvent) {
     switch (evt) {
       case 'mouseWheel':
-        // console.log('mousewheel: ', originalEvent.deltaX, originalEvent.deltaY)
-        this.offset.x -= originalEvent.deltaX
-        this.offset.y -= originalEvent.deltaY
-        this.p5.clear()
-        this.redraw()
+        const { deltaX, deltaY } = originalEvent
+        State.newScrollOffset({ deltaX, deltaY })
         break
     }
   }

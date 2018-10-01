@@ -11,8 +11,10 @@ class GridController extends PhalanxRoot {
   }
   setup() {
     this.canvas.style('position', 'absolute')
-    this.p5.noLoop()
-    
+    this.p5.noLoop()    
+  }
+  updateScrollPosition(offsetX, offsetY) {
+    this.rootView.updateScrollPosition(offsetX, offsetY)
   }
 }
 

@@ -23,6 +23,10 @@ class GlobalState {
     this._editController = null
     this.onSaveDone = this.onSaveDone.bind(this)
     this.onSaveFailed = this.onSaveFailed.bind(this)
+    this.scrollOffset = {
+      x: 0,
+      y: 0
+    }
   }
   registerEditController(c) {
     this._editController = c
@@ -32,6 +36,9 @@ class GlobalState {
   }
   registerMainController(c) {
     this._mainController = c
+  }
+  registerGridController(c) {
+    this._gridController = c
   }
   get version() { return this._state.version }
   set version(v) { 
@@ -62,6 +69,7 @@ class GlobalState {
 
       this.currentContents = this._mainController.getAndClearContents()
       this._editController.setContents(this.currentContents.childrenToEdit)
+      this._editController.updateScrollPosition(this.scrollOffset.x, this.scrollOffset.y)
       this._mainController.redraw()
     } else {
       console.log('change editing mode')
@@ -140,6 +148,15 @@ class GlobalState {
     console.log(this._mainController)
 
     console.log(o, deserialized)
+  }
+
+  newScrollOffset(offset) {
+    const { deltaX, deltaY } = offset
+    this.scrollOffset.x -= deltaX
+    this.scrollOffset.y -= deltaY
+    this._mainController.updateScrollPosition(this.scrollOffset.x, this.scrollOffset.y)
+    this._editController.updateScrollPosition(this.scrollOffset.x, this.scrollOffset.y)
+    this._gridController.updateScrollPosition(this.scrollOffset.x, this.scrollOffset.y)
   }
 }
 
