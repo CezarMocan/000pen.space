@@ -113,11 +113,11 @@ export default class View {
   stopListening(evt) {
     this.root.removeListener(evt, this)
   }
-  _onEvent(evt) {
+  _onEvent(evt, original) {
     if (this.disabled) return
-    this.onEvent(evt)
+    this.onEvent(evt, original)
   }
-  onEvent(evt) {}
+  onEvent(evt, original) {}
 
   // Drawing
   _draw() {

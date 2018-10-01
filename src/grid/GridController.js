@@ -12,6 +12,7 @@ class GridController extends PhalanxRoot {
   setup() {
     this.canvas.style('position', 'absolute')
     this.p5.noLoop()
+    
   }
 }
 

@@ -46,7 +46,7 @@ class MainController extends PhalanxRoot {
   }
   refresh() {
     this.p5.clear()
-    this.redraw()    
+    this.redraw()
   }
 }
 

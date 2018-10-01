@@ -1,6 +1,6 @@
 import { canvasSize, grid } from '../Config'
 
-const SUPPORTED_EVENTS = ['mousePressed', 'mouseMoved', 'mouseDragged', 'mouseReleased', 'keyTyped', 'keyPressed', 'keyReleased']
+const SUPPORTED_EVENTS = ['mousePressed', 'mouseMoved', 'mouseDragged', 'mouseReleased', 'mouseWheel', 'keyTyped', 'keyPressed', 'keyReleased']
 
 export default class PhalanxRoot {
   constructor() {
@@ -21,6 +21,7 @@ export default class PhalanxRoot {
     this.p5.mouseMoved = this._propagateP5Event.bind(this, 'mouseMoved')
     this.p5.mouseDragged = this._propagateP5Event.bind(this, 'mouseDragged')
     this.p5.mouseReleased = this._propagateP5Event.bind(this, 'mouseReleased')
+    this.p5.mouseWheel = this._propagateP5Event.bind(this, 'mouseWheel')
     this.p5.keyTyped = this._propagateP5Event.bind(this, 'keyTyped')
     this.p5.keyPressed = this._propagateP5Event.bind(this, 'keyPressed')
     this.p5.keyReleased = this._propagateP5Event.bind(this, 'keyReleased')
@@ -70,9 +71,9 @@ export default class PhalanxRoot {
     this.listeners[evt].splice(index, 1)
     // console.log('removeListener', evt, view, this.listeners[evt])
   }
-  _propagateP5Event(evt) {
+  _propagateP5Event(evt, original) {
     if (!this.listeners[evt]) return
-    this.listeners[evt].forEach(view => view._onEvent(evt))
+    this.listeners[evt].forEach(view => view._onEvent(evt, original))
     return false    
   }
 }

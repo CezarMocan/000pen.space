@@ -3,32 +3,53 @@ import View from '../core/View'
 
 export default class RootView extends View {
   constructor(phalanxRoot) {
-    super()  
+    super()
     this.root = phalanxRoot
+    this.offset = {
+      x: 0,
+      y: 0
+    }
+
+    this.listenTo('mouseWheel')
+
+    this.img = null
+    this.setup()
   }
-  drawPoints() {
+  setup() {
+    this.img = this.p5.createImage(grid.bottomRight.x, grid.bottomRight.y)
+    this.img.loadPixels()
+
     const topLeft = grid.topLeft, bottomRight = grid.bottomRight
     const pointSize = grid.pointSize, pointDistance = grid.pointDistance
-    this.p5.stroke(144, 144, 144)
+
     for (let i = topLeft.x; i <= bottomRight.x; i += pointDistance) {
       for (let j = topLeft.y; j <= bottomRight.y; j += pointDistance) {
-        this.p5.ellipse(i, j, pointSize / 2, pointSize / 2, 0, 2 * this.p5.PI)
-      }      
+        this.img.set(i, j, [144, 144, 144, 255])
+      }
     }
+
+    this.img.updatePixels()
   }
-  drawSquares() {
-    const topLeft = grid.topLeft, bottomRight = grid.bottomRight
-    const pointSize = grid.pointSize, pointDistance = grid.pointDistance
-    this.p5.stroke(184, 184, 184)
-    for (let i = topLeft.x; i <= bottomRight.x; i += pointDistance) {
-      this.p5.line(i, 0, i, canvasSize.height)
-    }
-    for (let i = topLeft.y; i <= bottomRight.y; i += pointDistance) {
-      this.p5.line(0, i, canvasSize.width, i)
-    }
+  drawGridImage() {
+    const { pointDistance } = grid
+    const oX = this.offset.x % pointDistance
+    const oY = this.offset.y % pointDistance
+    this.p5.image(this.img, oX, oY)
   }
   draw() {
     // this.p5.background(225)
-    // this.drawPoints()
+    this.drawGridImage()
   }
+  onEvent(evt, originalEvent) {
+    switch (evt) {
+      case 'mouseWheel':
+        // console.log('mousewheel: ', originalEvent.deltaX, originalEvent.deltaY)
+        this.offset.x -= originalEvent.deltaX
+        this.offset.y -= originalEvent.deltaY
+        this.p5.clear()
+        this.redraw()
+        break
+    }
+  }
+
 }

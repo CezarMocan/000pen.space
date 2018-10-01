@@ -233,10 +233,10 @@ export default class Canvas extends View {
           this.currText.text = currentCopy + '\n'
           break
         case this.p5.DELETE:
-        case this.p5.BACKSPACE:        
+        case this.p5.BACKSPACE:
           currentCopy = this.currText.text
           this.currText.text = currentCopy.slice(0, -1)
-          break        
+          break
       }
     }
   }
@@ -277,7 +277,7 @@ export default class Canvas extends View {
       case 'keyTyped':
         if (State.isTextEditingMode) this.keyTypedText(this.p5.key, this.p5.keyCode)
         break
-      case 'keyReleased':        
+      case 'keyReleased':
         if (State.isTextEditingMode) this.keyReleasedText(this.p5.keyCode)
         break
     }
