@@ -242,8 +242,8 @@ export default class Canvas extends View {
   }
 
   updateMousePositionParams() {
-    const mX = this.getGridAligned(this.p5.mouseX)
-    const mY = this.getGridAligned(this.p5.mouseY)
+    const mX = this.getGridAligned(this.p5.mouseX - State.scrollOffset.x)
+    const mY = this.getGridAligned(this.p5.mouseY - State.scrollOffset.y)
     this._dx = (mX - this._mx)
     this._dy = (mY - this._my)
     this._mx = mX
