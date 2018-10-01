@@ -24,6 +24,7 @@ export default class View {
     this._preRootListenTo = []
     this._disabled = false
     this._highlight = false
+    this.x = this.y = 0
   }
   serialize() {
     console.warn('You need to implement serialization for ', this.constructor.name)
@@ -124,6 +125,7 @@ export default class View {
     if (!this.root || this.disabled) return
     this.p5.push()
     this.draw()
+    this.p5.translate(this.x, this.y)
     this.children.forEach(child => child._draw())
     this.p5.pop()
   }
