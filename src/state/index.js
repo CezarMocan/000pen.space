@@ -3,6 +3,7 @@ import Line from '../core/Line.js'
 import Text from '../core/Text.js'
 import Rect from '../core/Rect.js'
 import ImageRect from '../core/ImageRect.js'
+import { setCoordinates } from '../menu'
 
 const EDITING_MODES = {
   LINE: 'LINE',
@@ -157,6 +158,7 @@ class GlobalState {
     this._mainController.updateScrollPosition(this.scrollOffset.x, this.scrollOffset.y)
     this._editController.updateScrollPosition(this.scrollOffset.x, this.scrollOffset.y)
     this._gridController.updateScrollPosition(this.scrollOffset.x, this.scrollOffset.y)
+    setCoordinates(this.scrollOffset.x, this.scrollOffset.y)
   }
 }
 

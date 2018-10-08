@@ -1,9 +1,17 @@
 export const setCoordinates = (x, y) => {
-
+  const elX = $('#x-coord')
+  const elY = $('#y-coord')
+  if (!elX || !elY) return
+  elX.html(`${x},`)
+  elY.html(y)
 }
 
 export const setVersionNumber = (version) => {
 
+}
+
+export const setDateAndTime = (date, time) => {
+  
 }
 
 const onVersionHistoryTap = (evt) => {
