@@ -10,7 +10,7 @@ const grid = {
   smallGridDistance: 10,
   smallGridDashSize: 3,
   smallGridColor: [217, 217, 217, 255],
-  pointDistance: 15,
+  pointDistance: 10, // Needs to be the same as smallGridDistance—please update to only one variable.
   pointSize: 1
 }
 

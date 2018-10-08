@@ -17,5 +17,6 @@ export default class GridHighlight extends View {
     this.p5.stroke(...this._color.array)
     this.p5.noFill()
     this.p5.ellipse(mX, mY, 10, 10, 0, 2 * this.p5.PI)
+    this.p5.ellipse(mX, mY, 1, 1, 0, 2 * this.p5.PI)
   }
 }
