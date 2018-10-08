@@ -3,7 +3,7 @@ import Line from '../core/Line.js'
 import Text from '../core/Text.js'
 import Rect from '../core/Rect.js'
 import ImageRect from '../core/ImageRect.js'
-import { setCoordinates } from '../menu'
+import { setCoordinates, setVersionNumber } from '../menu'
 
 const EDITING_MODES = {
   LINE: 'LINE',
@@ -44,8 +44,9 @@ class GlobalState {
   get version() { return this._state.version }
   set version(v) { 
     this._state.version = v
-    if (this._menuController)
-      this._menuController.setVersion(v)
+    setVersionNumber(v)
+    // if (this._menuController)
+    //   this._menuController.setVersion(v)
   }
   get EDITING_MODES() {
     return EDITING_MODES

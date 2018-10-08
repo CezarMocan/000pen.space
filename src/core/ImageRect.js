@@ -24,6 +24,7 @@ export default class ImageRect extends Rect {
   }
   get isImageRect() { return true }
   loadImg() {
+    // TODO (cezar): Only call loadImg when view enters the viewport
     if (this.url) {
       this._img = this.p5.createImg(this._url, '', this.loadedCallback.bind(this))
       this._img.hide()

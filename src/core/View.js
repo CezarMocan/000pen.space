@@ -125,6 +125,7 @@ export default class View {
     if (!this.root || this.disabled) return
     this.p5.push()
     this.draw()
+    // TODO: Skip drawing if we're way off screen.
     this.p5.translate(this.x, this.y)
     this.children.forEach(child => child._draw())
     this.p5.pop()

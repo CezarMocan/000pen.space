@@ -12,16 +12,16 @@ export default class RootView extends View {
     super()
     this.root = phalanxRoot
     // this.logo = this.addView(new Logo())
-    this.version = this.addView(new Version(State.version))
-    this.toolbox = this.addView(new Toolbox())
+    // this.version = this.addView(new Version(State.version))
+    // this.toolbox = this.addView(new Toolbox())
 
-    const btnY = window.innerHeight - (buttons.height + 1) * grid.pointDistance 
-    const btnRightX = window.innerWidth - (buttons.width + 1) * grid.pointDistance
-    const btnLeftX = btnRightX - (buttons.width + 1) * grid.pointDistance
-    this.saveButton = this.addView(new SaveButton(btnLeftX, btnY))
-    this.cancelButton = this.addView(new CancelButton(btnRightX, btnY))
+    // const btnY = window.innerHeight - (buttons.height + 1) * grid.pointDistance 
+    // const btnRightX = window.innerWidth - (buttons.width + 1) * grid.pointDistance
+    // const btnLeftX = btnRightX - (buttons.width + 1) * grid.pointDistance
+    // this.saveButton = this.addView(new SaveButton(btnLeftX, btnY))
+    // this.cancelButton = this.addView(new CancelButton(btnRightX, btnY))
 
-    this.hideButtons()
+    // this.hideButtons()
   }
   showButtons() {
     this.saveButton.disabled = this.cancelButton.disabled = false
