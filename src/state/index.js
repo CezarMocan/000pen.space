@@ -59,7 +59,7 @@ class GlobalState {
   get isImageEditingMode() { return this._state.editingMode === this.EDITING_MODES.IMAGE }
   get isTextEditingMode() { return this._state.editingMode === this.EDITING_MODES.TEXT }
 
-  pointInMenu(x, y) { return this._menuController.pointInMenu(x, y) }
+  // pointInMenu(x, y) { return this._menuController.pointInMenu(x, y) }
   
   startEditing(editingMode) {
     if (!this._state.editing) {
@@ -67,7 +67,7 @@ class GlobalState {
       this._state.editingMode = editingMode
 
       this._editController.onStartEditing()
-      this._menuController.onStartEditing()
+      // this._menuController.onStartEditing()
 
       this.currentContents = this._mainController.getAndClearContents()
       this._editController.setContents(this.currentContents.childrenToEdit)
@@ -76,7 +76,7 @@ class GlobalState {
     } else {
       console.log('change editing mode')
       this._state.editingMode = editingMode
-      this._menuController.redraw()
+      // this._menuController.redraw()
       this._editController.onChangeEditingMode()
     }
   }
@@ -93,7 +93,7 @@ class GlobalState {
     console.log('Called setContents with: ', contentView.children)
     this._mainController.onDoneEditing()
     this._editController.onDoneEditing()
-    this._menuController.onDoneEditing()
+    // this._menuController.onDoneEditing()
 
     // Remove old views that were stored in case the user tapped cancel
     delete this.currentContents.oldChildren
@@ -111,7 +111,7 @@ class GlobalState {
     this._mainController.setContents(this.currentContents.oldChildren)
     this._mainController.onDoneEditing()
     this._editController.onDoneEditing()
-    this._menuController.onDoneEditing()
+    // this._menuController.onDoneEditing()
 
     // Remove newly created children
     delete this.currentContents.childrenToEdit

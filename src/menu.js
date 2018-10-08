@@ -32,12 +32,22 @@ export const setVersionNumber = (version) => {
   elVersion.html(version)
 }
 
-export const setDateAndTime = (date, time) => {
+export const setDateAndTime = () => {
+  const date = new Date()
+  const optionsDate = { year: 'numeric', month: 'long', day: 'numeric' }
+  const optionsTime = { hour: '2-digit', minute: '2-digit', second: '2-digit' }
+  const formattedDate = date.toLocaleDateString("en-US", optionsDate)
+  const formattedTime = date.toLocaleTimeString("en-US", optionsTime)
+  const elDate = $('#formatted-date')
+  const elTime = $('#formatted-time')
 
+  elDate.html(formattedDate)
+  elTime.html(formattedTime)
 }
 
 const setupDateAndTime = () => {
-
+  setDateAndTime()
+  setInterval(setDateAndTime, 1000)
 }
 
 const onVersionHistoryTap = (evt) => {

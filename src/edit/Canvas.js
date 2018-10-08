@@ -253,7 +253,6 @@ export default class Canvas extends View {
     this.updateMousePositionParams()
     switch (evt) {
       case 'mousePressed':
-        if (State.pointInMenu(this.p5.mouseX, this.p5.mouseY)) return
         if (State.isLineEditingMode) this.mousePressedLine()
         if (State.isBoxEditingMode) this.mousePressedBox()
         if (State.isImageEditingMode) this.mousePressedImage()
