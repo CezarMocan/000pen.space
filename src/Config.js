@@ -4,14 +4,12 @@ const canvasSize = {
 }
 
 const grid = {
-  topLeft: {
-    x: 0,
-    y: 0
-  },
-  bottomRight: {
-    x: canvasSize.width,
-    y: canvasSize.height
-  },
+  gridImageResolution: 2.0,
+  largeGridDistance: 50,
+  largeGridColor: [255, 163, 184, 255],
+  smallGridDistance: 10,
+  smallGridDashSize: 3,
+  smallGridColor: [217, 217, 217, 255],
   pointDistance: 15,
   pointSize: 1
 }

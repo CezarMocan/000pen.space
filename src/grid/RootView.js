@@ -17,25 +17,59 @@ export default class RootView extends View {
     this.setup()
   }
   setup() {
-    this.img = this.p5.createImage(grid.bottomRight.x, grid.bottomRight.y)
+    this.createGridImage()
+  }
+  createGridImage() {  
+    const { largeGridDistance, largeGridColor, gridImageResolution } = grid
+    const topLeft = { x: 0, y: 0 }
+    const bottomRight = {
+      x: this.p5.windowWidth + 3 * largeGridDistance,
+      y: this.p5.windowHeight + 3 * largeGridDistance
+    }
+
+    this.img = this.p5.createImage(bottomRight.x * gridImageResolution, bottomRight.y * gridImageResolution)
     this.img.loadPixels()
 
-    const topLeft = grid.topLeft, bottomRight = grid.bottomRight
-    const pointSize = grid.pointSize, pointDistance = grid.pointDistance
+    // Create large grid
+    for (let i = topLeft.x; i <= bottomRight.x * gridImageResolution; i += largeGridDistance * gridImageResolution) {
+      for (let j = topLeft.y; j <= bottomRight.y * gridImageResolution; j++) {
+        this.img.set(i, j, largeGridColor)
+      }
+    }
 
-    for (let i = topLeft.x; i <= bottomRight.x; i += pointDistance) {
-      for (let j = topLeft.y; j <= bottomRight.y; j += pointDistance) {
-        this.img.set(i, j, [144, 144, 144, 255])
+    for (let i = topLeft.x; i <= bottomRight.x * gridImageResolution; i++) {
+      for (let j = topLeft.y; j <= bottomRight.y * gridImageResolution; j += largeGridDistance * gridImageResolution) {
+        this.img.set(i, j, largeGridColor)
+      }
+    }
+
+    // Create small grid
+    const { smallGridDistance, smallGridColor, smallGridDashSize } = grid
+    for (let i = topLeft.x; i <= bottomRight.x * gridImageResolution; i += smallGridDistance * gridImageResolution) {
+      if (i % (largeGridDistance * gridImageResolution) == 0) continue
+      for (let j = topLeft.y; j <= bottomRight.y * gridImageResolution; j++) {
+        if (j % (2 * smallGridDashSize) < smallGridDashSize)
+          this.img.set(i, j, smallGridColor)
+      }
+    }
+
+    for (let j = topLeft.y; j <= bottomRight.y * gridImageResolution; j += smallGridDistance * gridImageResolution) {
+      if (j % (largeGridDistance * gridImageResolution) == 0) continue
+      for (let i = topLeft.x; i <= bottomRight.x * gridImageResolution; i++) {
+        if (i % (2 * smallGridDashSize) < smallGridDashSize)
+          this.img.set(i, j, smallGridColor)
       }
     }
 
     this.img.updatePixels()
   }
   drawGridImage() {
-    const { pointDistance } = grid
-    const oX = this.offset.x % pointDistance
-    const oY = this.offset.y % pointDistance
-    this.p5.image(this.img, oX, oY)
+    const { gridImageResolution, largeGridDistance } = grid
+    const oX = parseInt(this.offset.x) % largeGridDistance - 2 * largeGridDistance
+    const oY = parseInt(this.offset.y) % largeGridDistance - 2 * largeGridDistance
+    this.p5.scale(1 / gridImageResolution)
+    this.p5.image(this.img, oX * gridImageResolution, oY * gridImageResolution)
+    this.p5.scale(gridImageResolution)
   }
   draw() {
     this.drawGridImage()
