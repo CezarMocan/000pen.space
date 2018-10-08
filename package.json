@@ -11,9 +11,11 @@
   },
   "dependencies": {
     "cloudinary-core": "^2.5.0",
+    "css-loader": "^1.0.0",
     "navigo": "^7.1.2",
     "p5": "^0.5.9",
-    "pify": "^3.0.0"
+    "pify": "^3.0.0",
+    "style-loader": "^0.23.1"
   },
   "devDependencies": {
     "babel-core": "^6.24.1",

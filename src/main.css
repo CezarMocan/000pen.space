@@ -1,0 +1,49 @@
+.overlay-content {
+  position: fixed;
+  top: 0;
+  height: 20px;
+  left: 0;
+  font-family: "fugue_mono", sans-serif;
+  font-size: 11pt;
+  padding: 5px 35px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+}
+.overlay-content-element {
+  flex: 1;
+}
+.overlay-content span {
+  padding: 0 5px;
+}
+.overlay-top {
+  width: calc(100vw - 70px);
+}
+.overlay-left {
+  width: calc(100vh - 70px);
+  transform: rotate(-90deg) translateX(0px) translateY(-100vh);
+  transform-origin: top right 0;
+}
+.overlay-right {
+  width: calc(100vh - 70px);
+  transform: rotate(90deg) translateX(0px) translateY(-100vw);
+  transform-origin: top left 0;
+}
+.overlay-bottom {
+  width: calc(100vw - 70px);
+  transform: translateY(calc(100vh - 30px));
+}
+
+.button {  }
+.button:hover {
+  color: blue;
+  cursor: pointer;
+}
+.button.highlight {
+  color: red;
+}
+.hidden {
+  visibility: hidden;
+}
