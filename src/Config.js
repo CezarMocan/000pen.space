@@ -20,8 +20,8 @@ const buttons = {
 }
 
 const textConfig = {
-  fontSize: 72,
-  leading: 80
+  fontSize: 16,
+  leading: 18
 }
 
 const colors = {
