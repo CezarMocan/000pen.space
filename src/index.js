@@ -13,6 +13,7 @@ import OverlayController from './overlay/OverlayController'
 
 import State from './state'
 import api from './api/api.js'
+import Menu from './menu.js'
 
 let noP5Initialized = 0
 const noP5Total = 4

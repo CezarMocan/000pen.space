@@ -12,12 +12,13 @@
   justify-content: center;
   background-color: white;
 }
+
 .overlay-content-element {
   flex: 1;
 }
-.overlay-content span {
-  padding: 0 5px;
-}
+
+/* Custom style for each one of the 4 page borders */
+
 .overlay-top {
   width: calc(100vw - 70px);
 }
@@ -36,6 +37,12 @@
   transform: translateY(calc(100vh - 30px));
 }
 
+/* Text inside the 4 page borders */
+.overlay-content span {
+  padding: 0 5px;
+}
+
+/* Button styles */
 .button {  }
 .button:hover {
   color: blue;
