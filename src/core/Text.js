@@ -1,6 +1,7 @@
 import { canvasSize, grid, textConfig } from '../Config'
 import View from './View'
 import Color from './Color'
+import { colors, strokes } from '../Config.js'
 
 export default class Text extends View {
   static get serializableAttributes() {
@@ -19,9 +20,9 @@ export default class Text extends View {
     this._text = text
     this._fontSize = textConfig.fontSize
     this._leading = textConfig.leading
-    this._color = new Color(0, 0, 255)
-    this._cursorColor = new Color(255, 0, 0)
-    this._highlightColor = new Color(255, 255, 0, 0.2)
+    this._color = new Color(colors.text)
+    this._cursorColor = new Color(colors.textCursor)
+    this._highlightColor = new Color(colors.editHighlight)
 
     this.highlight = false
     this.editing = false

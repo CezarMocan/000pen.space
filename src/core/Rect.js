@@ -1,6 +1,7 @@
 import { canvasSize, grid } from '../Config'
 import View from './View'
 import Color from './Color'
+import { colors, strokes } from '../Config.js'
 
 export default class Rect extends View {
   static get serializableAttributes() {
@@ -20,8 +21,9 @@ export default class Rect extends View {
     this._height = h
     this.dx = dx || 0
     this.dy = dy || 0
-    this._color = new Color(0, 0, 255)
-    this._highlightColor = new Color(255, 255, 0, 0.2)
+    this._color = new Color(colors.lines)
+    this._fillColor = new Color(colors.boxFill)
+    this._highlightColor = new Color(colors.editHighlight)
   }
   serialize() {
     return Rect.Serialize(this)
@@ -78,10 +80,12 @@ export default class Rect extends View {
   }
   draw() {
     // this.p5.stroke(this.p5.color(this.color.r, this.color.g, this.color.b))
+    this.p5.strokeWeight(strokes.weight)
+    this.p5.strokeJoin(this.p5.ROUND)
     this.p5.stroke(this.p5.color(...this.color.array))
     this.p5.rect(this.x, this.y, this.width, this.height)
     if (this.dx || this.dy) {
-      this.p5.fill(this.p5.color(...this.color.array))
+      this.p5.fill(this.p5.color(...this._fillColor.array))
       const offsetX = this.dx < 0 ? 0 : this.nwidth
       const offsetY = this.dy < 0 ? 0 : this.nheight
       // OX depth

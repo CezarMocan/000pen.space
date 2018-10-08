@@ -1,6 +1,7 @@
 import View from './View'
 import Color from './Color'
 import MathUtils from './MathUtils'
+import { colors, strokes } from '../Config.js'
 
 export default class Line extends View {
   static get serializableAttributes() {
@@ -18,8 +19,8 @@ export default class Line extends View {
     this._y = y
     this._width = x2 - x
     this._height = y2 - y
-    this._color = new Color(0, 0, 255)
-    this._highlightColor = new Color(255, 255, 0, 0.2)
+    this._color = new Color(colors.lines)
+    this._highlightColor = new Color(colors.editHighlight)
     this.actionRadius = 15
   }
   serialize() {
@@ -53,6 +54,7 @@ export default class Line extends View {
   }
   draw() {
     this.p5.noFill()
+    this.p5.strokeWeight(strokes.weight)
     this.p5.stroke(this.p5.color(...this.color.array))    
     this.p5.line(this.x, this.y, this.x2, this.y2)
 

@@ -24,10 +24,25 @@ const textConfig = {
   leading: 80
 }
 
+const colors = {
+  background: [255, 255, 255, 1],
+  lines: [0, 0, 0, 1],
+  boxFill: [255, 255, 255, 1],
+  text: [0, 0, 0, 1],
+  textCursor: [255, 0, 0, 1],
+  editHighlight: [255, 255, 0, 0.2]
+}
+
+const strokes = {
+  weight: 2
+}
+
 
 module.exports = {
   canvasSize: canvasSize,
   grid: grid,
   buttons: buttons,
-  textConfig: textConfig
+  textConfig: textConfig,
+  colors: colors,
+  strokes: strokes
 }

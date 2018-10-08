@@ -1,6 +1,8 @@
 import { canvasSize, grid } from '../Config'
 import View from '../core/View'
 import State from '../state'
+import Color from '../core/Color'
+import { colors } from '../Config'
 
 export default class RootView extends View {
   constructor(phalanxRoot) {
@@ -72,6 +74,7 @@ export default class RootView extends View {
     this.p5.scale(gridImageResolution)
   }
   draw() {
+    this.p5.background((new Color(colors.background)).array)
     this.drawGridImage()
   }
   updateScrollPosition(offsetX, offsetY) {
