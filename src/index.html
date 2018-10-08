@@ -3,6 +3,45 @@
 <head>
   <meta charset="utf-8">
   <title>phalanx.space</title>
+  <style>
+    .overlay-content {
+      position: fixed;
+      top: 0;
+      height: 20px;
+      left: 0;
+      font-family: "fugue_mono", sans-serif;
+      font-size: 11pt;
+      padding: 5px 35px;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      /*background-color: white;*/
+    }
+    .overlay-content-element {
+      flex: 1;
+    }
+    .overlay-content span {
+      padding: 0 5px;
+    }
+    .overlay-top {
+      width: calc(100vw - 70px);
+    }
+    .overlay-left {
+      width: calc(100vh - 70px);
+      transform: rotate(-90deg) translateX(0px) translateY(-100vh);
+      transform-origin: top right 0;
+    }
+    .overlay-right {
+      width: calc(100vh - 70px);
+      transform: rotate(90deg) translateX(0px) translateY(-100vw);
+      transform-origin: top left 0;
+    }
+    .overlay-bottom {
+      width: calc(100vw - 70px);
+      transform: translateY(calc(100vh - 30px));
+    }
+  </style>
 </head>
 <body style="margin: 0; overflow: hidden;">
   <input type="file" style="display: none" id="filePicker" accept="image/*" />
@@ -10,5 +49,61 @@
   <div id="content" style="position: absolute; top: 0; left: 0;"></div>
   <div id="edit" style="position: absolute; top: 0; left: 0;"></div>
   <div id="overlay" style="position: absolute; top: 0; left: 0;"></div>
+
+  <div class="overlay-content overlay-top">
+    <div id="overlay-formatted-time" class="overlay-top-left overlay-content-element">
+      <span>08:12:18</span>
+    </div>
+    <div class="overlay-top-center overlay-content-element">
+      <span>phalanx.space</span>
+    </div>
+    <div class="overlay-top-right">
+      <span>version history</span>
+    </div>
+  </div>
+
+  <div class="overlay-content overlay-left">
+    <div class="overlay-left-left overlay-content-element">
+      <span>editing tools</span>
+    </div>
+    <div class="overlay-left-center overlay-content-element">
+      <span id="move-button" class="overlay-left-move">move</span>
+      <span id="remove-button" class="overlay-left-remove">remove</span>
+    </div>
+    <div id="overlay-formatted-date" class="overlay-left-right">
+      <span>October 8, 2018</span>
+    </div>    
+  </div>
+
+  <div class="overlay-content overlay-bottom">
+    <div class="overlay-bottom-left overlay-content-element">
+      <span id="line-button" class="overlay-bottom-line">line</span>
+      <span id="box-button" class="overlay-bottom-box">box</span>
+      <span id="image-button" class="overlay-bottom-image">image</span>
+      <span id="large-text-button" class="overlay-bottom-large-text">large_text</span>
+      <span id="text-button" class="overlay-bottom-text">text</span>
+    </div>
+    <div class="overlay-bottom-center overlay-content-element">
+      <span id="save-button" class="overlay-bottom-save">save</span>
+      <span id="cancel-button" class="overlay-bottom-cancel">cancel</span>
+    </div>
+    <div class="overlay-bottom-right">
+      <span>current version:</span>
+      <span id="current-version">3189</span>
+    </div>    
+  </div>
+
+  <div class="overlay-content overlay-right">
+    <div class="overlay-right-left overlay-content-element">
+      about this website
+    </div>
+    <div class="overlay-right-center overlay-content-element">
+      <span>x:</span><span id="x-coord">0,</span>
+      <span>y:</span><span id="y-coord">0</span>
+    </div>
+    <div class="overlay-right-right">
+      <span>share screen</span>
+    </div>    
+  </div>
 </body>
 </html>
