@@ -5,6 +5,7 @@ import Rect from '../core/Rect.js'
 import ImageRect from '../core/ImageRect.js'
 import ImagePool from './ImagePool.js'
 import { setCoordinates, setVersionNumber } from '../menu'
+import router from '../router'
 
 const EDITING_MODES = {
   LINE: 'LINE',
@@ -154,7 +155,7 @@ class GlobalState {
   }
 
   setInitialScroll(deltaX, deltaY) {
-    this.newScrollOffset({ deltaX, deltaY }, true)
+    this.newScrollOffset({ deltaX: deltaX + this.scrollOffset.x, deltaY: deltaY + this.scrollOffset.y }, true)
   }
 
   newScrollOffset(offset, force) {
@@ -166,6 +167,10 @@ class GlobalState {
     this._gridController.updateScrollPosition(this.scrollOffset.x, this.scrollOffset.y)
     ImagePool.updateScrollPosition(this.scrollOffset.x, this.scrollOffset.y, force)
     setCoordinates(this.scrollOffset.x, this.scrollOffset.y)
+
+    // router.pause(true)
+    // router.navigate(`/version/${this.version}/x/${-this.scrollOffset.x}/y/${-this.scrollOffset.y}`)
+    // router.pause(false)
   }
 }
 

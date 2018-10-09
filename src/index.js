@@ -4,7 +4,6 @@ import 'babel-polyfill'
 import p5 from 'p5';
 import 'p5/lib/addons/p5.sound';
 import 'p5/lib/addons/p5.dom';
-import Navigo from 'navigo'
 
 import MainController from './sketch/MainController';
 import EditController from './edit/EditController'
@@ -14,6 +13,7 @@ import OverlayController from './overlay/OverlayController'
 import State from './state'
 import api from './api/api.js'
 import Menu from './menu.js'
+import router from './router.js'
 
 let noP5Initialized = 0
 const noP5Total = 4
@@ -67,13 +67,10 @@ const pollInitialized = (resolve, reject) => {
 
 const waitForInit = new Promise(pollInitialized)
 
-const router = new Navigo(null, true, '#');
-
 router.on('/', async () => {
   await waitForInit
   const latestVersion = await api.getLatest()
-  State.setContents(latestVersion)
-  State.setInitialScroll(0, 0)
+  router.navigate(`/version/${latestVersion.version}/x/0/y/0`)
 }).resolve()
 
 router.on('/version/:id', async (params) => {
@@ -81,4 +78,14 @@ router.on('/version/:id', async (params) => {
   const version = await api.getVersion(params.id)
   State.setContents(version)
   State.setInitialScroll(0, 0)
+}).resolve()
+
+router.on('/version/:id/x/:x/y/:y', async (params) => {
+  await waitForInit
+  const version = await api.getVersion(params.id)
+  State.setContents(version)
+  State.setInitialScroll(parseInt(params.x), parseInt(params.y))
+  // router.pause(true)
+  // router.navigate('/')
+  // router.pause(false)
 }).resolve()
