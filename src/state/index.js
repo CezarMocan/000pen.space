@@ -3,6 +3,7 @@ import Line from '../core/Line.js'
 import Text from '../core/Text.js'
 import Rect from '../core/Rect.js'
 import ImageRect from '../core/ImageRect.js'
+import ImagePool from './ImagePool.js'
 import { setCoordinates, setVersionNumber } from '../menu'
 
 const EDITING_MODES = {
@@ -145,11 +146,11 @@ class GlobalState {
     })
 
     this._mainController.setContents(deserialized)
-    this._mainController.refresh()
+    this._mainController.refresh()    
+  }
 
-    console.log(this._mainController)
-
-    console.log(o, deserialized)
+  setInitialScroll(deltaX, deltaY) {
+    this.newScrollOffset({ deltaX, deltaY })
   }
 
   newScrollOffset(offset) {
@@ -159,6 +160,7 @@ class GlobalState {
     this._mainController.updateScrollPosition(this.scrollOffset.x, this.scrollOffset.y)
     this._editController.updateScrollPosition(this.scrollOffset.x, this.scrollOffset.y)
     this._gridController.updateScrollPosition(this.scrollOffset.x, this.scrollOffset.y)
+    ImagePool.updateScrollPosition(this.scrollOffset.x, this.scrollOffset.y)
     setCoordinates(this.scrollOffset.x, this.scrollOffset.y)
   }
 }

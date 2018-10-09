@@ -73,10 +73,12 @@ router.on('/', async () => {
   await waitForInit
   const latestVersion = await api.getLatest()
   State.setContents(latestVersion)
+  State.setInitialScroll(0, 0)
 }).resolve()
 
 router.on('/version/:id', async (params) => {
   await waitForInit
   const version = await api.getVersion(params.id)
   State.setContents(version)
+  State.setInitialScroll(0, 0)
 }).resolve()
