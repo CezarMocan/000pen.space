@@ -85,7 +85,7 @@ class ImagePool {
 
   updateLoadedImages(newScrollOffset, oldScrollOffset) {
     Object.values(this._images).forEach(i => {
-      const isLoaded = !!(this._domImages[i.obj.url])
+      const isLoaded = i.obj._loaded
 
       const currIn = this.pointInRect(
         { x: i.obj.x, y: i.obj.y }, 
@@ -103,10 +103,10 @@ class ImagePool {
     })
   }
 
-  updateScrollPosition(newNegX, newNegY) {
+  updateScrollPosition(newNegX, newNegY, force) {
     const newX = -newNegX
     const newY = -newNegY
-    if (Math.abs(newX - this._scrollOffset.x) + Math.abs(newY - this._scrollOffset.y) >= 200) {
+    if (force || Math.abs(newX - this._scrollOffset.x) + Math.abs(newY - this._scrollOffset.y) >= 200) {
       this.updateLoadedImages({ x: newX, y: newY }, { x: this._scrollOffset.x, y: this._scrollOffset.y })
       this._scrollOffset = { x: newX, y: newY }
     } 

@@ -80,6 +80,7 @@ class GlobalState {
       // this._menuController.redraw()
       this._editController.onChangeEditingMode()
     }
+    this.newScrollOffset({ deltaX: 0, deltaY: 0 }, true)
   }
   saveEditing() {
     const contentView = this._editController.getContents()
@@ -95,6 +96,7 @@ class GlobalState {
     this._mainController.onDoneEditing()
     this._editController.onDoneEditing()
     // this._menuController.onDoneEditing()
+    this.newScrollOffset({ deltaX: 0, deltaY: 0 }, true)
 
     // Remove old views that were stored in case the user tapped cancel
     delete this.currentContents.oldChildren
@@ -112,6 +114,8 @@ class GlobalState {
     this._mainController.setContents(this.currentContents.oldChildren)
     this._mainController.onDoneEditing()
     this._editController.onDoneEditing()
+
+    this.newScrollOffset({ deltaX: 0, deltaY: 0 }, true)
     // this._menuController.onDoneEditing()
 
     // Remove newly created children
@@ -150,17 +154,17 @@ class GlobalState {
   }
 
   setInitialScroll(deltaX, deltaY) {
-    this.newScrollOffset({ deltaX, deltaY })
+    this.newScrollOffset({ deltaX, deltaY }, true)
   }
 
-  newScrollOffset(offset) {
+  newScrollOffset(offset, force) {
     const { deltaX, deltaY } = offset
     this.scrollOffset.x -= deltaX
     this.scrollOffset.y -= deltaY
     this._mainController.updateScrollPosition(this.scrollOffset.x, this.scrollOffset.y)
     this._editController.updateScrollPosition(this.scrollOffset.x, this.scrollOffset.y)
     this._gridController.updateScrollPosition(this.scrollOffset.x, this.scrollOffset.y)
-    ImagePool.updateScrollPosition(this.scrollOffset.x, this.scrollOffset.y)
+    ImagePool.updateScrollPosition(this.scrollOffset.x, this.scrollOffset.y, force)
     setCoordinates(this.scrollOffset.x, this.scrollOffset.y)
   }
 }
