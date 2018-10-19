@@ -1,3 +1,13 @@
+@font-face {
+  font-family: fugue-regular;
+  src: url(/assets/fugue-regular.ttf);
+}
+
+@font-face {
+  font-family: fugue_mono;
+  src: url(/assets/fugue_mono.ttf);
+}
+
 .overlay-content {
   position: fixed;
   top: 0;
