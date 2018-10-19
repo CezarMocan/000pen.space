@@ -1,5 +1,5 @@
 import State from './state'
-import { copyToClipboard } from './utils'
+import { copyToClipboard, isMobile } from './utils'
 
 const BUTTONS = {
   VERSION_HISTORY: "#version-history",
@@ -14,6 +14,12 @@ const BUTTONS = {
   MOVE_BUTTON: "#move-button",
   REMOVE_BUTTON: "#remove-button",
   VERSION_WARNING_BUTTON: "#editing-disabled"
+}
+
+const OVERLAYS = {
+  MOBILE: "#mobile-window-overlay",
+  VERSIONS: "#versions-window-overlay",
+  ABOUT: "#about-window-overlay",
 }
 
 const HIGHLIGHT_BUTTONS = [BUTTONS.TEXT_BUTTON, BUTTONS.IMAGE_BUTTON, BUTTONS.BOX_BUTTON, BUTTONS.LINE_BUTTON, BUTTONS.MOVE_BUTTON, BUTTONS.REMOVE_BUTTON]
@@ -154,6 +160,9 @@ const onVersionWarningTap = (evt) => {
 
 const setupListeners = () => {
   $(document).ready(() => {
+    if (isMobile()) {
+      $(OVERLAYS.MOBILE).removeClass('disabled')
+    }
     $(BUTTONS.VERSION_HISTORY).click(onVersionHistoryTap)
     $(BUTTONS.ABOUT_THIS_WEBSITE).click(onAboutTap)
     $(BUTTONS.SHARE_SCREEN).click(onShareScreenTap)
