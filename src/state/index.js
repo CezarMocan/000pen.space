@@ -179,6 +179,10 @@ class GlobalState {
     return getAbsoluteURL(`/version/${this.version}/x/${-this.scrollOffset.x}/y/${-this.scrollOffset.y}`)
   }
 
+  getLinkAtVersionWithCurrentPosition(version) {
+    return getAbsoluteURL(`/version/${version}/x/${-this.scrollOffset.x}/y/${-this.scrollOffset.y}`)
+  }
+
   navigateLatestWithPosition() {
     router.navigate(`/x/${-this.scrollOffset.x}/y/${-this.scrollOffset.y}`)
   }

@@ -103,3 +103,16 @@
   width: 24%;
   text-overflow: wrap;
 }
+
+a.version-link {
+  text-decoration: none;
+  color: black;
+}
+
+a.version-link:hover {
+  color: blue;
+}
+
+.version-link-container {
+  margin-bottom: 10px;
+}

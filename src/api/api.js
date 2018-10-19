@@ -22,7 +22,7 @@ const xhrPost = (url, contentType, data, success, error) => {
   xhr.onerror = () => { error(xhr.response) }
   xhr.onabort = () => { error(xhr.response) }
 
-  xhr.send(data)  
+  xhr.send(data)
 }
 
 class Api {
@@ -55,6 +55,15 @@ class Api {
     const version = await pify(xhrGet)(endpoint, contentType)
 
     return version
+  }
+
+  async getAllVersions() {
+    const endpoint = `${this.apiServer}/versions/`
+    const contentType = 'application/json'
+
+    const versions = await pify(xhrGet)(endpoint, contentType)
+
+    return versions
   }
 }
 

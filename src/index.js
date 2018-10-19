@@ -12,7 +12,7 @@ import OverlayController from './overlay/OverlayController'
 
 import State from './state'
 import api from './api/api.js'
-import Menu, { setIsLatestVersion } from './menu.js'
+import Menu, { setIsLatestVersion, disableOverlays } from './menu.js'
 import router from './router.js'
 
 let noP5Initialized = 0
@@ -90,6 +90,7 @@ router.on('/x/:x/y/:y', async (params) => {
 
 router.on('/version/:id/x/:x/y/:y', async (params) => {
   await waitForInit
+  disableOverlays()
   const latestVersion = await api.getLatest()
   let version
   if (params.id == LATEST) {

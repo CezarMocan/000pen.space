@@ -1,7 +1,8 @@
 import State from './state'
 import { copyToClipboard, isMobile, sleep } from './utils'
+import api from './api/api.js'
 
-const BUTTONS = {
+export const BUTTONS = {
   VERSION_HISTORY: "#version-history",
   ABOUT_THIS_WEBSITE: "#about-this-website",
   SHARE_SCREEN: "#share-screen",
@@ -16,7 +17,7 @@ const BUTTONS = {
   VERSION_WARNING_BUTTON: "#editing-disabled"
 }
 
-const OVERLAYS = {
+export const OVERLAYS = {
   MOBILE: "#mobile-window-overlay",
   VERSIONS: "#versions-window-overlay",
   ABOUT: "#about-window-overlay",
@@ -24,8 +25,15 @@ const OVERLAYS = {
   ABOUT_CLOSE: "#about-window-overlay-close"
 }
 
-const HIGHLIGHT_BUTTONS = [BUTTONS.TEXT_BUTTON, BUTTONS.IMAGE_BUTTON, BUTTONS.BOX_BUTTON, BUTTONS.LINE_BUTTON, BUTTONS.MOVE_BUTTON, BUTTONS.REMOVE_BUTTON]
-const STATE_CONTROL_BUTTONS = [BUTTONS.SAVE_BUTTON, BUTTONS.CANCEL_BUTTON]
+export const HIGHLIGHT_BUTTONS = [BUTTONS.TEXT_BUTTON, BUTTONS.IMAGE_BUTTON, BUTTONS.BOX_BUTTON, BUTTONS.LINE_BUTTON, BUTTONS.MOVE_BUTTON, BUTTONS.REMOVE_BUTTON]
+export const STATE_CONTROL_BUTTONS = [BUTTONS.SAVE_BUTTON, BUTTONS.CANCEL_BUTTON]
+
+export const VERSIONS_GRID = ["#versions-column-1", "#versions-column-2", "#versions-column-3", "#versions-column-4"]
+
+export const disableOverlays = () => {
+  onVersionsWindowClose()
+  onAboutWindowClose()
+}
 
 let isLatestVersion = true
 
@@ -153,15 +161,49 @@ const onVersionWarningTap = (evt) => {
 }
 
 const onVersionHistoryTap = async (evt) => {
+  // Make sure the grid is empty
+  VERSIONS_GRID.forEach(id => $(id).empty())
+  
+  // Add simple loading state
+  $(VERSIONS_GRID[0]).append("Loading...")
+
+  // CSS fade-in
   $(OVERLAYS.VERSIONS).removeClass('disabled')
   await sleep(50)
   $(OVERLAYS.VERSIONS).addClass('animated-visible')
+  await sleep(200)
+
+  // Wait to get everything from API and sort in reverse chronological order
+  const { versions } = await api.getAllVersions()
+  versions.sort((v1, v2) => parseInt(v1.timestamp) > parseInt(v2.timestamp) ? -1 : 1)
+
+  // Remove simple loading state
+  $(VERSIONS_GRID[0]).empty()
+
+  const optionsDate = { year: 'numeric', month: 'long', day: 'numeric' }
+  const optionsTime = { hour: '2-digit', minute: '2-digit' }  
+
+  versions.forEach((v, index) => {
+    const date = new Date(v.timestamp)
+    const formattedDate = date.toLocaleDateString("en-US", optionsDate)
+    const formattedTime = date.toLocaleTimeString("en-US", optionsTime)
+
+    const fullDate = `${formattedDate} at ${formattedTime}`
+    const version = v.version
+    const url = State.getLinkAtVersionWithCurrentPosition(version)
+
+    const el = $(VERSIONS_GRID[index % 4])    
+    const linkId = `version-link-${index}`
+    el.append(`<div class="version-link-container"><a id=${linkId} href="${url}" class="version-link">${version}—${fullDate}</a></div>`)
+  })
+  console.log('Versions: ', versions)
 }
 
 const onVersionsWindowClose = async (evt) => {
   $(OVERLAYS.VERSIONS).removeClass('animated-visible')
   await sleep(200)
   $(OVERLAYS.VERSIONS).addClass('disabled')
+  VERSIONS_GRID.forEach(id => $(id).empty())
 }
 
 const onAboutTap = async (evt) => {
