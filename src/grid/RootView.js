@@ -17,6 +17,11 @@ export default class RootView extends View {
 
     this.img = null
     this.setup()
+    window.addEventListener('resize', this.onWindowResize.bind(this))
+  }
+  onWindowResize() {
+    this.createGridImage()
+    this.redraw()
   }
   setup() {
     this.createGridImage()
