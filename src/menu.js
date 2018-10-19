@@ -8,16 +8,18 @@ const BUTTONS = {
   CANCEL_BUTTON: "#cancel-button",
   SAVE_BUTTON: "#save-button",
   TEXT_BUTTON: "#text-button",
-  LARGE_TEXT_BUTTON: "#large-text-button",
   IMAGE_BUTTON: "#image-button",
   BOX_BUTTON: "#box-button",
   LINE_BUTTON: "#line-button",
   MOVE_BUTTON: "#move-button",
-  REMOVE_BUTTON: "#remove-button"
+  REMOVE_BUTTON: "#remove-button",
+  VERSION_WARNING_BUTTON: "#editing-disabled"
 }
 
-const HIGHLIGHT_BUTTONS = [BUTTONS.TEXT_BUTTON, BUTTONS.LARGE_TEXT_BUTTON, BUTTONS.IMAGE_BUTTON, BUTTONS.BOX_BUTTON, BUTTONS.LINE_BUTTON, BUTTONS.MOVE_BUTTON, BUTTONS.REMOVE_BUTTON]
+const HIGHLIGHT_BUTTONS = [BUTTONS.TEXT_BUTTON, BUTTONS.IMAGE_BUTTON, BUTTONS.BOX_BUTTON, BUTTONS.LINE_BUTTON, BUTTONS.MOVE_BUTTON, BUTTONS.REMOVE_BUTTON]
 const STATE_CONTROL_BUTTONS = [BUTTONS.SAVE_BUTTON, BUTTONS.CANCEL_BUTTON]
+
+let isLatestVersion = true
 
 export const setCoordinates = (x, y) => {
   const elX = $('#x-coord')
@@ -45,6 +47,21 @@ export const setDateAndTime = () => {
   elDate.html(formattedDate)
   elTime.html(formattedTime)
 }
+
+export const setIsLatestVersion = (isLatest) => {
+  isLatestVersion = isLatest
+  updateIsLatestVersion()
+}
+
+const updateIsLatestVersion = () => {
+  if (isLatestVersion) {
+    HIGHLIGHT_BUTTONS.forEach(b => $(b).removeClass('disabled'))
+    $(BUTTONS.VERSION_WARNING_BUTTON).addClass('disabled')
+  } else {
+    HIGHLIGHT_BUTTONS.forEach(b => $(b).addClass('disabled'))
+    $(BUTTONS.VERSION_WARNING_BUTTON).removeClass('disabled')
+  }
+} 
 
 const setupDateAndTime = () => {
   setDateAndTime()
@@ -96,10 +113,6 @@ const onTextTap = (evt) => {
   showStateControlButtons()
 }
 
-const onLargeTextTap = (evt) => {
-  showStateControlButtons()
-}
-
 const onImageTap = (evt) => {
   State.startEditing(State.EDITING_MODES.IMAGE)
   removeAllHighlight()
@@ -135,6 +148,10 @@ const onRemoveTap = (evt) => {
   showStateControlButtons()
 }
 
+const onVersionWarningTap = (evt) => {
+  State.navigateLatestWithPosition()
+}
+
 const setupListeners = () => {
   $(document).ready(() => {
     $(BUTTONS.VERSION_HISTORY).click(onVersionHistoryTap)
@@ -143,13 +160,14 @@ const setupListeners = () => {
     $(BUTTONS.CANCEL_BUTTON).click(onCancelTap)
     $(BUTTONS.SAVE_BUTTON).click(onSaveTap)
     $(BUTTONS.TEXT_BUTTON).click(onTextTap)
-    $(BUTTONS.LARGE_TEXT_BUTTON).click(onLargeTextTap)
     $(BUTTONS.IMAGE_BUTTON).click(onImageTap)
     $(BUTTONS.BOX_BUTTON).click(onBoxTap)
     $(BUTTONS.LINE_BUTTON).click(onLineTap)
     $(BUTTONS.MOVE_BUTTON).click(onMoveTap)
     $(BUTTONS.REMOVE_BUTTON).click(onRemoveTap)
+    $(BUTTONS.VERSION_WARNING_BUTTON).click(onVersionWarningTap)
     setupDateAndTime()
+    updateIsLatestVersion()
   })
 }
 

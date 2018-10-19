@@ -54,3 +54,6 @@
 .hidden {
   visibility: hidden;
 }
+.disabled {
+  display: none;
+}

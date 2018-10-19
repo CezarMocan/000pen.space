@@ -125,7 +125,7 @@ class GlobalState {
   }
 
   setContents(contents) {
-    console.log('Contents: ', contents)
+    // console.log('Contents: ', contents)
     if (!contents.version) {
       // This means we received an empty string => no contents in the database.
       return
@@ -161,8 +161,8 @@ class GlobalState {
 
   newScrollOffset(offset, force) {
     const { deltaX, deltaY } = offset
-    this.scrollOffset.x -= deltaX
-    this.scrollOffset.y -= deltaY
+    this.scrollOffset.x = parseInt(this.scrollOffset.x - deltaX)
+    this.scrollOffset.y = parseInt(this.scrollOffset.y - deltaY)
     this._mainController.updateScrollPosition(this.scrollOffset.x, this.scrollOffset.y)
     this._editController.updateScrollPosition(this.scrollOffset.x, this.scrollOffset.y)
     this._gridController.updateScrollPosition(this.scrollOffset.x, this.scrollOffset.y)
@@ -174,9 +174,15 @@ class GlobalState {
     // router.pause(false)
   }
 
+  // Navigation related methods
   getCurrentURL() {
     return getAbsoluteURL(`/version/${this.version}/x/${-this.scrollOffset.x}/y/${-this.scrollOffset.y}`)
   }
+
+  navigateLatestWithPosition() {
+    router.navigate(`/x/${-this.scrollOffset.x}/y/${-this.scrollOffset.y}`)
+  }
+
 }
 
 export default new GlobalState()
