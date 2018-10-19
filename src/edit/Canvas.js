@@ -132,7 +132,9 @@ export default class Canvas extends View {
   }
   mousePressedImage() {
     const view = this.getViewUnderCursor()
+    // console.log('mousePressedImage: ', view)
     if (!view) return
+    if (!view.isRect) return
     const filePicker = this.p5.select('#filePicker')
     filePicker.elt.onchange = this.onImageSelect.bind(this, filePicker, view)
     filePicker.elt.click()
