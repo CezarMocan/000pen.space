@@ -6,6 +6,7 @@ import ImageRect from '../core/ImageRect.js'
 import ImagePool from './ImagePool.js'
 import { setCoordinates, setVersionNumber } from '../menu'
 import router from '../router'
+import { getAbsoluteURL } from '../utils'
 
 const EDITING_MODES = {
   LINE: 'LINE',
@@ -171,6 +172,10 @@ class GlobalState {
     // router.pause(true)
     // router.navigate(`/version/${this.version}/x/${-this.scrollOffset.x}/y/${-this.scrollOffset.y}`)
     // router.pause(false)
+  }
+
+  getCurrentURL() {
+    return getAbsoluteURL(`/version/${this.version}/x/${-this.scrollOffset.x}/y/${-this.scrollOffset.y}`)
   }
 }
 

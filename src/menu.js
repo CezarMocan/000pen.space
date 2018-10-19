@@ -1,4 +1,5 @@
 import State from './state'
+import { copyToClipboard } from './utils'
 
 const BUTTONS = {
   VERSION_HISTORY: "#version-history",
@@ -59,7 +60,9 @@ const onAboutTap = (evt) => {
 }
 
 const onShareScreenTap = (evt) => {
-
+  const url = State.getCurrentURL()
+  copyToClipboard(url)
+  alert(`Your URL (${url}) has been copied to clipboard!`)
 }
 
 const showStateControlButtons = () => {

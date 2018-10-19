@@ -18,6 +18,8 @@ import router from './router.js'
 let noP5Initialized = 0
 const noP5Total = 4
 
+const sleep = async (ms) => { return new Promise((resolve, reject) => setTimeout(() => resolve(), ms)) }
+
 const onP5Initialized = () => {
    noP5Initialized++
    console.log('onSetupDone')  
@@ -75,17 +77,21 @@ router.on('/', async () => {
 
 router.on('/version/:id', async (params) => {
   await waitForInit
-  const version = await api.getVersion(params.id)
-  State.setContents(version)
-  State.setInitialScroll(0, 0)
+  router.navigate(`/version/${params.id}/x/0/y/0`)
+  // const version = await api.getVersion(params.id)
+  // State.setContents(version)
+  // State.setInitialScroll(0, 0)
 }).resolve()
 
 router.on('/version/:id/x/:x/y/:y', async (params) => {
+  console.log('Router called')
   await waitForInit
   const version = await api.getVersion(params.id)
   State.setContents(version)
   State.setInitialScroll(parseInt(params.x), parseInt(params.y))
-  // router.pause(true)
-  // router.navigate('/')
-  // router.pause(false)
+
+  router.pause(true)
+  router.navigate('/')
+  await sleep(250)
+  router.pause(false)
 }).resolve()
