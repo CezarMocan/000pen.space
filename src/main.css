@@ -69,3 +69,37 @@
   padding: 10px;
   background-color: white;
 }
+
+.overlay-close-button {
+  position: absolute;
+  right: 13px;
+  top: 8px;
+  font-family: "fugue_mono", sans-serif;
+  font-size: 16pt;
+  cursor: pointer;
+}
+
+.overlay-close-button:hover {
+  color: blue;
+}
+
+.animated {
+  opacity: 0;
+  transition:opacity 0.15s linear;
+}
+
+.animated.animated-visible {
+  opacity: 1;
+}
+
+.grid-container {
+  margin-right: 30px;
+  display: flex;
+  justify-content: space-between;
+  overflow: scroll;
+}
+
+.grid-column {
+  width: 24%;
+  text-overflow: wrap;
+}

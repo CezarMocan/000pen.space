@@ -1,5 +1,5 @@
 import State from './state'
-import { copyToClipboard, isMobile } from './utils'
+import { copyToClipboard, isMobile, sleep } from './utils'
 
 const BUTTONS = {
   VERSION_HISTORY: "#version-history",
@@ -20,6 +20,8 @@ const OVERLAYS = {
   MOBILE: "#mobile-window-overlay",
   VERSIONS: "#versions-window-overlay",
   ABOUT: "#about-window-overlay",
+  VERSIONS_CLOSE: "#versions-window-overlay-close",
+  ABOUT_CLOSE: "#about-window-overlay-close"
 }
 
 const HIGHLIGHT_BUTTONS = [BUTTONS.TEXT_BUTTON, BUTTONS.IMAGE_BUTTON, BUTTONS.BOX_BUTTON, BUTTONS.LINE_BUTTON, BUTTONS.MOVE_BUTTON, BUTTONS.REMOVE_BUTTON]
@@ -72,14 +74,6 @@ const updateIsLatestVersion = () => {
 const setupDateAndTime = () => {
   setDateAndTime()
   setInterval(setDateAndTime, 1000)
-}
-
-const onVersionHistoryTap = (evt) => {
-  console.log('onVersionHistoryTap', evt)
-}
-
-const onAboutTap = (evt) => {
-
 }
 
 const onShareScreenTap = (evt) => {
@@ -158,6 +152,30 @@ const onVersionWarningTap = (evt) => {
   State.navigateLatestWithPosition()
 }
 
+const onVersionHistoryTap = async (evt) => {
+  $(OVERLAYS.VERSIONS).removeClass('disabled')
+  await sleep(50)
+  $(OVERLAYS.VERSIONS).addClass('animated-visible')
+}
+
+const onVersionsWindowClose = async (evt) => {
+  $(OVERLAYS.VERSIONS).removeClass('animated-visible')
+  await sleep(200)
+  $(OVERLAYS.VERSIONS).addClass('disabled')
+}
+
+const onAboutTap = async (evt) => {
+  $(OVERLAYS.ABOUT).removeClass('disabled')
+  await sleep(50)
+  $(OVERLAYS.ABOUT).addClass('animated-visible')
+}
+
+const onAboutWindowClose = async (evt) => {
+  $(OVERLAYS.ABOUT).removeClass('animated-visible')
+  await sleep(200)
+  $(OVERLAYS.ABOUT).addClass('disabled')
+}
+
 const setupListeners = () => {
   $(document).ready(() => {
     if (isMobile()) {
@@ -175,6 +193,8 @@ const setupListeners = () => {
     $(BUTTONS.MOVE_BUTTON).click(onMoveTap)
     $(BUTTONS.REMOVE_BUTTON).click(onRemoveTap)
     $(BUTTONS.VERSION_WARNING_BUTTON).click(onVersionWarningTap)
+    $(OVERLAYS.ABOUT_CLOSE).click(onAboutWindowClose)
+    $(OVERLAYS.VERSIONS_CLOSE).click(onVersionsWindowClose)
     setupDateAndTime()
     updateIsLatestVersion()
   })
