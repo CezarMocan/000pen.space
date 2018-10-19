@@ -77,7 +77,7 @@ const updateIsLatestVersion = () => {
     HIGHLIGHT_BUTTONS.forEach(b => $(b).addClass('disabled'))
     $(BUTTONS.VERSION_WARNING_BUTTON).removeClass('disabled')
   }
-} 
+}
 
 const setupDateAndTime = () => {
   setDateAndTime()
@@ -163,7 +163,7 @@ const onVersionWarningTap = (evt) => {
 const onVersionHistoryTap = async (evt) => {
   // Make sure the grid is empty
   VERSIONS_GRID.forEach(id => $(id).empty())
-  
+
   // Add simple loading state
   $(VERSIONS_GRID[0]).append("Loading...")
 
@@ -181,7 +181,7 @@ const onVersionHistoryTap = async (evt) => {
   $(VERSIONS_GRID[0]).empty()
 
   const optionsDate = { year: 'numeric', month: 'long', day: 'numeric' }
-  const optionsTime = { hour: '2-digit', minute: '2-digit' }  
+  const optionsTime = { hour: '2-digit', minute: '2-digit' }
 
   versions.forEach((v, index) => {
     const date = new Date(v.timestamp)
@@ -192,9 +192,9 @@ const onVersionHistoryTap = async (evt) => {
     const version = v.version
     const url = State.getLinkAtVersionWithCurrentPosition(version)
 
-    const el = $(VERSIONS_GRID[index % 4])    
+    const el = $(VERSIONS_GRID[index % 4])
     const linkId = `version-link-${index}`
-    el.append(`<div class="version-link-container"><a id=${linkId} href="${url}" class="version-link">${version}—${fullDate}</a></div>`)
+    el.append(`<div class="version-link-container"><a id=${linkId} href="${url}" class="version-link ${State.version == version ? "current" : ""}">${version}—${fullDate}</a></div>`)
   })
   console.log('Versions: ', versions)
 }

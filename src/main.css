@@ -109,6 +109,10 @@ a.version-link {
   color: black;
 }
 
+a.version-link.current {
+  color: red;
+}
+
 a.version-link:hover {
   color: blue;
 }
