@@ -22,7 +22,6 @@ const sleep = async (ms) => { return new Promise((resolve, reject) => setTimeout
 
 const onP5Initialized = () => {
    noP5Initialized++
-   console.log('onSetupDone')  
 }
 
 // Create p5 canvas for grid

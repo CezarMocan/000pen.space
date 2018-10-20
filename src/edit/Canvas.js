@@ -132,7 +132,6 @@ export default class Canvas extends View {
   }
   mousePressedImage() {
     const view = this.getViewUnderCursor()
-    // console.log('mousePressedImage: ', view)
     if (!view) return
     if (!view.isRect) return
     const filePicker = this.p5.select('#filePicker')
@@ -140,7 +139,6 @@ export default class Canvas extends View {
     filePicker.elt.click()
   }
   onImageSelect(filePicker, view) {
-    console.log('select:', filePicker.elt.files)
     let imageView
     if (view.isImageRect) {
       imageView = view
@@ -152,7 +150,6 @@ export default class Canvas extends View {
     ImageHandler.uploadImage(filePicker.elt.files, this.onDoneUploadImage.bind(this, imageView), this.onFailedUploadImage.bind(this), this.onProgressUploadImage.bind(this))
   }
   onDoneUploadImage(imageView, url) {
-    console.log('Done: ', imageView, url)
     imageView.url = url
   }
   onFailedUploadImage(e) {
@@ -200,7 +197,6 @@ export default class Canvas extends View {
   // *********** TEXT *********** \\
   mousePressedText() {
     this._pressCount++
-    console.log('mousePressedText: ', this._pressCount)
     if (this._pressCount == 1) {
       this.currText = this.container.addView(new Text(this._mx, this._my, ''))
       this.currText.editing = true
@@ -217,26 +213,29 @@ export default class Canvas extends View {
       switch (keyCode) {
         case this.p5.RETURN:
         case this.p5.ENTER:
+        // This is a super weird bug, the "." character spits out the same keycode as DELETE (46...)
+        // case this.p5.DELETE:
+        case this.p5.BACKSPACE:
           break
-        default:
-          currentCopy = this.currText.text
+        default:        
+          currentCopy = this.currText.text.repeat(1)
           this.currText.text = currentCopy + key
           break
       }
     }
   }
-  keyReleasedText(keyCode) {
+  keyReleasedText(key, keyCode) {
     let currentCopy
     if (this.currText && this.currText.editing) {
       switch (keyCode) {
         case this.p5.RETURN:
         case this.p5.ENTER:
-          currentCopy = this.currText.text
+          currentCopy = this.currText.text.repeat(1)
           this.currText.text = currentCopy + '\n'
           break
         case this.p5.DELETE:
         case this.p5.BACKSPACE:
-          currentCopy = this.currText.text
+          currentCopy = this.currText.text.repeat(1)
           this.currText.text = currentCopy.slice(0, -1)
           break
       }
@@ -279,7 +278,7 @@ export default class Canvas extends View {
         if (State.isTextEditingMode) this.keyTypedText(this.p5.key, this.p5.keyCode)
         break
       case 'keyReleased':
-        if (State.isTextEditingMode) this.keyReleasedText(this.p5.keyCode)
+        if (State.isTextEditingMode) this.keyReleasedText(this.p5.key, this.p5.keyCode)
         break
     }
   }

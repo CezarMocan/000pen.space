@@ -113,7 +113,7 @@ export default class Text extends View {
       const cursorPosition = this.cursorPosition
       this.p5.noFill()
       this.p5.stroke(this._cursorColor.array)
-      this.p5.line(cursorPosition.x, cursorPosition.y + 7, cursorPosition.x, cursorPosition.y + this._leading + 7)
+      this.p5.line(cursorPosition.x - 3, cursorPosition.y, cursorPosition.x - 3, cursorPosition.y + this._leading)
     }
   }
 }

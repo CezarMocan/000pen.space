@@ -196,7 +196,6 @@ const onVersionHistoryTap = async (evt) => {
     const linkId = `version-link-${index}`
     el.append(`<div class="version-link-container"><a id=${linkId} href="${url}" class="version-link ${State.version == version ? "current" : ""}">${version}—${fullDate}</a></div>`)
   })
-  console.log('Versions: ', versions)
 }
 
 const onVersionsWindowClose = async (evt) => {
