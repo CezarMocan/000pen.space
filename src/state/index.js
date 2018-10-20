@@ -77,7 +77,6 @@ class GlobalState {
       this._editController.updateScrollPosition(this.scrollOffset.x, this.scrollOffset.y)
       this._mainController.redraw()
     } else {
-      console.log('change editing mode')
       this._state.editingMode = editingMode
       // this._menuController.redraw()
       this._editController.onChangeEditingMode()
@@ -87,14 +86,14 @@ class GlobalState {
   saveEditing() {
     const contentView = this._editController.getContents()
     const serializedContents = contentView.children.map(child => child.serialize())
-    console.log(serializedContents)
+    // console.log(serializedContents)
 
     api.save(serializedContents, this.onSaveDone, this.onSaveFailed)
 
     this._state.editing = false
     this._state.editingMode = null    
     this._mainController.setContents(contentView.children)
-    console.log('Called setContents with: ', contentView.children)
+    // console.log('Called setContents with: ', contentView.children)
     this._mainController.onDoneEditing()
     this._editController.onDoneEditing()
     // this._menuController.onDoneEditing()
@@ -104,11 +103,11 @@ class GlobalState {
     delete this.currentContents.oldChildren
   }
   onSaveDone(data) {
-    console.log('onSaveDone', data)
+    // console.log('onSaveDone', data)
     this.version = data.version
   }
   onSaveFailed(evt) {
-    console.log('onSaveFailed', evt)
+    // console.log('onSaveFailed', evt)
   }
   cancelEditing() {
     this._state.editing = false
