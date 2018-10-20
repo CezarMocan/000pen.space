@@ -14,7 +14,8 @@ export const BUTTONS = {
   LINE_BUTTON: "#line-button",
   MOVE_BUTTON: "#move-button",
   REMOVE_BUTTON: "#remove-button",
-  VERSION_WARNING_BUTTON: "#editing-disabled"
+  VERSION_WARNING_BUTTON: "#editing-disabled",
+  RANDOM_BUTTOM: "#random-button"
 }
 
 export const OVERLAYS = {
@@ -91,11 +92,13 @@ const onShareScreenTap = (evt) => {
 }
 
 const showStateControlButtons = () => {
-  STATE_CONTROL_BUTTONS.forEach(b => $(b).removeClass('hidden'))
+  $(BUTTONS.RANDOM_BUTTOM).addClass('disabled')
+  STATE_CONTROL_BUTTONS.forEach(b => $(b).removeClass('disabled'))
 }
 
 const hideStateControlButtons = () => {
-  STATE_CONTROL_BUTTONS.forEach(b => $(b).addClass('hidden'))
+  STATE_CONTROL_BUTTONS.forEach(b => $(b).addClass('disabled'))
+  $(BUTTONS.RANDOM_BUTTOM).removeClass('disabled')
 }
 
 const removeAllHighlight = () => {
@@ -217,6 +220,10 @@ const onAboutWindowClose = async (evt) => {
   $(OVERLAYS.ABOUT).addClass('disabled')
 }
 
+const onRandomTap = (evt) => {
+  State.navigateSomewhereRandom()
+}
+
 const onPaste = (evt) => {
   const pastedText = (evt && evt.clipboardData) ? evt.clipboardData.getData('text') : ''
   State.onPaste(pastedText)
@@ -244,6 +251,7 @@ const setupListeners = () => {
     $(BUTTONS.VERSION_WARNING_BUTTON).click(onVersionWarningTap)
     $(OVERLAYS.ABOUT_CLOSE).click(onAboutWindowClose)
     $(OVERLAYS.VERSIONS_CLOSE).click(onVersionsWindowClose)
+    $(BUTTONS.RANDOM_BUTTOM).click(onRandomTap)
 
     // Make sure clock in top-left corner of the screen is working.
     setupDateAndTime()

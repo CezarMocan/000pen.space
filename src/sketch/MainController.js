@@ -24,6 +24,9 @@ class MainController extends PhalanxRoot {
   postDraw() {
 
   }
+  getContentsOriginal() {
+    return this.rootView.dynamicContent.children
+  }
   getContents() {
     return this.rootView.dynamicContent.children.slice(0)
   }

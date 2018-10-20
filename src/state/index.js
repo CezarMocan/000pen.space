@@ -46,7 +46,7 @@ class GlobalState {
     this._gridController = c
   }
   get version() { return this._state.version }
-  set version(v) { 
+  set version(v) {
     this._state.version = v
     setVersionNumber(v)
     // if (this._menuController)
@@ -64,7 +64,7 @@ class GlobalState {
   get isTextEditingMode() { return this._state.editingMode === this.EDITING_MODES.TEXT }
 
   // pointInMenu(x, y) { return this._menuController.pointInMenu(x, y) }
-  
+
   startEditing(editingMode) {
     if (!this._state.editing) {
       this._state.editing = true
@@ -92,7 +92,7 @@ class GlobalState {
     api.save(serializedContents, this.onSaveDone, this.onSaveFailed)
 
     this._state.editing = false
-    this._state.editingMode = null    
+    this._state.editingMode = null
     this._mainController.setContents(contentView.children)
     // console.log('Called setContents with: ', contentView.children)
     this._mainController.onDoneEditing()
@@ -158,7 +158,7 @@ class GlobalState {
     })
 
     this._mainController.setContents(deserialized)
-    this._mainController.refresh()    
+    this._mainController.refresh()
   }
 
   setInitialScroll(deltaX, deltaY) {
@@ -192,6 +192,14 @@ class GlobalState {
 
   navigateLatestWithPosition() {
     router.navigate(`/x/${-this.scrollOffset.x}/y/${-this.scrollOffset.y}`)
+  }
+
+  navigateSomewhereRandom() {
+    const contents = this._mainController.getContentsOriginal()
+    const randomIndex = parseInt(Math.floor(Math.random() * contents.length))
+    const { x, y } = contents[randomIndex]
+    router.navigate(`/version/${this.version}/x/${x - 100}/y/${y - 100}`)
+    console.log(x, y)
   }
 
 }
