@@ -134,3 +134,22 @@ a.version-link:hover {
 #versions-window-overlay {
   overflow-y: scroll;
 }
+
+#about-window-overlay {
+  overflow-y: scroll;
+}
+
+.about-text {
+  width: 40%;
+  text-overflow: wrap;
+}
+
+.about-text a {
+  text-decoration: none;
+  color: blue;
+}
+
+.about-text a:hover {
+  text-decoration: none;
+  color: red;
+}
