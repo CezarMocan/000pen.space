@@ -1,4 +1,5 @@
 import { canvasSize, grid } from '../Config'
+import { overlaysOnView } from '../menu'
 
 const SUPPORTED_EVENTS = ['mousePressed', 'mouseMoved', 'mouseDragged', 'mouseReleased', 'mouseWheel', 'keyTyped', 'keyPressed', 'keyReleased']
 
@@ -72,8 +73,9 @@ export default class PhalanxRoot {
     // console.log('removeListener', evt, view, this.listeners[evt])
   }
   _propagateP5Event(evt, original) {
+    if (overlaysOnView()) return
     if (!this.listeners[evt]) return
     this.listeners[evt].forEach(view => view._onEvent(evt, original))
-    return false    
+    return false
   }
 }

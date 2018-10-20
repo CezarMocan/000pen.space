@@ -36,6 +36,12 @@ export const disableOverlays = () => {
   onAboutWindowClose()
 }
 
+export const overlaysOnView = () => {
+  if (!$(OVERLAYS.VERSIONS).hasClass('disabled')) return true
+  if (!$(OVERLAYS.ABOUT).hasClass('disabled')) return true
+  return false
+}
+
 let isLatestVersion = true
 
 export const setCoordinates = (x, y) => {
@@ -56,8 +62,8 @@ export const setDateAndTime = () => {
   const date = new Date()
   const optionsDate = { year: 'numeric', month: 'long', day: 'numeric' }
   const optionsTime = { hour: '2-digit', minute: '2-digit', second: '2-digit' }
-  const formattedDate = date.toLocaleDateString("en-US", optionsDate)
-  const formattedTime = date.toLocaleTimeString("en-US", optionsTime)
+  const formattedDate = date.toLocaleDateString("en-US", optionsDate).toLowerCase()
+  const formattedTime = date.toLocaleTimeString("en-US", optionsTime).toLowerCase()
   const elDate = $('#formatted-date')
   const elTime = $('#formatted-time')
 
@@ -242,6 +248,9 @@ const onPaste = (evt) => {
 
 const setupListeners = () => {
   $(document).ready(() => {
+    // Disable back button, so horizontal scroll works.
+    if (window.history && window.history.__proto__ && window.history.__proto__.pushState)
+      window.history.__proto__.pushState = window.history.__proto__.replaceState
     // No content on mobile :(
     if (isMobile()) {
       $(OVERLAYS.MOBILE).removeClass('disabled')

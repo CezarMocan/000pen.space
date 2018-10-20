@@ -81,7 +81,7 @@
 }
 
 .overlay-close-button {
-  position: absolute;
+  position: fixed;
   right: 13px;
   top: 8px;
   font-family: "fugue_mono", sans-serif;
@@ -129,4 +129,8 @@ a.version-link:hover {
 
 .version-link-container {
   margin-bottom: 10px;
+}
+
+#versions-window-overlay {
+  overflow-y: scroll;
 }
