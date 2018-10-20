@@ -47,6 +47,9 @@ class EditController extends PhalanxRoot {
   updateScrollPosition(offsetX, offsetY) {
     this.rootView.updateScrollPosition(offsetX, offsetY)
   }
+  onPaste(pastedText) {
+    this.rootView.onPaste(pastedText)
+  }
 }
 
 export default new EditController()

@@ -217,7 +217,7 @@ export default class Canvas extends View {
         // case this.p5.DELETE:
         case this.p5.BACKSPACE:
           break
-        default:        
+        default:
           currentCopy = this.currText.text.repeat(1)
           this.currText.text = currentCopy + key
           break
@@ -239,6 +239,13 @@ export default class Canvas extends View {
           this.currText.text = currentCopy.slice(0, -1)
           break
       }
+    }
+  }
+
+  onPaste(pastedText) {
+    if (this.currText && this.currText.editing) {
+      const currentCopy = this.currText.text.repeat(1)
+      this.currText.text = currentCopy + pastedText
     }
   }
 

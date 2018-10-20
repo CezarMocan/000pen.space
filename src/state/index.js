@@ -123,6 +123,12 @@ class GlobalState {
     delete this.currentContents.childrenToEdit
   }
 
+  onPaste(pastedText) {
+    if (this._state.editing && this.isTextEditingMode) {
+      this._editController.onPaste(pastedText)
+    }
+  }
+
   setContents(contents) {
     // console.log('Contents: ', contents)
     if (!contents.version) {

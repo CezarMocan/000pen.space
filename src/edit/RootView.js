@@ -36,4 +36,9 @@ export default class RootView extends View {
     this.p5.clear()
     this.redraw()
   }
+  onPaste(pastedText) {
+    if (this.canvasView) {
+      this.canvasView.onPaste(pastedText)
+    }
+  }
 }

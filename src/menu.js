@@ -217,11 +217,20 @@ const onAboutWindowClose = async (evt) => {
   $(OVERLAYS.ABOUT).addClass('disabled')
 }
 
+const onPaste = (evt) => {
+  const pastedText = (evt && evt.clipboardData) ? evt.clipboardData.getData('text') : ''
+  console.log('Pasted: ', pastedText)
+  State.onPaste(pastedText)
+}
+
 const setupListeners = () => {
   $(document).ready(() => {
+    // No content on mobile :(
     if (isMobile()) {
       $(OVERLAYS.MOBILE).removeClass('disabled')
     }
+
+
     $(BUTTONS.VERSION_HISTORY).click(onVersionHistoryTap)
     $(BUTTONS.ABOUT_THIS_WEBSITE).click(onAboutTap)
     $(BUTTONS.SHARE_SCREEN).click(onShareScreenTap)
@@ -236,8 +245,13 @@ const setupListeners = () => {
     $(BUTTONS.VERSION_WARNING_BUTTON).click(onVersionWarningTap)
     $(OVERLAYS.ABOUT_CLOSE).click(onAboutWindowClose)
     $(OVERLAYS.VERSIONS_CLOSE).click(onVersionsWindowClose)
+
+    // Make sure clock in top-left corner of the screen is working.
     setupDateAndTime()
     updateIsLatestVersion()
+    
+    // Bind paste events, and make sure to place the pasted text in the current text field, if the user is currently editing one.
+    window.addEventListener('paste', onPaste)
   })
 }
 
