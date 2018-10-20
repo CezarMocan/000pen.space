@@ -27,6 +27,7 @@ export default class ImageRect extends Rect {
     return ImageRect.Serialize(this)
   }
   get isImageRect() { return true }
+  get checksOffscreen() { return true }
   registerImg() {
     ImagePool.register(this._id, this, this.loadedCallback.bind(this), this.unloadedCallback.bind(this), this.p5)
   }

@@ -1,3 +1,5 @@
+import { pointInRect } from '../utils'
+
 class ImagePool {
   constructor() {
     this._images = {}
@@ -78,16 +80,11 @@ class ImagePool {
     return this._domImages[imgObject.obj.url]
   }
 
-  pointInRect(p, r) {
-    if (p.x >= r.x && p.x <= r.x + r.w && p.y >= r.y && p.y <= r.y + r.h) return true
-    return false
-  }
-
   updateLoadedImages(newScrollOffset, oldScrollOffset) {
     Object.values(this._images).forEach(i => {
       const isLoaded = i.obj._loaded
 
-      const currIn = this.pointInRect(
+      const currIn = pointInRect(
         { x: i.obj.x, y: i.obj.y }, 
         { x: newScrollOffset.x - this.loadWindowWidth, 
           y: newScrollOffset.y - this.loadWindowHeight, 

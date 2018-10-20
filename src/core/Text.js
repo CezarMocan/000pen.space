@@ -26,6 +26,7 @@ export default class Text extends View {
 
     this.highlight = false
     this.editing = false
+    this.fbo = null
   }
   duplicate() {
     return new Text(this._x, this._y, this._text)
@@ -35,10 +36,11 @@ export default class Text extends View {
   }
   get x() { return this._x }
   get y() { return this._y }
+  get checksOffscreen() { return true }
   recomputeSize() {
     this.p5.push()
     this.styleText()
-    this._width = this.lines.reduce((acc, l) => Math.max(this.p5.textWidth(l), acc), 0)
+    this._width = this.lines.reduce((acc, l) => Math.max(this.p5.textWidth(l), acc), 0) || 0
     this.p5.pop()
 
     this._height = this.lines.length * this._leading
@@ -84,19 +86,35 @@ export default class Text extends View {
   get lines() {
     return this._text.split('\n')
   }
-  styleText() {
-    this.p5.textSize(this._fontSize)
-    this.p5.textAlign(this.p5.LEFT, this.p5.TOP)
-    this.p5.noStroke()
-    this.p5.fill(this.color.array)
-    // this.p5.noFill()
-    // this.p5.stroke(this.color.array)
-    this.p5.textFont(this.root.fonts.fugueRegular)
-    this.p5.textLeading(this._leading)
+  styleText(optFbo) {
+    const fbo = optFbo || this.p5
+    fbo.textSize(this._fontSize)
+    fbo.textAlign(this.p5.LEFT, this.p5.TOP)
+    fbo.noStroke()
+    fbo.fill(this.color.array)
+    fbo.textFont(this.root.fonts.fugueRegular)
+    fbo.textLeading(this._leading)
   }
-  draw() {
+  drawTextShapes() {
     this.styleText()
     this.p5.text(this.text, this.x, this.y)
+  }
+  drawTextBaked() {
+    if (this.width == 0 || this.height == 0) return
+    if (!this.fbo) {
+      this.fbo = this.p5.createGraphics(2.1 * this.width, 2.1 * this.height)
+      this.styleText(this.fbo)
+      this.fbo.text(this.text, 0, 0)
+    }
+    this.p5.image(this.fbo, this.x, this.y, 1.05 * this.width, 1.05 * this.height)
+  }
+  draw() {
+    if (this.editing) {
+      this.drawTextShapes(this.p5)
+    } else {
+      this.drawTextBaked()
+    }
+
     if (this.highlight) {
       const h = {
         x: this.left - grid.pointDistance,

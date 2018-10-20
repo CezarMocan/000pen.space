@@ -29,3 +29,16 @@ export const isMobile = () => {
 }
 
 export const sleep = async (ms) => { return new Promise((resolve, reject) => setTimeout(() => resolve(), ms)) }
+
+export const pointInRect = (p, r) => {
+  if (p.x >= r.x && p.x <= r.x + r.w && p.y >= r.y && p.y <= r.y + r.h) return true
+  return false
+}
+
+export const rectOverlap = (r1, r2) => {
+  const c1 = r1.x < r2.x + r2.w
+  const c2 = r1.x + r1.w > r2.x
+  const c3 = r1.y < r2.y + r2.h
+  const c4 = r1.y + r1.h > r2.y
+  return (c1 && c2 && c3 && c4)
+}

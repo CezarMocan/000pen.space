@@ -1,4 +1,5 @@
 import api from '../api/api.js'
+import View from '../core/View.js'
 import Line from '../core/Line.js'
 import Text from '../core/Text.js'
 import Rect from '../core/Rect.js'
@@ -172,6 +173,7 @@ class GlobalState {
     this._editController.updateScrollPosition(this.scrollOffset.x, this.scrollOffset.y)
     this._gridController.updateScrollPosition(this.scrollOffset.x, this.scrollOffset.y)
     ImagePool.updateScrollPosition(this.scrollOffset.x, this.scrollOffset.y, force)
+    View.updateScrollPosition(this.scrollOffset.x, this.scrollOffset.y)
     setCoordinates(this.scrollOffset.x, this.scrollOffset.y)
 
     // router.pause(true)

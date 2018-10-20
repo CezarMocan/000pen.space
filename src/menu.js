@@ -219,7 +219,6 @@ const onAboutWindowClose = async (evt) => {
 
 const onPaste = (evt) => {
   const pastedText = (evt && evt.clipboardData) ? evt.clipboardData.getData('text') : ''
-  console.log('Pasted: ', pastedText)
   State.onPaste(pastedText)
 }
 

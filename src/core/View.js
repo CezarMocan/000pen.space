@@ -1,8 +1,14 @@
 import { canvasSize, grid } from '../Config'
+import { rectOverlap } from '../utils'
+
+const scrollOffset = {
+  x: 0,
+  y: 0
+}
 
 export default class View {
   static FromSerialized(objClass, obj) {
-    let args = objClass.serializableAttributes.reduce((acc, key) => { 
+    let args = objClass.serializableAttributes.reduce((acc, key) => {
       acc.push(obj[key])
       return acc
     }, [])
@@ -17,6 +23,10 @@ export default class View {
       acc[attribute] = obj[attribute]
       return acc
     }, { type: objClass.name })
+  }
+  static updateScrollPosition(negX, negY) {
+    scrollOffset.x = -negX
+    scrollOffset.y = -negY
   }
   constructor() {
     this._root = null
@@ -53,7 +63,7 @@ export default class View {
   get windowHeight() { return this.root ? this.root.windowHeight : 0 }
 
   get children() { return this._children }
-  get disabled() { 
+  get disabled() {
     if (!this.parent) return this._disabled
     return this._disabled || this.parent.disabled
   }
@@ -66,7 +76,7 @@ export default class View {
 
   duplicate() {
     console.warn('pointInView Not implemented for current view!')
-    return null    
+    return null
   }
 
   pointInView(x, y) {
@@ -120,9 +130,30 @@ export default class View {
   }
   onEvent(evt, original) {}
 
+  get loadWindowWidth() { return window.innerWidth || 1000 }
+  get loadWindowHeight() { return window.innerHeight || 1000 }
+  get checksOffscreen() { return false }
+  get isOffscreen() {
+    const displayRect = {
+      x: scrollOffset.x - this.loadWindowWidth / 2,
+      y: scrollOffset.y - this.loadWindowHeight / 2,
+      w: 2 * this.loadWindowWidth,
+      h: 2 * this.loadWindowHeight
+    }
+
+    const viewBoundingRect = {
+      x: this.x,
+      y: this.y,
+      w: this.width,
+      h: this.height
+    }
+
+    return !rectOverlap(displayRect, viewBoundingRect)
+  }
   // Drawing
   _draw() {
     if (!this.root || this.disabled) return
+    if (this.checksOffscreen && this.isOffscreen) return
     this.p5.push()
     this.draw()
     // TODO: Skip drawing if we're way off screen.

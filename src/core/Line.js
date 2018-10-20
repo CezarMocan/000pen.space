@@ -26,6 +26,7 @@ export default class Line extends View {
   serialize() {
     return Line.Serialize(this)
   }
+  get checksOffscreen() { return true }
   get x() { return this._x }
   set x(x) { this._x = x }
   get y() { return this._y }
