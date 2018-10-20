@@ -65,6 +65,15 @@ class Api {
 
     return versions
   }
+
+  async getVersionCount() {
+    const endpoint = `${this.apiServer}/versionCount/`
+    const contentType = 'application/json'
+
+    const versionCount = await pify(xhrGet)(endpoint, contentType)
+
+    return versionCount
+  }
 }
 
 export default new Api()

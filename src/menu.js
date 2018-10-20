@@ -85,6 +85,17 @@ const setupDateAndTime = () => {
   setInterval(setDateAndTime, 1000)
 }
 
+const checkAndUpdateLatestVersion = async () => {
+  if (State.isEditing) return
+  const resp = await api.getVersionCount()
+  const latest = parseInt(resp.versionCount) - 1
+  setIsLatestVersion(latest == State.version)
+}
+
+const setupVersionPolling = () => {
+  setInterval(checkAndUpdateLatestVersion, 5000)
+}
+
 const onShareScreenTap = (evt) => {
   const url = State.getCurrentURL()
   copyToClipboard(url)
@@ -256,6 +267,7 @@ const setupListeners = () => {
     // Make sure clock in top-left corner of the screen is working.
     setupDateAndTime()
     updateIsLatestVersion()
+    setupVersionPolling()
     
     // Bind paste events, and make sure to place the pasted text in the current text field, if the user is currently editing one.
     window.addEventListener('paste', onPaste)

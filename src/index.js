@@ -91,6 +91,7 @@ router.on('/version/:id/x/:x/y/:y', async (params) => {
   await waitForInit
   disableOverlays()
   const latestVersion = await api.getLatest()
+  console.log(latestVersion)
   let version
   if (params.id == LATEST) {
     version = latestVersion
