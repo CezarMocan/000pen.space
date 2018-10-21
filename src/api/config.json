@@ -1,3 +1,5 @@
 {
-  "API_SERVER": "http://localhost:3000"
+  "API_SERVER": "https://3qpk812v1f.execute-api.us-east-1.amazonaws.com/dev/",
+  "API_SERVER_LOCAL": "http://localhost:3000",
+  "API_SERVER_STAGING": "https://3qpk812v1f.execute-api.us-east-1.amazonaws.com/dev/"
 }
