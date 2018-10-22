@@ -22,7 +22,7 @@ export default class View {
     return objClass.serializableAttributes.reduce((acc, attribute) => {
       acc[attribute] = obj[attribute]
       return acc
-    }, { type: objClass.name })
+    }, { type: objClass.className })
   }
   static updateScrollPosition(negX, negY) {
     scrollOffset.x = -negX

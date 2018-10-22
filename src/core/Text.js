@@ -13,6 +13,7 @@ export default class Text extends View {
   static Serialize(obj) {
     return View.Serialize(Text, obj)
   }
+  static get className() { return 'Text' }
   constructor(x, y, text) {
     super()
     this._x = x

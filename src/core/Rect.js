@@ -13,6 +13,7 @@ export default class Rect extends View {
   static Serialize(obj) {
     return View.Serialize(Rect, obj)
   }
+  static get className() { return 'Rect' }
   constructor(x, y, w, h, dx, dy) {
     super()
     this._x = x

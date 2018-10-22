@@ -89,11 +89,8 @@ router.on('/x/:x/y/:y', async (params) => {
 
 router.on('/version/:id/x/:x/y/:y', async (params) => {
   await waitForInit
-  console.log(window.history)
-  // window.history.deleteAll()
   disableOverlays()
   const latestVersion = await api.getLatest()
-  console.log(latestVersion)
   let version
   if (params.id == LATEST) {
     version = latestVersion

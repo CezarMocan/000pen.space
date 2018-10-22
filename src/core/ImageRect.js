@@ -16,6 +16,7 @@ export default class ImageRect extends Rect {
   static Serialize(obj) {
     return View.Serialize(ImageRect, obj)
   }
+  static get className() { return 'ImageRect' }
   constructor(x, y, w, h, dx, dy, url) {
     super(x, y, w, h, dx, dy)
     this._id = UID++

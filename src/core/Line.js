@@ -13,6 +13,7 @@ export default class Line extends View {
   static Serialize(obj) {
     return View.Serialize(Line, obj)
   }
+  static get className() { return 'Line' }
   constructor(x, y, x2, y2) {
     super()
     this._x = x
