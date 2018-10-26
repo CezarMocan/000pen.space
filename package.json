@@ -7,7 +7,7 @@
     "build": "npm run clean && webpack -p",
     "clean": "rm -rf dist",
     "deploy_old": "git add dist && git commit -a -m 'Deployed!' && git push origin :gh-pages && git subtree push --prefix dist origin gh-pages",
-    "deploy": "AWS_DEFAULT_PROFILE=cezar aws s3 sync dist s3://000pen.space",
+    "deploy": "AWS_DEFAULT_PROFILE=cezar aws s3 sync dist s3://000pen.space && AWS_DEFAULT_PROFILE=cezar aws s3 sync dist s3://www.000pen.space",
     "publish": "npm run build && npm run deploy"
   },
   "dependencies": {
