@@ -1,4 +1,4 @@
-## [000pen.space](https://000pen.space)
+## [000pen.space](https://000pen.space) | Client Side Repository
 
 `000pen.space` is an infinite canvas, editable by anyone. It's a scaffolding for holding any type of content, under a set of design constraints. 
 
