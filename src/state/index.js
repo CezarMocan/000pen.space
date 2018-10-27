@@ -163,6 +163,7 @@ class GlobalState {
 
   setInitialScroll(deltaX, deltaY) {
     this.newScrollOffset({ deltaX: deltaX + this.scrollOffset.x, deltaY: deltaY + this.scrollOffset.y }, true)
+    this._mainController.redraw()
   }
 
   newScrollOffset(offset, force) {
@@ -196,10 +197,18 @@ class GlobalState {
 
   navigateSomewhereRandom() {
     const contents = this._mainController.getContentsOriginal()
-    const randomIndex = parseInt(Math.floor(Math.random() * contents.length))
-    const { x, y } = contents[randomIndex]
-    router.navigate(`/version/${this.version}/x/${x - 100}/y/${y - 100}`)
-    console.log(x, y)
+    const currX = -this.scrollOffset.x
+    const currY = -this.scrollOffset.y
+    const MAX_TRIALS = 20
+
+    for (let index = 0; index < MAX_TRIALS; index++) {
+      const randomIndex = parseInt(Math.floor(Math.random() * contents.length))
+      const { x, y } = contents[randomIndex]
+      if (Math.abs(x - currX) + Math.abs(y - currY) > 2000) {
+        router.navigate(`/version/${this.version}/x/${x - 500}/y/${y - 500}`)
+        return
+      }
+    }
   }
 
 }
