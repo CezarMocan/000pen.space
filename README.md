@@ -7,4 +7,4 @@
 The content will be created by the visitors of the website, sometimes in structured ways. As a first exercise, we will play a game of tag. In time, the canvas will accumulate fragments of all of us. 
 [Head over](https://000pen.space) to the website, and navigate to the `about this website` section in order to learn more.
 
-`000pen.space` is built using p5.js, jQuery and plain Javascript on the client side. It is deployed on AWS using [serverless](http://serverless.com) and uses DynamoDB for storage. Check out the [server side repository](https://github.com/CezarMocan/phalanxbackend) as well.
+`000pen.space` is built using [p5.js](https://p5js.org), jQuery and plain Javascript on the client side. It is deployed on AWS using [serverless](http://serverless.com) and uses DynamoDB for storage. Check out the [server side repository](https://github.com/CezarMocan/phalanxbackend) as well.
