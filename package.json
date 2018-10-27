@@ -8,7 +8,7 @@
     "clean": "rm -rf dist",
     "deploy_old": "git add dist && git commit -a -m 'Deployed!' && git push origin :gh-pages && git subtree push --prefix dist origin gh-pages",
     "sync:s3": "AWS_DEFAULT_PROFILE=cezar aws s3 sync dist s3://000pen.space && AWS_DEFAULT_PROFILE=cezar aws s3 sync dist s3://www.000pen.space",
-    "sync:cloudfront": "AWS_DEFAULT_PROFILE=cezar aws cloudfront create-invalidation --distribution-id E3IBDZTTC6CYE1 --paths /index.html /bundle.js /bundle.js.map",
+    "sync:cloudfront": "AWS_DEFAULT_PROFILE=cezar aws cloudfront create-invalidation --distribution-id E3IBDZTTC6CYE1 --paths /*",
     "deploy": "npm run build && npm run sync:s3 && npm run sync:cloudfront"
   },
   "dependencies": {
