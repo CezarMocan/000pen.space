@@ -94,7 +94,7 @@ const setupDateAndTime = () => {
 const checkAndUpdateLatestVersion = async () => {
   if (State.isEditing) return
   const resp = await api.getVersionCount()
-  const latest = parseInt(resp.versionCount) - 1
+  const latest = parseInt(resp.versionCount)
   setIsLatestVersion(latest == State.version)
 }
 
