@@ -90,19 +90,31 @@ router.on('/x/:x/y/:y', async (params) => {
 router.on('/version/:id/x/:x/y/:y', async (params) => {
   await waitForInit
   disableOverlays()
-  const latestVersion = await api.getLatest()
+
+  const latestVersionResponse = await api.getVersionCount()
+  const latestVersion = parseInt(latestVersionResponse.versionCount)
+
+  const versionToGet = params.id == LATEST ? latestVersion : params.id
+
   let version
-  if (params.id == LATEST) {
-    version = latestVersion
-  } else {
-    version = await api.getVersion(params.id)
+  if (versionToGet != State.version) {
+    version = await api.getVersion(versionToGet)
+    State.setContents(version)
   }
 
-  State.setContents(version)
+  // const latestVersion = await api.getLatest()
+  // let version
+  // if (params.id == LATEST) {
+  //   version = latestVersion
+  // } else {
+  //   version = await api.getVersion(params.id)
+  // }
+
+  // State.setContents(version)
   State.setInitialScroll(parseInt(params.x), parseInt(params.y))
 
   // TOOD (cezar): Any race conditions here?
-  setIsLatestVersion(version.version == latestVersion.version)
+  setIsLatestVersion(versionToGet == latestVersion)
 
   router.pause(true)
   router.navigate('/')
