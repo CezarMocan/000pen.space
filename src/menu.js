@@ -103,7 +103,7 @@ const setupVersionPolling = () => {
 }
 
 const onShareScreenTap = (evt) => {
-  const url = State.getCurrentURL()
+  const url = State.getShareURL()
   copyToClipboard(url)
   alert(`Your URL (${url}) has been copied to clipboard!`)
 }

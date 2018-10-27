@@ -183,8 +183,8 @@ class GlobalState {
   }
 
   // Navigation related methods
-  getCurrentURL() {
-    return getAbsoluteURL(`/version/${this.version}/x/${-this.scrollOffset.x}/y/${-this.scrollOffset.y}`)
+  getShareURL() {
+    return getAbsoluteURL(`/x/${-this.scrollOffset.x}/y/${-this.scrollOffset.y}`)
   }
 
   getLinkAtVersionWithCurrentPosition(version) {
