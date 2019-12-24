@@ -107,13 +107,15 @@ export default class Text extends View {
       this.styleText(this.fbo)
       this.fbo.text(this.text, 0, 0)
     }
+    console.log('drawTextBaked: ', this.p5.pixelDensity())
     this.p5.image(this.fbo, this.x, this.y, 1.05 * this.width, 1.05 * this.height)
   }
   draw() {
     if (this.editing) {
       this.drawTextShapes(this.p5)
     } else {
-      this.drawTextBaked()
+      // this.drawTextBaked()
+      this.drawTextShapes(this.p5)
     }
 
     if (this.highlight) {
